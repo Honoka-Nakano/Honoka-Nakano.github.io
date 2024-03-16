@@ -1,0 +1,49 @@
+body {
+    font-family: "Avenir Next";
+    margin: 0px;
+    padding: 0px;
+}
+
+.header {
+    background-attachment: fixed;
+}
+
+@media (maxwidth) {}
+
+.img_background_top {
+    width: 100%;
+}
+
+.header_center {
+    display: flex;
+    justify-content: center;
+}
+
+.header_center div {
+    width: 100%;
+}
+
+.div_icon {
+    text-align: right;
+}
+
+.div_icon img {
+    width: 30%;
+    border-radius: 100px;
+    margin: 0 5px 0 0;
+}
+
+.name {
+    font-size: 30px;
+    margin: 0 0 0 5px;
+}
+
+.tag {
+    font-size: 15px;
+    margin: 0 0 0 5px;
+}
+
+
+
+
+
