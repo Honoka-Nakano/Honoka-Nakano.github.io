@@ -1,0 +1,200 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "Avenir Next";
+    color: #333;
+    margin: 0px;
+    padding: 0px;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* header */
+
+.header {
+    background-attachment: fixed;
+}
+
+@media (maxwidth) {}
+
+.img_background_top {
+    width: 100%;
+}
+
+/* main */
+
+main {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
+    animation: fadeInAnime;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    flex: 1;
+}
+
+@keyframes fadeInAnime {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* left side */
+
+.left_side {
+    width: 35%;
+    margin: 0 20px 0 20px;
+}
+
+.div_icon_and_bio {
+    display: flex;
+
+}
+
+.div_icon {
+    width: 40%;
+    position: relative;
+}
+
+.icon {
+    width: 100%;
+    border-radius: 500%;
+    position: absolute;
+    top: -50%;
+    right: 0%;
+}
+
+.bio {
+    width: 60%;
+    margin: 0;
+    padding: 0;
+}
+
+.name {
+    font-size: 30px;
+    margin: 0 10px 0 10px;
+    color: #333;
+}
+
+.tags {
+    font-size: 18px;
+    margin: 0 10px 0 10px;
+    color: #5485c2;
+}
+
+.select {
+    padding: 30px 30px 0 30px;
+}
+
+.select ul {
+    list-style: none;
+}
+
+.select li a {
+    margin: 50px 20px;
+    display: block;
+    padding: 10px 30px;
+    text-decoration: none;
+    font-size: 30px;
+    text-align: center;
+    color: #333;
+    position: relative;
+}
+
+.select li.current a,
+.select li a:hover {
+    color: #5485c2;
+}
+
+.select li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background: #5485c2;
+    transition: all .3s;
+    transform: scale(0, 1);
+    transform-origin: center top;
+}
+
+.select li.current a::after,
+.select li a:hover::after {
+    transform: scale(1, 1);
+}
+
+/* right side */
+
+.right_side {
+    width: 65%;
+}
+
+/* contact page */
+
+.contact h1 {
+    text-align: center;
+    font-size: 50px;
+}
+
+
+
+.contact_form {
+    text-align: center;
+}
+
+/* footer */
+
+footer {
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    background-color: #333;
+    color: white;
+}
+
+footer div {
+    width: 15%;
+    height: 100%;
+}
+
+/*
+footer div p {
+    height: 100%;
+    margin: 0;
+}
+*/
+
+.footer_address div {
+    width: 100%;
+    height: 60%;
+    vertical-align: middle;
+}
+
+.footer_address p {
+    height: 100%;
+}
+
+.sns_btn {
+    display: flex;
+}
+
+.sns_btn li {
+    list-style: none;
+    margin: auto 15px;
+}
+
+.sns_btn li img {
+    width: 30px;
+}
+
+
+
