@@ -195,7 +195,7 @@ footer div p {
 
 @media screen and (max-width: 600px) {
     body {
-        width: 600px;
+        width: 100%
     }
 
     main {
@@ -210,16 +210,36 @@ footer div p {
         margin-right: auto;
     }
 
+    .div_icon {
+        width: 30%;
+    }
+
+    .icon {
+        top: -30%;
+    }
+
+    .bio {
+        width: 70%;
+    }
+
     .select {
         width: 100%;
         margin-left: auto;
         margin-right: auto;
+        padding: 0;
     }
 
     .select ul {
+        width: 100%;
         display: flex;
-        justify-content: space-around;
-        padding: 0 10px;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .select ul li {
+        width: 30%;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .select ul a {
