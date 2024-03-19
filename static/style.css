@@ -195,7 +195,7 @@ footer div p {
 
 @media screen and (max-width: 400px) {
     body {
-        width: 100%
+        width: 100%;
     }
 
     main {
@@ -251,7 +251,7 @@ footer div p {
     }
 
     .select ul a {
-        font-size: 25px;
+        font-size: 15px;
         margin: 0;
         padding: 0;
     }
