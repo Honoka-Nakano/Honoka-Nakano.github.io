@@ -205,7 +205,7 @@ footer div p {
     }
 
     .left_side {
-        width: 70%;
+        width: 80%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -257,20 +257,34 @@ footer div p {
     }
 
     .right_side {
-        width: 70%;
+        width: 80%;
         margin-left: auto;
         margin-right: auto;
         font-size: 10px;
     }
 
     footer {
+        width: 100%;
         height: 50px;
-        font-size: 10px;
-        justify-content: center;
+        font-size: 8px;
     }
 
     footer div {
-        width: 20%;
+        width: 30%;
+        vertical-align: middle;
+    }
+
+    .sns_btn {
+        justify-content: center;
+    }
+
+    .sns_btn li {
+        margin: 0 3px;
+        padding: 0;
+    }
+
+    .sns_btn li img {
+        width: 20px;
     }
 }
 
