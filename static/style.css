@@ -193,7 +193,7 @@ footer div p {
     width: 30px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 400px) {
     body {
         width: 100%
     }
@@ -222,6 +222,14 @@ footer div p {
         width: 70%;
     }
 
+    .name {
+        font-size: 20px;
+    }
+
+    .tags {
+        font-size: 10px;
+    }
+
     .select {
         width: 100%;
         margin-left: auto;
@@ -243,6 +251,7 @@ footer div p {
     }
 
     .select ul a {
+        font-size: 25px;
         margin: 0;
         padding: 0;
     }
@@ -251,6 +260,7 @@ footer div p {
         width: 70%;
         margin-left: auto;
         margin-right: auto;
+        font-size: 10px;
     }
 
     footer {
