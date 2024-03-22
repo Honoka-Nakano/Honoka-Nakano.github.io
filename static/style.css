@@ -149,6 +149,7 @@ footer {
 footer div {
     margin: 5px;
     width: fit-content;
+    height: fit-content;
     height: 100%;
 }
 
@@ -161,11 +162,11 @@ footer div p {
 
 .footer_address div {
     display: flex;
-    margin-left: auto;
+    margin: auto;
 }
 
 .footer_address p {
-    height: 100%;
+    
 }
 
 .footer_address i {
