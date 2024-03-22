@@ -161,22 +161,19 @@ footer div p {
 
 .footer_address div {
     display: flex;
-    height: 60%;
-    vertical-align: middle;
     margin-left: auto;
-    width: fit-content;
 }
 
 .footer_address p {
     height: 100%;
 }
 
-.sns_btn {
-    display: flex;
+.footer_address i {
+    margin-right: 5px;
 }
 
-.sns_btn ul {
-    margin: 0;
+.sns_btn {
+    display: flex;
     padding: 0;
 }
 
