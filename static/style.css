@@ -147,7 +147,7 @@ footer {
 }
 
 footer div {
-    margin: 5px;
+    margin: auto 5px;
     width: fit-content;
     height: fit-content;
     height: 100%;
@@ -176,7 +176,7 @@ footer div p {
 
 .sns_btn li {
     list-style: none;
-    margin: auto 15px;
+    margin: auto 10px;
 }
 
 .sns_btn li img {
@@ -185,7 +185,6 @@ footer div p {
 
 .switch_language a {
     color: white;
-    margin: auto;
 }
 
 @media screen and (max-width: 400px) {
