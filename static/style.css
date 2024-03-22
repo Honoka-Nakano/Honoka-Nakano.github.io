@@ -160,9 +160,11 @@ footer div p {
 */
 
 .footer_address div {
+    display: flex;
     height: 60%;
     vertical-align: middle;
     margin-left: auto;
+    width: fit-content;
 }
 
 .footer_address p {
@@ -174,7 +176,8 @@ footer div p {
 }
 
 .sns_btn ul {
-    width: fit-content;
+    margin: 0;
+    padding: 0;
 }
 
 .sns_btn li {
