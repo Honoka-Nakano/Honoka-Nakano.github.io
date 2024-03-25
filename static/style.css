@@ -228,7 +228,8 @@ footer div p {
         width: 100%;
         margin-left: auto;
         margin-right: auto;
-        padding: 0;
+        padding: 10px 0 0 0;
+        border-bottom: 1px solid #333;
     }
 
     .select ul {
@@ -264,7 +265,8 @@ footer div p {
     }
 
     footer div {
-        width: 30%;
+        width: fit-content;
+        height: fit-content;
         vertical-align: middle;
     }
 
