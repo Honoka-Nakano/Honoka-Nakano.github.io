@@ -260,7 +260,7 @@ footer div p {
 
     footer {
         width: 100%;
-        height: 50px;
+        height: fit-content;
         font-size: 8px;
     }
 
