@@ -1,7 +1,6 @@
 ---
 title: 'Chapter 1'
 toc: true
-toc-title: 'Table of contents'
 toc-depth: 4
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: 'Chapter 3'
 toc: true
-toc-title: 'Table of contents'
 toc-depth: 4
 ---
