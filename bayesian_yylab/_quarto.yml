@@ -8,6 +8,7 @@ website:
     style: 'docked'
     search: true
     contents:
+      - index.qmd
       - section: 'Contents'
         contents:
           - chapter1.qmd

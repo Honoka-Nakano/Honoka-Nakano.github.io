@@ -1,19 +1,20 @@
 ---
-title: "Bayesian Statistics with {cmdstanr} by yylab"
-toc: true
-toc-title: 'Table of contents'
-toc-depth: 4
+title: "Introduction"
+author: 'Members of Yuki Yanai Laboratory'
+date: today
+description: '{cmdstanr} support page for Bayesian Statistics by Yuki Yanai Laboratory.'
 ---
 
-## Prepare
 
-Load packages.
 
-```{r}
-pacman::p_load(tidyverse,
-               cmdstanr,
-               posterior,
-               patchwork)
-options(mc.cores = parallel::detectCores())
-```
+# `{cmdstanr}`
 
+Text text text text text text text text text text text text text.
+
+# Bayesian Statistics
+
+Text text text text text text text text text text text text
+
+# Heading 1
+
+Text text text text text text text text text text text text text.

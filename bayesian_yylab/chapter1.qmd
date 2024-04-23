@@ -4,3 +4,15 @@ toc: true
 toc-title: 'Table of contents'
 toc-depth: 4
 ---
+
+## Prepare
+
+Load packages.
+
+```{r}
+pacman::p_load(tidyverse,
+               cmdstanr,
+               posterior,
+               patchwork)
+options(mc.cores = parallel::detectCores())
+```
