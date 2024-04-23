@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Bayesian Statistics with {cmdstanr} by yylab"
+  sidebar:
+    style: 'docked'
+    search: true
+    contents:
+      - section: '内容'
+        contents:
+          - chapter1.qmd
+          - chapter2.qmd
+          - chapter3.qmd
+          - chapter4.qmd
+    page-footer:
+      center: 'Copyright 2024, Yuki Yanai Laboratory'
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+

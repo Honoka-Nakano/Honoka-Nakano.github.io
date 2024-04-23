@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Bayesian Statistics with {cmdstanr} by yylab",
+    "section": "",
+    "text": "パッケージ読み込み．\n\npacman::p_load(tidyverse,\n               cmdstanr,\n               posterior,\n               patchwork)\noptions(mc.cores = parallel::detectCores())"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  }
+]

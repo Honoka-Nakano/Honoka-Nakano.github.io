@@ -1,0 +1,14 @@
+---
+title: "Bayesian Statistics with {cmdstanr} by yylab"
+---
+
+パッケージ読み込み．
+
+```{r}
+pacman::p_load(tidyverse,
+               cmdstanr,
+               posterior,
+               patchwork)
+options(mc.cores = parallel::detectCores())
+```
+
