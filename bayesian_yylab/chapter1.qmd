@@ -1,6 +1,6 @@
 ---
-title: "第5章"
+title: 'Chapter 1'
 toc: true
-toc-title: '目次'
+toc-title: 'Table of contents'
 toc-depth: 4
 ---

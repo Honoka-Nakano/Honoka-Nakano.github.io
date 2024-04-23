@@ -1,8 +1,13 @@
 ---
 title: "Bayesian Statistics with {cmdstanr} by yylab"
+toc: true
+toc-title: 'Table of contents'
+toc-depth: 4
 ---
 
-パッケージ読み込み．
+## Prepare
+
+Load packages.
 
 ```{r}
 pacman::p_load(tidyverse,

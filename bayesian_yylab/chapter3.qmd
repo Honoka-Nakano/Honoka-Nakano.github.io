@@ -1,6 +1,6 @@
 ---
-title: "第3章"
+title: 'Chapter 3'
 toc: true
-toc-title: '目次'
+toc-title: 'Table of contents'
 toc-depth: 4
 ---

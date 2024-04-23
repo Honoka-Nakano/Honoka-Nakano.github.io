@@ -3,12 +3,12 @@ project:
   output-dir: docs
 
 website:
-  title: "Bayesian Statistics with {cmdstanr} by yylab"
+  title: "{cmdstanr} support page"
   sidebar:
     style: 'docked'
     search: true
     contents:
-      - section: '内容'
+      - section: 'Contents'
         contents:
           - chapter1.qmd
           - chapter2.qmd
