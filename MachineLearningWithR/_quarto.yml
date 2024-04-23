@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Rで機械学習！"
+  site-url: https://honoka-nakano.github.io/MachineLearningWithR/
+  repo-url: https://github.com/Honoka-Nakano/MachineLearningWithR/
+  repo-branch: main
+  sidebar:
+    style: 'docked'
+    search: true
+    contents:
+      - section: '内容'
+        contents:
+          - chapter4.qmd
+          - chapter5.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+

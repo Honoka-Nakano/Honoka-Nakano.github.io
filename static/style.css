@@ -1,0 +1,286 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "Avenir Next";
+    color: #333;
+    margin: 0px;
+    padding: 0px;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* header */
+
+.header {
+    background-attachment: fixed;
+}
+
+.img_background_top {
+    width: 100%;
+}
+
+/* main */
+
+main {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
+    animation: fadeInAnime;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    flex: 1;
+}
+
+@keyframes fadeInAnime {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* left side */
+
+.left_side {
+    width: 35%;
+    margin: 0 20px 0 20px;
+}
+
+.div_icon_and_bio {
+    display: flex;
+}
+
+.div_icon {
+    width: 40%;
+    position: relative;
+}
+
+.icon {
+    width: 100%;
+    border-radius: 500%;
+    position: absolute;
+    top: -50%;
+    right: 0%;
+}
+
+.bio {
+    width: 60%;
+    margin: 0;
+    padding: 0;
+}
+
+.name {
+    font-size: 30px;
+    margin: 0 10px 0 10px;
+    color: #333;
+}
+
+.tags {
+    font-size: 18px;
+    margin: 0 10px 0 10px;
+    color: #5485c2;
+}
+
+.select {
+    padding: 30px 30px 0 30px;
+}
+
+.select ul {
+    list-style: none;
+}
+
+.select li a {
+    margin: 50px 20px;
+    display: block;
+    padding: 10px 30px;
+    text-decoration: none;
+    font-size: 30px;
+    text-align: center;
+    color: #333;
+    position: relative;
+}
+
+.select li.current a,
+.select li a:hover {
+    color: #5485c2;
+}
+
+.select li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background: #5485c2;
+    transition: all .3s;
+    transform: scale(0, 1);
+    transform-origin: center top;
+}
+
+.select li.current a::after,
+.select li a:hover::after {
+    transform: scale(1, 1);
+}
+
+/* right side */
+
+.right_side {
+    width: 65%;
+}
+
+/* footer */
+
+footer {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    background-color: #333;
+    color: white;
+}
+
+footer div {
+    margin: auto 5px;
+    width: fit-content;
+    height: fit-content;
+    height: 100%;
+}
+
+/*
+footer div p {
+    height: 100%;
+    margin: 0;
+}
+*/
+
+.footer_address div {
+    display: flex;
+    margin: auto;
+}
+
+.footer_address i {
+    margin-right: 5px;
+}
+
+.sns_btn {
+    display: flex;
+    padding: 0;
+}
+
+.sns_btn li {
+    list-style: none;
+    margin: auto 10px;
+}
+
+.sns_btn li img {
+    width: 30px;
+}
+
+.switch_language a {
+    color: white;
+}
+
+@media screen and (max-width: 400px) {
+    body {
+        width: 100%;
+    }
+
+    main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .left_side {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .div_icon {
+        width: 30%;
+    }
+
+    .icon {
+        top: -30%;
+    }
+
+    .bio {
+        width: 70%;
+    }
+
+    .name {
+        font-size: 20px;
+    }
+
+    .tags {
+        font-size: 10px;
+    }
+
+    .select {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px 0 0 0;
+        border-bottom: 1px solid #333;
+    }
+
+    .select ul {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .select ul li {
+        width: 30%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .select ul a {
+        font-size: 15px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .right_side {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 10px;
+    }
+
+    footer {
+        width: 100%;
+        height: fit-content;
+        font-size: 8px;
+    }
+
+    footer div {
+        width: fit-content;
+        height: fit-content;
+        vertical-align: middle;
+    }
+
+    .sns_btn {
+        justify-content: center;
+    }
+
+    .sns_btn li {
+        margin: 0 3px;
+        padding: 0;
+    }
+
+    .sns_btn li img {
+        width: 20px;
+    }
+}
+
