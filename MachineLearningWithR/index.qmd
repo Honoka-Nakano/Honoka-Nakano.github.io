@@ -1,12 +1,10 @@
 ---
-title: "Rで機械学習！"
+title: "はじめに"
 author: '中野 佳介'
 date: 2024-03-18
 date-modified: today
 lang: ja
 ---
-
-# はじめに
 
 世の中に流通している，機械学習を実践的に学べる教科書・テキストを見ると，ほぼ全てがPythonを用いている．
 
