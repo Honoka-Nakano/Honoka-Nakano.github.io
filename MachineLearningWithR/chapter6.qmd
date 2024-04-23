@@ -1,8 +1,10 @@
 ---
-title: "第5章"
+title: "第6章"
 toc: true
 toc-title: '目次'
 toc-depth: 4
+toc-location: right
+lang: ja
 ---
 
 ## 準備

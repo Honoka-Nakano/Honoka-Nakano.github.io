@@ -15,6 +15,10 @@ website:
         contents:
           - chapter4.qmd
           - chapter5.qmd
+          - chapter6.qmd
+          - chapter7.qmd
+    page-footer:
+      center: 'Copyright 2024, Keisuke Nakano'
 
 format:
   html:
