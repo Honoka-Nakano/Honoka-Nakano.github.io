@@ -352,7 +352,7 @@ y <- c(4, 5, 6)
 expand_grid(x, y)
 ```
 
-:::{.callout-caution collapse='true'}
+:::{.callout-caution}
 ## ちなみに
 
 `expand_grid()`を用いて座標を作ったとしても，グラフの描画に用いる`{ggplot2}`ではとある理由(後述)で扱えないため，無理に使う必要はない．
