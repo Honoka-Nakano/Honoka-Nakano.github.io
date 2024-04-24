@@ -1,26 +1,35 @@
 project:
-  type: website
+  type: book
   output-dir: docs
 
-website:
-  title: "{cmdstanr} support page"
+book:
+  title: "私たちの{cmdstanr}"
+  subtitle: 'ベイズ統計学への道'
   sidebar:
     style: 'docked'
     search: true
-    contents:
-      - index.qmd
-      - section: 'Contents'
-        contents:
-          - chapter1.qmd
-          - chapter2.qmd
-          - chapter3.qmd
-          - chapter4.qmd
-    page-footer:
-      center: 'Copyright 2024, Yuki Yanai Laboratory'
+  chapters:
+    - index.qmd
+    - part: ベイズ統計学とは
+      chapters:
+        - chapter1.qmd
+    - part: Rについて
+      chapters: 
+        - chapter2.qmd
+    - part: Stanの書き方
+      chapters: 
+        - chapter3.qmd
+    - part: 実践編
+      chapters:
+        - chapter4.qmd
+  page-footer:
+    center: 'Copyright 2024, Yuki Yanai Laboratory'
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
+    grid: 
+      sidebar-width: 375px
 

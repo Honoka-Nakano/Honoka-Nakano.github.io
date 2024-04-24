@@ -1,5 +1,9 @@
 ---
-title: 'Chapter 3'
+title: 'Stanファイル'
 toc: true
 toc-depth: 4
 ---
+
+## Stan
+
+`data`, `parameters`, `model`, `generated quantities`が大事．

@@ -1,17 +1,17 @@
 ---
-title: 'Chapter 1'
+title: '統計学の基礎'
 toc: true
 toc-depth: 4
 ---
 
-## Prepare
+## 統計学とは
 
-Load packages.
+真実が知りたい学問．
 
-```{r}
-pacman::p_load(tidyverse,
-               cmdstanr,
-               posterior,
-               patchwork)
-options(mc.cores = parallel::detectCores())
-```
+### 尤度とは
+
+尤もらしさ．
+
+### サンプルサイズ
+
+いっぱいあればいい．

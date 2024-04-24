@@ -1,6 +1,21 @@
 ---
-title: 'Chapter 4'
+title: 'ベイズ統計をやってみよう'
 toc: true
 toc-depth: 4
 ---
 
+## MCMC!
+
+```{r}
+pacman::p_load(tidyverse,
+               cmdstanr,
+               posterior,
+               patchwork)
+options(mc.cores = parallel::detectCores())
+```
+
+## Trace Plot!
+
+## Posterior Distribution!
+
+## Bayesian Statistics!

@@ -1,20 +1,14 @@
 ---
-title: "Introduction"
-author: 'Members of Yuki Yanai Laboratory'
-date: today
-description: '{cmdstanr} support page for Bayesian Statistics by Yuki Yanai Laboratory.'
+author: 'yy研究室5期生'
+date: 2024-04-20
+date-modified: today
+toc: false
+number-sections: false
+lang: ja
 ---
 
+# 紹介 {.unnumbered}
 
+yy研究室5期生による，ベイズ統計学のための`{cmdstanr}`サポートページです．
 
-# `{cmdstanr}`
-
-Text text text text text text text text text text text text text.
-
-# Bayesian Statistics
-
-Text text text text text text text text text text text text
-
-# Heading 1
-
-Text text text text text text text text text text text text text.
+猫．
