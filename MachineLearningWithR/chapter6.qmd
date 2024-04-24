@@ -1,9 +1,10 @@
 ---
-title: "第6章"
+title: "教師あり学習[分類]"
 toc: true
 toc-title: '目次'
 toc-depth: 4
 toc-location: right
+number-sections: false
 lang: ja
 ---
 

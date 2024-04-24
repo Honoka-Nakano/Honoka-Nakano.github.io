@@ -1,39 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://honoka-nakano.github.io/machinelearningwithr/index.html</loc>
-    <lastmod>2024-04-23T02:16:33.248Z</lastmod>
-  </url>
-  <url>
-    <loc>https://honoka-nakano.github.io/machinelearningwithr/contents.html</loc>
-    <lastmod>2024-04-23T02:11:05.050Z</lastmod>
-  </url>
-  <url>
-    <loc>https://honoka-nakano.github.io/machinelearningwithr/docs/index.html</loc>
-    <lastmod>2024-04-23T02:15:22.803Z</lastmod>
-  </url>
-  <url>
     <loc>https://honoka-nakano.github.io/MachineLearningWithR/index.html</loc>
-    <lastmod>2024-04-23T06:22:04.645Z</lastmod>
-  </url>
-  <url>
-    <loc>https://honoka-nakano.github.io/MachineLearningWithR/contents.html</loc>
-    <lastmod>2024-04-23T02:28:59.937Z</lastmod>
+    <lastmod>2024-04-24T06:59:29.648Z</lastmod>
   </url>
   <url>
     <loc>https://honoka-nakano.github.io/MachineLearningWithR/chapter4.html</loc>
-    <lastmod>2024-04-23T06:22:18.327Z</lastmod>
+    <lastmod>2024-04-24T06:49:05.686Z</lastmod>
   </url>
   <url>
     <loc>https://honoka-nakano.github.io/MachineLearningWithR/chapter5.html</loc>
-    <lastmod>2024-04-23T06:16:11.915Z</lastmod>
+    <lastmod>2024-04-24T06:49:14.062Z</lastmod>
   </url>
   <url>
     <loc>https://honoka-nakano.github.io/MachineLearningWithR/chapter6.html</loc>
-    <lastmod>2024-04-23T06:10:24.986Z</lastmod>
+    <lastmod>2024-04-24T06:49:21.238Z</lastmod>
   </url>
   <url>
     <loc>https://honoka-nakano.github.io/MachineLearningWithR/chapter7.html</loc>
-    <lastmod>2024-04-23T06:10:28.421Z</lastmod>
+    <lastmod>2024-04-24T06:48:30.678Z</lastmod>
   </url>
 </urlset>

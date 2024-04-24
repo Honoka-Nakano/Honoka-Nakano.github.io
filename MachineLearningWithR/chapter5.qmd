@@ -1,8 +1,9 @@
 ---
-title: "第5章"
+title: "教師あり学習[回帰]"
 toc: true
 toc-title: '目次'
 toc-depth: 4
+number-sections: false
 ---
 
 ## 準備

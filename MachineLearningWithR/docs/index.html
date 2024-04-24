@@ -8,7 +8,7 @@
 
 <meta name="author" content="中野 佳介">
 
-<title>Rで機械学習！ - はじめに</title>
+<title>Rで機械学習！</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,12 +25,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./chapter4.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -74,9 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="サイドバーを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Rで機械学習！
-      </li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">紹介</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="サイドバーを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -92,6 +90,9 @@ ul.task-list li input[type="checkbox"] {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Rで機械学習！</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Honoka-Nakano/MachineLearningWithR/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -101,6 +102,12 @@ ul.task-list li input[type="checkbox"] {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">紹介</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -113,25 +120,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chapter4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第4章</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">機械学習のための数学</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chapter5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第5章</span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">教師あり学習[回帰]</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chapter6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第6章</span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">教師あり学習[分類]</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chapter7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第7章</span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">ディープラーニング</span></span></a>
   </div>
 </li>
       </ul>
@@ -142,14 +149,20 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#紹介" id="toc-紹介" class="nav-link active" data-scroll-target="#紹介">紹介</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">はじめに</h1>
+<h1 class="title">Rで機械学習！</h1>
 </div>
 
 
@@ -173,7 +186,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">更新日</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">2024年4月23日</p>
+      <p class="date-modified">2024年4月24日</p>
     </div>
   </div>
     
@@ -182,6 +195,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="紹介" class="level1 unnumbered">
+<h1 class="unnumbered">紹介</h1>
 <p>世の中に流通している，機械学習を実践的に学べる教科書・テキストを見ると，ほぼ全てがPythonを用いている．</p>
 <p>私はRをメインに学んできたので，Pythonで教えられても理解に欠けてしまう可能性がある．Pythonを1から学べばいい話だが，それは面倒だ．できればRのコードで勉強したいというのが本音である．</p>
 <p>そんな，私と同じ考えを持っているであろう某yy研究室所属の学生のために，とある教科書を取り上げて，そこに記されているPythonのコードを全てRのコードに書き直すことを決意した．</p>
@@ -198,6 +213,8 @@ ul.task-list li input[type="checkbox"] {
 <p>あくまで理論勉強のためのものである．実務で機械学習を実装する際はPythonを用いるべきである．</p>
 </div>
 </div>
+<div class="columns">
+<div class="column" style="width:69%;">
 <p><strong>対象者</strong></p>
 <p>Rに精通している人で，機械学習を実践的に学びたい，とはいえPythonを1から学ぶのは面倒だという人．</p>
 <p><strong>教科書</strong></p>
@@ -205,9 +222,17 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>メモ</strong></p>
 <ul>
 <li>(2024/04/19): 更新中．</li>
+<li>(2024/04/24): 第4章: 機械学習のための数学 完了．</li>
 </ul>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:29%;">
+<p><img src="https://www.seshop.com/static/images/product/25020/L.png" class="img-fluid"></p>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -443,7 +468,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./chapter4.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">機械学習のための数学</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">Copyright 2024, Keisuke Nakano</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 
