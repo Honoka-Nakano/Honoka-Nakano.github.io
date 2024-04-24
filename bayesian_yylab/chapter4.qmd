@@ -1,6 +1,7 @@
 ---
 title: 'ベイズ統計をやってみよう'
 toc: true
+toc-title: '目次'
 toc-depth: 4
 ---
 

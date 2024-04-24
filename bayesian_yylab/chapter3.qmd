@@ -1,9 +1,10 @@
 ---
 title: 'Stanファイル'
 toc: true
+toc-title: '目次'
 toc-depth: 4
 ---
 
 ## Stan
 
-`data`, `parameters`, `model`, `generated quantities`が大事．
+`data`, `parameters`, `model`が大事．`generated quantities`はたまに使う．

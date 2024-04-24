@@ -1,6 +1,7 @@
 ---
 title: '統計学の基礎'
 toc: true
+toc-title: '目次'
 toc-depth: 4
 ---
 

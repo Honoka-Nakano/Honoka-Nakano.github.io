@@ -1,6 +1,7 @@
 ---
 title: '基本的な使い方'
 toc: true
+toc-title: '目次'
 toc-depth: 4
 ---
 

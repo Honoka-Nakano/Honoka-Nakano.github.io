@@ -81,7 +81,7 @@
     "href": "chapter3.html#stan",
     "title": "3  Stanファイル",
     "section": "3.1 Stan",
-    "text": "3.1 Stan\ndata, parameters, model, generated quantitiesが大事．"
+    "text": "3.1 Stan\ndata, parameters, modelが大事．generated quantitiesはたまに使う．"
   },
   {
     "objectID": "chapter4.html#mcmc",
