@@ -593,18 +593,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>w0_n <span class="ot">&lt;-</span> <span class="dv">17</span>; w1_n <span class="ot">&lt;-</span> <span class="dv">17</span></span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>w0 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> w0_min, <span class="at">to =</span> w0_max, <span class="at">length.out =</span> w0_n)</span>
 <span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>w1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> w1_min, <span class="at">to =</span> w1_max, <span class="at">length.out =</span> w1_n)</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>grid_w0w1 <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(w0, w1)        <span class="co"># (D) グリッド座標の作成</span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>ww0 <span class="ot">&lt;-</span> grid_w0w1<span class="sc">$</span>w0 <span class="sc">|&gt;</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array</span>(<span class="at">dim =</span> <span class="fu">c</span>(w0_n, w1_n))</span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>ww1 <span class="ot">&lt;-</span> grid_w0w1<span class="sc">$</span>w1 <span class="sc">|&gt;</span></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array</span>(<span class="at">dim =</span> <span class="fu">c</span>(w0_n, w1_n))</span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>f_num <span class="ot">&lt;-</span> <span class="fu">f</span>(ww0, ww1)                    <span class="co"># (E) fの値の計算</span></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>df_dw0_num <span class="ot">&lt;-</span> <span class="fu">df_dw0</span>(ww0, ww1)          <span class="co">#     fの偏微分の計算</span></span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>df_dw1_num <span class="ot">&lt;-</span>  <span class="fu">df_dw1</span>(ww0, ww1)         <span class="co">#     fの偏微分の計算</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>grid_w0w1 <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(w0, w1)                  <span class="co"># (D) グリッド座標の作成</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>f_num <span class="ot">&lt;-</span> <span class="fu">f</span>(grid_w0w1<span class="sc">$</span>w0, grid_w0w1<span class="sc">$</span>w1)            <span class="co"># (E) fの値の計算</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>df_dw0_num <span class="ot">&lt;-</span> <span class="fu">df_dw0</span>(grid_w0w1<span class="sc">$</span>w0, grid_w0w1<span class="sc">$</span>w1)  <span class="co">#     fの偏微分の計算</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>df_dw1_num <span class="ot">&lt;-</span>  <span class="fu">df_dw1</span>(grid_w0w1<span class="sc">$</span>w0, grid_w0w1<span class="sc">$</span>w1) <span class="co">#     fの偏微分の計算</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Rで複数のコードを1行に書くには<code>;</code>で区切れば良い．</p>
 <p>Pythonの<code>np.linspace()</code>に対応するRのコードは<code>seq()</code>で，<code>from</code>引数, <code>to</code>引数で指定された値の範囲から，<code>length.out</code>引数で指定された個数の値をベクトルとして出力する関数である．上のコードでは，-2から2までの値の中から17個の値を出力している．</p>
-<p><code>np.meshgrid(w0, w1)</code>は，2次元平面でのすべての座標を出力するコードである．例えば，<span class="math inline">\((\)</span> <code>ww0[1, 1]</code> <span class="math inline">\(,\)</span> <code>ww1[1, 1]</code> <span class="math inline">\()\)</span>は<span class="math inline">\((\mathrm{w}_0, \mathrm{w}_1) = (-2, -2)\)</span>を，<span class="math inline">\((\)</span> <code>ww0[1, 2]</code> <span class="math inline">\(,\)</span> <code>ww1[1, 2]</code> <span class="math inline">\()\)</span> は<span class="math inline">\((\mathrm{w}_0, \mathrm{w}_1) = (-2, -1.75)\)</span>を表している．<code>ww0</code>と<code>ww1</code>の対応する要素が各座標を表しているのである．</p>
+<p><code>np.meshgrid(w0, w1)</code>は，2次元平面でのすべての座標を出力するコードである．例えば，<span class="math inline">\((\)</span> <code>ww0[1, 1]</code> <span class="math inline">\(,\)</span> <code>ww1[1, 1]</code> <span class="math inline">\()\)</span>は<span class="math inline">\((\mathrm{w}_0, \mathrm{w}_1) = (-2, -2)\)</span>を，<span class="math inline">\((\)</span> <code>ww0[1, 2]</code> <span class="math inline">\(,\)</span> <code>ww1[1, 2]</code> <span class="math inline">\()\)</span> は<span class="math inline">\((\mathrm{w}_0, \mathrm{w}_1) = (-1.75, -2)\)</span>を表している．<code>ww0</code>と<code>ww1</code>の対応する要素が各座標を表しているのである．</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ww0[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -643,19 +639,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 9     3     6</code></pre>
 </div>
 </div>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-ちなみに
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>expand_grid()</code>を用いて座標を作ったとしても，グラフの描画に用いる<code>{ggplot2}</code>ではとある理由(後述)で扱えないため，無理に使う必要はない．</p>
-</div>
-</div>
+<p>Pythonでは，座標を<code>ww0</code>, <code>ww1</code>オブジェクトに<span class="math inline">\(17 \times 17\)</span>配列として格納しているが，Rでは<code>expand_grid()</code>で作成したデータフレームをそのまま用いている．なぜなら，後にグラフ描画に用いる<code>{ggplot2}</code>には配列は適していないからである．</p>
 <p><strong>グラフ描画 ———</strong></p>
 <ol type="1">
 <li>等高線表示</li>
@@ -677,28 +661,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="at">dim =</span> <span class="fu">c</span>(w0_n <span class="sc">*</span> w1_n, <span class="dv">5</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">ww0   =</span> <span class="st">'X1'</span>, <span class="at">ww1   =</span> <span class="st">'X2'</span>, <span class="at">f_num =</span> <span class="st">'X3'</span>, <span class="at">dw0   =</span> <span class="st">'X4'</span>, <span class="at">dw1   =</span> <span class="st">'X5'</span>)</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1</span>                                      <span class="co">#  便宜上のインデックス．</span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>w0_n) {</span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>w1_n) {</span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    df[n, <span class="dv">1</span>] <span class="ot">&lt;-</span> ww0[i, j]                   <span class="co"># ww0を順番に代入．</span></span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    df[n, <span class="dv">2</span>] <span class="ot">&lt;-</span> ww1[i, j]                   <span class="co"># ww1を順番に代入．</span></span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    df[n, <span class="dv">3</span>] <span class="ot">&lt;-</span> f_num[i, j]                 <span class="co"># ww0, ww1に対応するfを代入．</span></span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>    df[n, <span class="dv">4</span>] <span class="ot">&lt;-</span> df_dw0_num[i, j]            <span class="co"># ww0, ww1に対応するdw0を代入．</span></span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>    df[n, <span class="dv">5</span>] <span class="ot">&lt;-</span> df_dw1_num[i, j]            <span class="co"># ww0, ww1に対応するdw1を代入．</span></span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> n <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(ww0, ww1, <span class="at">z =</span> f_num)) <span class="sc">+</span></span>
-<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour</span>() <span class="sc">+</span></span>
-<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(w[<span class="dv">0</span>]), <span class="at">y =</span> <span class="fu">expression</span>(w[<span class="dv">1</span>])) <span class="sc">+</span></span>
-<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(grid_w0w1, f_num, df_dw0_num, df_dw1_num)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(w0, w1, <span class="at">z =</span> f_num)) <span class="sc">+</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour</span>() <span class="sc">+</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(w[<span class="dv">0</span>]), <span class="at">y =</span> <span class="fu">expression</span>(w[<span class="dv">1</span>])) <span class="sc">+</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>グラフの描画には<code>{ggplot2}</code>を用いる．<code>{ggplot2}</code>でグラフを描画するときは，<strong>整然(tidy)なデータ</strong>が必要であるため，それを作成するところから始めなければならない(整然データについては<a href="https://www.jaysong.net/RBook/tidydata.html">宋・矢内『私たちのR』第17章</a>を参照されたい)．</p>
@@ -723,15 +694,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> ww0, <span class="at">xend =</span> ww0 <span class="sc">+</span> dw0 <span class="sc">/</span> <span class="dv">30</span>,</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> ww1, <span class="at">yend =</span> ww1 <span class="sc">+</span> dw1 <span class="sc">/</span> <span class="dv">30</span>),</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> w0, <span class="at">xend =</span> w0 <span class="sc">+</span> df_dw0_num <span class="sc">/</span> <span class="dv">30</span>,</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> w1, <span class="at">yend =</span> w1 <span class="sc">+</span> df_dw1_num <span class="sc">/</span> <span class="dv">30</span>),</span>
 <span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="fl">0.3</span>,</span>
 <span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">'cm'</span>))) <span class="sc">+</span></span>
 <span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(w[<span class="dv">0</span>]), <span class="at">y =</span> <span class="fu">expression</span>(w[<span class="dv">1</span>])) <span class="sc">+</span></span>
 <span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>ベクトル表示には<code>ggplot2::geom_segment()</code>を用いる．引数にx軸, y軸の始まりである<code>x</code>, <code>y</code>と，終わりである<code>xend</code>, <code>yend</code>を指定する．そうすると始まりと終わりを繋ぐベクトルが表示される．<code>xend</code>, <code>yend</code>には，<span class="math inline">\((\mathrm{w}_0, \mathrm{w}_1)\)</span>からそれぞれの軸に対して偏微分した値を足した数値を指定している．</p>
@@ -1082,7 +1053,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb110-14"><a href="#cb110-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb110-15"><a href="#cb110-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-74-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-75-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1134,7 +1105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb114-14"><a href="#cb114-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb114-15"><a href="#cb114-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-78-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-79-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1180,7 +1151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb118-11"><a href="#cb118-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb118-12"><a href="#cb118-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-82-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-83-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1226,7 +1197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb122-11"><a href="#cb122-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb122-12"><a href="#cb122-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-86-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-87-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1270,7 +1241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb126-11"><a href="#cb126-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb126-12"><a href="#cb126-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-90-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-91-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1307,7 +1278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb130-7"><a href="#cb130-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb130-8"><a href="#cb130-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-94-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-95-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1370,12 +1341,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb139-3"><a href="#cb139-3" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">4</span>, <span class="at">length.out =</span> x0_n)</span>
 <span id="cb139-4"><a href="#cb139-4" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">4</span>, <span class="at">length.out =</span> x1_n)</span>
 <span id="cb139-5"><a href="#cb139-5" aria-hidden="true" tabindex="-1"></a>grid_x0x1 <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(x0, x1)</span>
-<span id="cb139-6"><a href="#cb139-6" aria-hidden="true" tabindex="-1"></a>xx0 <span class="ot">&lt;-</span> grid_x0x1<span class="sc">$</span>x0 <span class="sc">|&gt;</span></span>
-<span id="cb139-7"><a href="#cb139-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array</span>(<span class="at">dim =</span> <span class="fu">c</span>(x0_n, x1_n))</span>
-<span id="cb139-8"><a href="#cb139-8" aria-hidden="true" tabindex="-1"></a>xx1 <span class="ot">&lt;-</span> grid_x0x1<span class="sc">$</span>x1 <span class="sc">|&gt;</span></span>
-<span id="cb139-9"><a href="#cb139-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array</span>(<span class="at">dim =</span> <span class="fu">c</span>(x0_n, x1_n))</span>
-<span id="cb139-10"><a href="#cb139-10" aria-hidden="true" tabindex="-1"></a>y_vec <span class="ot">&lt;-</span> <span class="fu">softmax</span>(xx0, xx1, <span class="dv">1</span>)</span>
-<span id="cb139-11"><a href="#cb139-11" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">array</span>(y_vec, <span class="at">dim =</span> <span class="fu">c</span>(x0_n <span class="sc">*</span> x1_n, <span class="dv">3</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb139-6"><a href="#cb139-6" aria-hidden="true" tabindex="-1"></a>y_vec <span class="ot">&lt;-</span> <span class="fu">softmax</span>(grid_x0x1<span class="sc">$</span>x0, grid_x0x1<span class="sc">$</span>x1, <span class="dv">1</span>)</span>
+<span id="cb139-7"><a href="#cb139-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">array</span>(y_vec, <span class="at">dim =</span> <span class="fu">c</span>(x0_n <span class="sc">*</span> x1_n, <span class="dv">3</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Pythonでは，<code>y</code>は行数<code>x0_n</code>, 列数<code>x1_n</code>の行列となるが，Rではそうはならない．各値の計算結果がベクトルとなって出力されてしまう．</p>
 <div class="cell">
@@ -1408,14 +1375,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb143-4"><a href="#cb143-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">matrix</span>(<span class="at">nrow =</span> x0_n, <span class="at">ncol =</span> x1_n, <span class="at">byrow =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb143-5"><a href="#cb143-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">zlab =</span> <span class="st">''</span>, <span class="at">theta =</span> <span class="sc">-</span><span class="dv">40</span>, <span class="at">phi =</span> <span class="dv">30</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-103-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-104-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">persp</span>(<span class="at">x =</span> x0, <span class="at">y =</span> x1,</span>
 <span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> y[,<span class="dv">2</span>] <span class="sc">|&gt;</span></span>
 <span id="cb144-3"><a href="#cb144-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">matrix</span>(<span class="at">nrow =</span> x0_n, <span class="at">ncol =</span> x1_n, <span class="at">byrow =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb144-4"><a href="#cb144-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">zlab =</span> <span class="st">''</span>, <span class="at">theta =</span> <span class="sc">-</span><span class="dv">40</span>, <span class="at">phi =</span> <span class="dv">30</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-103-2.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-104-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>3Dプロットには<code>graphics::persp()</code>関数を用いた．<code>x</code>, <code>y</code>引数には<code>x0</code>, <code>x1</code>を，<code>z</code>引数には2つの値に対応した行列を指定しなければ描画されない点に注意．</p>
@@ -1465,7 +1432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb148-12"><a href="#cb148-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb148-13"><a href="#cb148-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-107-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-108-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1525,11 +1492,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="リスト-4-6-2">リスト 4-6-(2)</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb155"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
-<span id="cb155-2"><a href="#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="co">## x0, x1 = 2, 1</span></span>
-<span id="cb155-3"><a href="#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="co">## mu = np.array([1, 2])               # 平均ベクトル</span></span>
-<span id="cb155-4"><a href="#cb155-4" aria-hidden="true" tabindex="-1"></a><span class="co">## sigma = np.array([[1, 0], [0, 1]])  # 共分散行列</span></span>
-<span id="cb155-5"><a href="#cb155-5" aria-hidden="true" tabindex="-1"></a><span class="co">## y = gauss(x0, x1, mu, sigma)</span></span>
-<span id="cb155-6"><a href="#cb155-6" aria-hidden="true" tabindex="-1"></a><span class="co">## print("y =", np.round(y, 6))</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb155-2"><a href="#cb155-2" aria-hidden="true" tabindex="-1"></a>x0, x1 <span class="op">=</span> <span class="dv">2</span>, <span class="dv">1</span></span>
+<span id="cb155-3"><a href="#cb155-3" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>])               <span class="co"># 平均ベクトル</span></span>
+<span id="cb155-4"><a href="#cb155-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]])  <span class="co"># 共分散行列</span></span>
+<span id="cb155-5"><a href="#cb155-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> gauss(x0, x1, mu, sigma)</span>
+<span id="cb155-6"><a href="#cb155-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"y ="</span>, np.<span class="bu">round</span>(y, <span class="dv">6</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
@@ -1583,11 +1550,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb161-8"><a href="#cb161-8" aria-hidden="true" tabindex="-1"></a>    f[i0, i1] <span class="ot">&lt;-</span> <span class="fu">gauss</span>(x0[i0], x1[i1], mu, sigma)</span>
 <span id="cb161-9"><a href="#cb161-9" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb161-10"><a href="#cb161-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb161-11"><a href="#cb161-11" aria-hidden="true" tabindex="-1"></a>grid_x0x1 <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(x0, x1)</span>
-<span id="cb161-12"><a href="#cb161-12" aria-hidden="true" tabindex="-1"></a>xx0 <span class="ot">&lt;-</span> grid_x0x1<span class="sc">$</span>x0 <span class="sc">|&gt;</span></span>
-<span id="cb161-13"><a href="#cb161-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array</span>(<span class="at">dim =</span> <span class="fu">c</span>(x0_n, x1_n))</span>
-<span id="cb161-14"><a href="#cb161-14" aria-hidden="true" tabindex="-1"></a>xx1 <span class="ot">&lt;-</span> grid_x0x1<span class="sc">$</span>x1 <span class="sc">|&gt;</span></span>
-<span id="cb161-15"><a href="#cb161-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array</span>(<span class="at">dim =</span> <span class="fu">c</span>(x0_n, x1_n))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb161-11"><a href="#cb161-11" aria-hidden="true" tabindex="-1"></a>grid_x0x1 <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(x0, x1)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>グラフ描画 ———</strong></p>
 <ol type="1">
@@ -1606,27 +1569,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
-<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="at">dim =</span> <span class="fu">c</span>(x0_n <span class="sc">*</span> x1_n, <span class="dv">3</span>)) <span class="sc">|&gt;</span> <span class="co"># 空のデータフレームを作成．</span></span>
-<span id="cb163-3"><a href="#cb163-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb163-4"><a href="#cb163-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x0 =</span> <span class="st">'X1'</span>, <span class="at">x1 =</span> <span class="st">'X2'</span>, <span class="at">f  =</span> <span class="st">'X3'</span>)</span>
-<span id="cb163-5"><a href="#cb163-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1</span>                                      <span class="co"># 便宜上インデックスを作成．</span></span>
-<span id="cb163-6"><a href="#cb163-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>x0_n) {</span>
-<span id="cb163-7"><a href="#cb163-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>x1_n) {</span>
-<span id="cb163-8"><a href="#cb163-8" aria-hidden="true" tabindex="-1"></a>    df[n, <span class="dv">1</span>] <span class="ot">&lt;-</span> x0[i]                       <span class="co"># 1列目にx0</span></span>
-<span id="cb163-9"><a href="#cb163-9" aria-hidden="true" tabindex="-1"></a>    df[n, <span class="dv">2</span>] <span class="ot">&lt;-</span> x1[j]                       <span class="co"># 2列目にx1</span></span>
-<span id="cb163-10"><a href="#cb163-10" aria-hidden="true" tabindex="-1"></a>    df[n, <span class="dv">3</span>] <span class="ot">&lt;-</span> f[i, j]                     <span class="co"># 3列目に，x0, x1に対応するf．</span></span>
-<span id="cb163-11"><a href="#cb163-11" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> n <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb163-12"><a href="#cb163-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb163-13"><a href="#cb163-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb163-14"><a href="#cb163-14" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb163-15"><a href="#cb163-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x0, x1, <span class="at">z =</span> f)) <span class="sc">+</span></span>
-<span id="cb163-16"><a href="#cb163-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour</span>() <span class="sc">+</span></span>
-<span id="cb163-17"><a href="#cb163-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb163-18"><a href="#cb163-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb163-19"><a href="#cb163-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(x[<span class="dv">0</span>]), <span class="at">y =</span> <span class="fu">expression</span>(x[<span class="dv">1</span>])) <span class="sc">+</span></span>
-<span id="cb163-20"><a href="#cb163-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> grid_x0x1 <span class="sc">|&gt;</span></span>
+<span id="cb163-3"><a href="#cb163-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">f =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="at">times =</span> <span class="fu">n</span>()))</span>
+<span id="cb163-4"><a href="#cb163-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb163-5"><a href="#cb163-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>x0_n) {</span>
+<span id="cb163-6"><a href="#cb163-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>x1_n) {</span>
+<span id="cb163-7"><a href="#cb163-7" aria-hidden="true" tabindex="-1"></a>    df<span class="sc">$</span>f[n] <span class="ot">&lt;-</span> f[i, j]</span>
+<span id="cb163-8"><a href="#cb163-8" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> n <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb163-9"><a href="#cb163-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb163-10"><a href="#cb163-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb163-11"><a href="#cb163-11" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb163-12"><a href="#cb163-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x0, x1, <span class="at">z =</span> f)) <span class="sc">+</span></span>
+<span id="cb163-13"><a href="#cb163-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour</span>() <span class="sc">+</span></span>
+<span id="cb163-14"><a href="#cb163-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb163-15"><a href="#cb163-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb163-16"><a href="#cb163-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(x[<span class="dv">0</span>]), <span class="at">y =</span> <span class="fu">expression</span>(x[<span class="dv">1</span>])) <span class="sc">+</span></span>
+<span id="cb163-17"><a href="#cb163-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-121-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-122-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ol start="2" type="1">
@@ -1650,7 +1610,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a><span class="fu">persp</span>(<span class="at">x =</span> x0, <span class="at">y =</span> x1, <span class="at">z =</span> f, <span class="at">zlab =</span> <span class="st">''</span>,</span>
 <span id="cb165-3"><a href="#cb165-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">theta =</span> <span class="sc">-</span><span class="dv">25</span>, <span class="at">phi =</span> <span class="dv">35</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-123-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-124-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 

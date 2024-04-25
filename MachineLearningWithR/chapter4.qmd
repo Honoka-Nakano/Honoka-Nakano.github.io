@@ -323,21 +323,27 @@ w1_min <- -2; w1_max <- 2
 w0_n <- 17; w1_n <- 17
 w0 <- seq(from = w0_min, to = w0_max, length.out = w0_n)
 w1 <- seq(from = w1_min, to = w1_max, length.out = w1_n)
-grid_w0w1 <- expand_grid(w0, w1)        # (D) グリッド座標の作成
-ww0 <- grid_w0w1$w0 |>
-  array(dim = c(w0_n, w1_n))
-ww1 <- grid_w0w1$w1 |>
-  array(dim = c(w0_n, w1_n))
-f_num <- f(ww0, ww1)                    # (E) fの値の計算
-df_dw0_num <- df_dw0(ww0, ww1)          #     fの偏微分の計算
-df_dw1_num <-  df_dw1(ww0, ww1)         #     fの偏微分の計算
+grid_w0w1 <- expand_grid(w0, w1)                  # (D) グリッド座標の作成
+f_num <- f(grid_w0w1$w0, grid_w0w1$w1)            # (E) fの値の計算
+df_dw0_num <- df_dw0(grid_w0w1$w0, grid_w0w1$w1)  #     fの偏微分の計算
+df_dw1_num <-  df_dw1(grid_w0w1$w0, grid_w0w1$w1) #     fの偏微分の計算
 ```
 
 Rで複数のコードを1行に書くには`;`で区切れば良い．
 
 Pythonの`np.linspace()`に対応するRのコードは`seq()`で，`from`引数, `to`引数で指定された値の範囲から，`length.out`引数で指定された個数の値をベクトルとして出力する関数である．上のコードでは，-2から2までの値の中から17個の値を出力している．
 
-`np.meshgrid(w0, w1)`は，2次元平面でのすべての座標を出力するコードである．例えば，$($ `ww0[1, 1]` $,$ ` ww1[1, 1]` $)$は$(\mathrm{w}_0, \mathrm{w}_1) = (-2, -2)$を，$($ `ww0[1, 2]` $,$ `ww1[1, 2]` $)$ は$(\mathrm{w}_0, \mathrm{w}_1) = (-2, -1.75)$を表している．`ww0`と`ww1`の対応する要素が各座標を表しているのである．
+`np.meshgrid(w0, w1)`は，2次元平面でのすべての座標を出力するコードである．例えば，$($ `ww0[1, 1]` $,$ ` ww1[1, 1]` $)$は$(\mathrm{w}_0, \mathrm{w}_1) = (-2, -2)$を，$($ `ww0[1, 2]` $,$ `ww1[1, 2]` $)$ は$(\mathrm{w}_0, \mathrm{w}_1) = (-1.75, -2)$を表している．`ww0`と`ww1`の対応する要素が各座標を表しているのである．
+
+```{r}
+#| echo: false
+
+ww0 <- grid_w0w1$w0 |>
+  array(dim = c(w0_n, w1_n))
+ww1 <- grid_w0w1$w1 |>
+  array(dim = c(w0_n, w1_n))
+```
+
 
 ```{r}
 ww0[1:4, 1:4]
@@ -352,12 +358,8 @@ y <- c(4, 5, 6)
 expand_grid(x, y)
 ```
 
-:::{.callout-caution}
-## ちなみに
+Pythonでは，座標を`ww0`, `ww1`オブジェクトに$17 \times 17$配列として格納しているが，Rでは`expand_grid()`で作成したデータフレームをそのまま用いている．なぜなら，後にグラフ描画に用いる`{ggplot2}`には配列は適していないからである．
 
-`expand_grid()`を用いて座標を作ったとしても，グラフの描画に用いる`{ggplot2}`ではとある理由(後述)で扱えないため，無理に使う必要はない．
-
-:::
 
 **グラフ描画 ---------**
 
@@ -383,22 +385,9 @@ plt.ylabel("$w_1$", fontsize=14)
 
 ```{r}
 # R
-df <- array(NA, dim = c(w0_n * w1_n, 5)) |>
-  data.frame() |>
-  rename(ww0   = 'X1', ww1   = 'X2', f_num = 'X3', dw0   = 'X4', dw1   = 'X5')
-n <- 1                                      #  便宜上のインデックス．
-for (i in 1:w0_n) {
-  for (j in 1:w1_n) {
-    df[n, 1] <- ww0[i, j]                   # ww0を順番に代入．
-    df[n, 2] <- ww1[i, j]                   # ww1を順番に代入．
-    df[n, 3] <- f_num[i, j]                 # ww0, ww1に対応するfを代入．
-    df[n, 4] <- df_dw0_num[i, j]            # ww0, ww1に対応するdw0を代入．
-    df[n, 5] <- df_dw1_num[i, j]            # ww0, ww1に対応するdw1を代入．
-    n <- n + 1
-  }
-}
+df <- cbind(grid_w0w1, f_num, df_dw0_num, df_dw1_num)
 df |>
-  ggplot(aes(ww0, ww1, z = f_num)) +
+  ggplot(aes(w0, w1, z = f_num)) +
   geom_contour() +
   coord_fixed(ratio = 1) +
   labs(x = expression(w[0]), y = expression(w[1])) +
@@ -431,8 +420,8 @@ plt.show()
 # R
 df |>
   ggplot() +
-  geom_segment(aes(x = ww0, xend = ww0 + dw0 / 30,
-                   y = ww1, yend = ww1 + dw1 / 30),
+  geom_segment(aes(x = w0, xend = w0 + df_dw0_num / 30,
+                   y = w1, yend = w1 + df_dw1_num / 30),
                linewidth = 0.3,
                arrow = arrow(length = unit(0.1, 'cm'))) +
   coord_fixed(ratio = 1) +
@@ -1115,11 +1104,7 @@ x0_n <- 20; x1_n <- 20
 x0 <- seq(from = -4, to = 4, length.out = x0_n)
 x1 <- seq(from = -4, to = 4, length.out = x1_n)
 grid_x0x1 <- expand_grid(x0, x1)
-xx0 <- grid_x0x1$x0 |>
-  array(dim = c(x0_n, x1_n))
-xx1 <- grid_x0x1$x1 |>
-  array(dim = c(x0_n, x1_n))
-y_vec <- softmax(xx0, xx1, 1)
+y_vec <- softmax(grid_x0x1$x0, grid_x0x1$x1, 1)
 y <- array(y_vec, dim = c(x0_n * x1_n, 3))
 ```
 
@@ -1291,11 +1276,11 @@ gauss <- function(x0, x1, mu, sigma) {
 #| eval: false
 
 # Python
-## x0, x1 = 2, 1
-## mu = np.array([1, 2])               # 平均ベクトル
-## sigma = np.array([[1, 0], [0, 1]])  # 共分散行列
-## y = gauss(x0, x1, mu, sigma)
-## print("y =", np.round(y, 6))
+x0, x1 = 2, 1
+mu = np.array([1, 2])               # 平均ベクトル
+sigma = np.array([[1, 0], [0, 1]])  # 共分散行列
+y = gauss(x0, x1, mu, sigma)
+print("y =", np.round(y, 6))
 ```
 
 ```{r}
@@ -1357,10 +1342,6 @@ for (i0 in 1:x0_n) {
   }
 }
 grid_x0x1 <- expand_grid(x0, x1)
-xx0 <- grid_x0x1$x0 |>
-  array(dim = c(x0_n, x1_n))
-xx1 <- grid_x0x1$x1 |>
-  array(dim = c(x0_n, x1_n))
 ```
 
 **グラフ描画 ---------**
@@ -1385,15 +1366,12 @@ plt.grid()
 #| warning: false
 
 # R
-df <- array(NA, dim = c(x0_n * x1_n, 3)) |> # 空のデータフレームを作成．
-  data.frame() |>
-  rename(x0 = 'X1', x1 = 'X2', f  = 'X3')
-n <- 1                                      # 便宜上インデックスを作成．
+df <- grid_x0x1 |>
+  mutate(f = rep(NA, times = n()))
+n <- 1
 for (i in 1:x0_n) {
   for (j in 1:x1_n) {
-    df[n, 1] <- x0[i]                       # 1列目にx0
-    df[n, 2] <- x1[j]                       # 2列目にx1
-    df[n, 3] <- f[i, j]                     # 3列目に，x0, x1に対応するf．
+    df$f[n] <- f[i, j]
     n <- n + 1
   }
 }
