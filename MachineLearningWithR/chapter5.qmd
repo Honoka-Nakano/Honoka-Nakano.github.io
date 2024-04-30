@@ -1,5 +1,5 @@
 ---
-title: "教師あり学習[回帰]"
+title: "教師あり学習 : 回帰"
 toc: true
 toc-title: '目次'
 toc-depth: 4
@@ -1417,48 +1417,65 @@ for (i in 1:length(M)) {
 }
 ```
 
-:::{.callout-warning}
-## まだ
+#### リスト 5-3-(11)
 
-# リスト 5-3-(11)
-## # メイン ----------
-## M = range(2, 10)  # 調べるMの値、2から9
+**メイン ---------**
+
+```{python}
+#| eval: false
+
+# Python 
+M = range(2, 10)  # 調べるMの値、2から9
+sd_train = np.zeros(len(M))
+sd_test = np.zeros(len(M))
+for i in range(len(M)):
+  # wを計算
+  w = fit_gauss_func(X_train, T_train, M[i])
+  # 訓練データのSDを計算
+  sd_train[i] = np.sqrt(mse_gauss_func(X_train, T_train, w))
+  # テストデータのSDを計算
+  sd_test[i] = np.sqrt(mse_gauss_func(X_test, T_test, w))
+```
+
+```{r}
+# R
 M <- 2:9
-## sd_train = np.zeros(len(M))
 sd_train <- rep(0, length(M))
-## sd_test = np.zeros(len(M))
 sd_test <- rep(0, length(M))
-## for i in range(len(M)):
-##   # wを計算
-##   w = fit_gauss_func(X_train, T_train, M[i])
-##   # 訓練データのSDを計算
-##   sd_train[i] = np.sqrt(mse_gauss_func(X_train, T_train, w))
-##   # テストデータのSDを計算
-##   sd_test[i] = np.sqrt(mse_gauss_func(X_test, T_test, w))
 for (i in 1:length(M)) {
   w <- fit_gauss_func(X_train, T_train, M[i])
   sd_train[i] <- sqrt(mse_gauss_func(X_train, T_train, w))
   sd_test[i] <- sqrt(mse_gauss_func(X_test, T_test, w))
 }
+```
 
-## # グラフ描画 ----------
-## plt.figure(figsize=(5, 4))
-## plt.plot(  # 訓練データのSD
-##   M, sd_train, "black",
-##   marker="o", linestyle="-", 
-##   markerfacecolor="white", markeredgecolor="black",
-##   label="training",
-## )
-## plt.plot(  # テストデータのSD
-##   M, sd_test, "cornflowerblue",
-##   marker="o", linestyle="-",
-##   markeredgecolor="black",
-##   label="test",
-## )
-## plt.legend(loc="upper left", fontsize=10)
-## plt.ylim(0, 12)
-## plt.grid()
-## plt.show()
+**グラフ描画 ---------**
+
+```{python}
+#| eval: false
+
+# Python
+plt.figure(figsize=(5, 4))
+plt.plot(  # 訓練データのSD
+  M, sd_train, "black",
+  marker="o", linestyle="-", 
+  markerfacecolor="white", markeredgecolor="black",
+  label="training",
+)
+plt.plot(  # テストデータのSD
+  M, sd_test, "cornflowerblue",
+  marker="o", linestyle="-",
+  markeredgecolor="black",
+  label="test",
+)
+plt.legend(loc="upper left", fontsize=10)
+plt.ylim(0, 12)
+plt.grid()
+plt.show()
+```
+
+```{r}
+# R
 tibble(x_plt = c(M, M),
        y_plt = c(sd_train, sd_test),
        train_test = rep(c('training', 'test'), each = length(M))) |>
@@ -1470,30 +1487,41 @@ tibble(x_plt = c(M, M),
   coord_fixed(ratio = 7 / 9) +
   scale_color_discrete(name = element_blank()) +
   scale_fill_discrete(name = element_blank()) +
-  labs(x = element_blank(), y = element_blank())
+  labs(x = element_blank(), y = element_blank()) +
+  theme_minimal()
+```
 
+#### リスト 5-3-(12)
 
-# リスト 5-3-(12)
-## # K 分割交差検証 ----------
-## def kfold_gauss_func(x, t, m, k):
-##   n = x.shape[0]
-##   mse_train = np.zeros(k)
-##   mse_test = np.zeros(k)
-##   for i in range(0, k):
-##     # 訓練データとテストデータに分割
-##     # (A) テストデータのインデックス
-##     i_test = np.fmod(range(n), k)
-##     x_test = x[i_test == i]   # テストデータ x 
-##     t_test = t[i_test == i]   # テストデータ t
-##     x_train = x[i_test != i]  # 訓練データ x
-##     t_train = t[i_test != i]  # 訓練データ t
-##     # wを訓練データで決める
-##     w = fit_gauss_func(x_train, t_train, m)
-##     # 訓練データのMSEを計算
-##     mse_train[i] = mse_gauss_func(x_train, t_train, w)
-##     # テストデータのMSEを計算
-##     mse_test[i] = mse_gauss_func(x_test, t_test, w)
-##   return mse_train, mse_test
+**K 分割交差検証 ---------**
+
+```{python}
+#| eval: false
+
+# Python
+def kfold_gauss_func(x, t, m, k):
+  n = x.shape[0]
+  mse_train = np.zeros(k)
+  mse_test = np.zeros(k)
+  for i in range(0, k):
+    # 訓練データとテストデータに分割
+    # (A) テストデータのインデックス
+    i_test = np.fmod(range(n), k)
+    x_test = x[i_test == i]   # テストデータ x 
+    t_test = t[i_test == i]   # テストデータ t
+    x_train = x[i_test != i]  # 訓練データ x
+    t_train = t[i_test != i]  # 訓練データ t
+    # wを訓練データで決める
+    w = fit_gauss_func(x_train, t_train, m)
+    # 訓練データのMSEを計算
+    mse_train[i] = mse_gauss_func(x_train, t_train, w)
+    # テストデータのMSEを計算
+    mse_test[i] = mse_gauss_func(x_test, t_test, w)
+  return mse_train, mse_test
+```
+
+```{r}
+# R
 kfold_gauss_func <- function(x, t, m, k) {
   n <- length(x)
   mse_train <- rep(0, times = k)
@@ -1511,71 +1539,110 @@ kfold_gauss_func <- function(x, t, m, k) {
   res <- list(mse_train = mse_train, mse_test = mse_test)
   return(res)
 }
+```
 
 
-# リスト 5-3-(13)
+#### リスト 5-3-(13)
+
+```{python}
+#| eval: false
+
+# Python
 ## np.fmod(range(10), 5)
+```
+
+```{r}
+# R
 (0:9 %% 5)
+```
 
+#### リスト 5-3-(14)
 
-# リスト 5-3-(14)
-## M = 4
+```{python}
+#| eval: false
+
+# Python
+M = 4
+K = 4
+kfold_gauss_func(X, T, M, K)
+```
+
+```{r}
+# R
 M <- 4
-## K = 4
 K <- 4
-## kfold_gauss_func(X, T, M, K)
 kfold_gauss_func(X, t, M, K)
+```
 
+#### リスト 5-3-(15)
 
-# リスト 5-3-(15)
-## # メイン ----------
+**メイン ---------**
+
+```{python}
+#| eval: false
+
+# Python
 ## M = range(2, 8)
-M <- 2:7
 ## K = 16
-K <- 16
 ## Cv_Gauss_train = np.zeros((K, len(M)))
-Cv_Gauss_train <- array(0, dim = c(K, length(M)))
 ## Cv_Gauss_test = np.zeros((K, len(M)))
-Cv_Gauss_test <- array(0, dim = c(K, length(M)))
 ## for i in range(0, len(M)):
 ##     Cv_Gauss_train[:, i], Cv_Gauss_test[:, i] \
 ##         = kfold_gauss_func(X, T, M[i], K)  # k分割交差検定
+## # 訓練データの各分割におけるMSEの平均、の平方根
+## sd_Gauss_train = np.sqrt(np.mean(Cv_Gauss_train, axis=0))
+## # テストデータの各分割におけるMSEの平均、の平方根
+## sd_Gauss_test = np.sqrt(np.mean(Cv_Gauss_test, axis=0))
+## np.save("ch5_Gauss_test.npy", sd_Gauss_test)  # 結果の保存
+```
+
+```{r}
+# R
+M <- 2:7
+K <- 16
+Cv_Gauss_train <- array(0, dim = c(K, length(M)))
+Cv_Gauss_test <- array(0, dim = c(K, length(M)))
 for (i in 1:length(M)) {
   res <- kfold_gauss_func(X, t, M[i], K)
   Cv_Gauss_train[, i] <- res$mse_train
   Cv_Gauss_test[, i] <- res$mse_test
 }
-## # 訓練データの各分割におけるMSEの平均、の平方根
-## sd_Gauss_train = np.sqrt(np.mean(Cv_Gauss_train, axis=0))
 sd_Gauss_train <- apply(Cv_Gauss_train, 2, mean) |>
   sqrt()
-## # テストデータの各分割におけるMSEの平均、の平方根
-## sd_Gauss_test = np.sqrt(np.mean(Cv_Gauss_test, axis=0))
 sd_Gauss_test <- apply(Cv_Gauss_test, 2, mean) |>
   sqrt()
-## np.save("ch5_Gauss_test.npy", sd_Gauss_test)  # 結果の保存
-NULL
+save(list = 'sd_Gauss_test', file = 'data/ch5_Gauss_test.Rdata')
+```
 
-## # グラフ描画 ----------
-## plt.figure(figsize=(5, 4))
-## # 訓練データに対するMSEのグラフ
-## plt.plot(
-##   M, sd_Gauss_train, "black",
-##   marker="o", linestyle="-", 
-##   markerfacecolor="white", markeredgecolor="black",
-##   label="training",
-## )
-## # テストデータに対するMSEのグラフ
-## plt.plot(
-##   M, sd_Gauss_test, "cornflowerblue",
-##   marker="o", linestyle="-",
-##   markeredgecolor="black",
-##   label="test",
-## )
-## plt.legend(loc="upper left", fontsize=10)
-## plt.ylim(0, 20)
-## plt.grid()
-## plt.show()
+**グラフ描画 ---------**
+
+```{python}
+#| eval: false
+
+# Python
+plt.figure(figsize=(5, 4))
+# 訓練データに対するMSEのグラフ
+plt.plot(
+  M, sd_Gauss_train, "black",
+  marker="o", linestyle="-", 
+  markerfacecolor="white", markeredgecolor="black",
+  label="training",
+)
+# テストデータに対するMSEのグラフ
+plt.plot(
+  M, sd_Gauss_test, "cornflowerblue",
+  marker="o", linestyle="-",
+  markeredgecolor="black",
+  label="test",
+)
+plt.legend(loc="upper left", fontsize=10)
+plt.ylim(0, 20)
+plt.grid()
+plt.show()
+```
+
+```{r}
+# R
 tibble(x_plt = c(M, M),
        y_plt = c(sd_Gauss_test, sd_Gauss_train),
        col   = rep(c('test', 'train'), each = length(M))) |>
@@ -1591,80 +1658,147 @@ tibble(x_plt = c(M, M),
   scale_color_discrete(name = element_blank(),
                        label = c('test', 'training')) +
   scale_fill_discrete(name = element_blank(),
-                      label = c('test', 'training'))
+                      label = c('test', 'training')) +
+  theme_minimal()
+```
 
+#### リスト 5-3-(16)
 
-# リスト 5-3-(16)
-## # メイン ----------
-## M = 3  # 最適なM=3に設定
+**メイン ---------**
+
+```{python}
+#| eval: false
+
+# Python
+M = 3  # 最適なM=3に設定
+w = fit_gauss_func(X, T, M)  # 全データでwを計算
+sd = np.sqrt(mse_gauss_func(X, T, w))  # SDを計算
+# 結果表示
+print(f"SD = {sd:.2f} cm")
+```
+
+```{r}
+# R
 M <- 2 # 最適なM=2に設定
-## w = fit_gauss_func(X, T, M)  # 全データでwを計算
 w <- fit_gauss_func(X, t, M)
-## sd = np.sqrt(mse_gauss_func(X, T, w))  # SDを計算
 sd <- sqrt(mse_gauss_func(X, t, w))
-## # 結果表示
-## print(f"SD = {sd:.2f} cm")
 cat('SD =', round(sd, 2))
+```
 
-## # グラフ描画 ----------
-## plt.figure(figsize=(4, 4))
-## show_gauss_func(w)
-## plt.plot(
-##   X, T, "cornflowerblue",
-##   marker="o", linestyle="None", markeredgecolor="black",
-## )
-## plt.xlim(X_min, X_max)
-## plt.grid()
-## plt.show()
+**グラフ描画 ---------**
+
+```{python}
+#| eval: false
+
+# Python
+plt.figure(figsize=(4, 4))
+show_gauss_func(w)
+plt.plot(
+  X, T, "cornflowerblue",
+  marker="o", linestyle="None", markeredgecolor="black",
+)
+plt.xlim(X_min, X_max)
+plt.grid()
+plt.show()
+```
+
+```{r}
 show_gauss_func(w) +
   geom_point(data    = tibble(x_plt = X, y_plt = t),
              mapping = aes(x = x_plt, y = y_plt),
              color   = 'cornflowerblue') +
   xlim(0, 30) + ylim(130, 180) +
   coord_fixed(ratio = 30 / 50) +
-  labs(x = element_blank(), y = element_blank())
+  labs(x = element_blank(), y = element_blank()) +
+  theme_minimal()
+```
 
+### 第4節
 
-## %reset
+#### リセット
+
+```{python}
+#| eval: false
+
+# Python
+%reset
+```
+
+```{r}
+# R
 rm(list = ls(all.names = TRUE))
+```
 
+#### リスト 5-4-(1)
 
-# リスト 5-4-(1)
-## import numpy as np
-## import matplotlib.pyplot as plt
+```{python}
+#| eval: false
+
+# Python
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+```{r}
+#| eval: false
+
+# R
 NULL
+```
 
-## # データのロード ----------
-## data = np.load("ch5_data.npz")
-set.seed(1)
-X_min <- 4; X_max <- 30; N <- 16; prm <- c(170, 108, 0.2)
-X <- 5 + 25 * runif(N)
-t <- prm[1] - prm[2] * exp(-prm[3] * X) + 4 * rnorm(N)
-## X = data["X"]
-NULL
-## X_min = 0
+**データのロード ---------**
+
+```{python}
+#| eval: false
+
+# Python
+data = np.load("ch5_data.npz")
+X = data["X"]
+X_min = 0
+X_max = data["X_max"]
+N = data["N"]
+T = data["T"]
+```
+
+```{r}
+# R
+load('data/ch5_data.Rdata')
 X_min <- 0
-## X_max = data["X_max"]
-NULL
-## N = data["N"]
-NULL
-## T = data["T"]
-NULL
+```
 
-## # モデル A ----------
-## def model_A(x, w):
-##   y = w[0] - w[1] * np.exp(-w[2] * x)  # 式5-71
-## return y
+**モデル A ---------**
+
+```{python}
+#| eval: false
+
+# Python
+def model_A(x, w):
+  y = w[0] - w[1] * np.exp(-w[2] * x)  # 式5-71
+  return y
+```
+
+```{r}
+# R
 model_A <- function(x, w) {
   y <- w[1] - w[2] * exp(-w[3] * x)
   return(y)
 }
+```
 
-## # モデル A 表示 ----------
-## def show_model_A(w):
-##   x = np.linspace(X_min, X_max, 100)
-##   y = model_A(x, w)
-##   plt.plot(x, y, "gray", linewidth=4)
+**モデル A 表示 ---------**
+
+```{python}
+#| eval: false
+
+# Python
+def show_model_A(w):
+  x = np.linspace(X_min, X_max, 100)
+  y = model_A(x, w)
+  plt.plot(x, y, "gray", linewidth=4)
+```
+
+```{r}
+# R
 show_model_A <- function(w) {
   x <- seq(X_min, X_max, length.out = 100)
   y <- model_A(x, w)
@@ -1673,17 +1807,32 @@ show_model_A <- function(w) {
     geom_line(aes(x = x_plt, y = y_plt))
   return(p)
 }
+```
 
-## # モデル A の平均二乗誤差(MSE) ----------
-## def mse_model_A(w, x, t):
-##     y = model_A(x, w)
-##     mse = np.mean((y - t) ** 2)  # 式5-72
-##     return mse
-mse_model_A <- function(w, x, t) {
-  y <- model_A(x, w)
+**モデル A の平均二乗誤差(MSE) ---------**
+
+```{python}
+#| eval: false
+
+# Python
+def mse_model_A(w, x, t):
+    y = model_A(x, w)
+    mse = np.mean((y - t) ** 2)  # 式5-72
+    return mse
+```
+
+```{r}
+# R
+mse_model_A <- function(w) {
+  y <- model_A(X, w)
   mse <- mean((y - t) ^ 2)
   return(mse)
 }
+```
+
+:::{.callout-warning}
+## まだ
+
 
 ####### 仮 #######
 mse_model_A_for_optim <- function(x, t) {
