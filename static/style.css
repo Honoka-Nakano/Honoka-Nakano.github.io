@@ -135,6 +135,10 @@ main {
     width: 65%;
 }
 
+.right_side h1 {
+    color: #5485c2;
+}
+
 /* footer */
 
 footer {
