@@ -137,16 +137,20 @@ main {
 
 /* contents */
 
-.right_side h1 {
+.right_side a {
+    color: #333;
     text-decoration: none;
-    color: #5485c2;
 }
 
-.gnavi li a{
+.contents {
+    list-style: none;
+}
+
+.contents li a{
     position: relative;
 }
 
-.gnavi li a::after {
+.contents li a::after {
     content: '';
     position: absolute;
     z-index: -1;
@@ -159,14 +163,14 @@ main {
     opacity: 0;
 }
 
-.gnavi li.current a::after,
-.gnavi li a:hover::after {
+.contents li.current a::after,
+.contents li a:hover::after {
   width: 100%;
   opacity: 1;
 }
 
-.gnavi li.current a,
-.gnavi li a:hover{
+.contents li.current a,
+.contents li a:hover{
     color: #fff;
 }
 
