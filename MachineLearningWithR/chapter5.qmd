@@ -1582,18 +1582,18 @@ kfold_gauss_func(X, t, M, K)
 #| eval: false
 
 # Python
-## M = range(2, 8)
-## K = 16
-## Cv_Gauss_train = np.zeros((K, len(M)))
-## Cv_Gauss_test = np.zeros((K, len(M)))
-## for i in range(0, len(M)):
-##     Cv_Gauss_train[:, i], Cv_Gauss_test[:, i] \
-##         = kfold_gauss_func(X, T, M[i], K)  # k分割交差検定
-## # 訓練データの各分割におけるMSEの平均、の平方根
-## sd_Gauss_train = np.sqrt(np.mean(Cv_Gauss_train, axis=0))
-## # テストデータの各分割におけるMSEの平均、の平方根
-## sd_Gauss_test = np.sqrt(np.mean(Cv_Gauss_test, axis=0))
-## np.save("ch5_Gauss_test.npy", sd_Gauss_test)  # 結果の保存
+M = range(2, 8)
+K = 16
+Cv_Gauss_train = np.zeros((K, len(M)))
+Cv_Gauss_test = np.zeros((K, len(M)))
+for i in range(0, len(M)):
+    Cv_Gauss_train[:, i], Cv_Gauss_test[:, i] \
+        = kfold_gauss_func(X, T, M[i], K)  # k分割交差検定
+# 訓練データの各分割におけるMSEの平均、の平方根
+sd_Gauss_train = np.sqrt(np.mean(Cv_Gauss_train, axis=0))
+# テストデータの各分割におけるMSEの平均、の平方根
+sd_Gauss_test = np.sqrt(np.mean(Cv_Gauss_test, axis=0))
+np.save("ch5_Gauss_test.npy", sd_Gauss_test)  # 結果の保存
 ```
 
 ```{r}
@@ -1957,11 +1957,11 @@ def kfold_model_A(x, t, k):
 ```{r}
 # R
 kfold_model_A <- function(x, t, k) {
-  n = length(x)
+  n <- length(x)
   mse_train <- rep(0, times = k)
   mse_test <- rep(0, times = k)
   for (i in 1:k) {
-    i_test <- 1:n %% k
+    i_test <- (1:n %% k) + 1
     x_test <- x[i_test == i]
     t_test <- t[i_test == i]
     x_train <- x[i_test != i]
@@ -2005,11 +2005,12 @@ print(f"Model A SD = {sd_A_test:.2f} cm")
 K <- 16
 Cv_A_res <- kfold_model_A(X, t, K)
 Cv_A_train <- Cv_A_res$mse_train; Cv_A_test <- Cv_A_res$mse_test
-
+sd_A_test <- sqrt(mean(Cv_A_test))
 load('data/ch5_Gauss_test.Rdata')
-
+SDs <- append(sd_Gauss_test, sd_A_test)
+cat('Gauss (M = 3) SD =', sd_Gauss_test[2] |> round(2), 'cm')
+cat('Model A SD =', sd_A_test |> round(2), 'cm')
 ```
-
 
 **グラフ描画 ---------**
 
@@ -2026,3 +2027,13 @@ plt.bar(
 )
 plt.show()
 ```
+
+```{r}
+# R
+# M <- 1:6
+# label <- c('M = 2', 'M = 3', 'M = 4', 'M = 5', 'M = 6', 'Model A')
+# tibble(x_plt = label, y_plt = SDs) |>
+#   ggplot(aes(x = x_plt, y = y_plt)) +
+#   geom_bar()
+```
+

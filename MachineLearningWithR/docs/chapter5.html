@@ -1733,18 +1733,18 @@ $mse_test
 <p><strong>メイン ———</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb147"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
-<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="co">## M = range(2, 8)</span></span>
-<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a><span class="co">## K = 16</span></span>
-<span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a><span class="co">## Cv_Gauss_train = np.zeros((K, len(M)))</span></span>
-<span id="cb147-5"><a href="#cb147-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Cv_Gauss_test = np.zeros((K, len(M)))</span></span>
-<span id="cb147-6"><a href="#cb147-6" aria-hidden="true" tabindex="-1"></a><span class="co">## for i in range(0, len(M)):</span></span>
-<span id="cb147-7"><a href="#cb147-7" aria-hidden="true" tabindex="-1"></a><span class="co">##     Cv_Gauss_train[:, i], Cv_Gauss_test[:, i] \</span></span>
-<span id="cb147-8"><a href="#cb147-8" aria-hidden="true" tabindex="-1"></a><span class="co">##         = kfold_gauss_func(X, T, M[i], K)  # k分割交差検定</span></span>
-<span id="cb147-9"><a href="#cb147-9" aria-hidden="true" tabindex="-1"></a><span class="co">## # 訓練データの各分割におけるMSEの平均、の平方根</span></span>
-<span id="cb147-10"><a href="#cb147-10" aria-hidden="true" tabindex="-1"></a><span class="co">## sd_Gauss_train = np.sqrt(np.mean(Cv_Gauss_train, axis=0))</span></span>
-<span id="cb147-11"><a href="#cb147-11" aria-hidden="true" tabindex="-1"></a><span class="co">## # テストデータの各分割におけるMSEの平均、の平方根</span></span>
-<span id="cb147-12"><a href="#cb147-12" aria-hidden="true" tabindex="-1"></a><span class="co">## sd_Gauss_test = np.sqrt(np.mean(Cv_Gauss_test, axis=0))</span></span>
-<span id="cb147-13"><a href="#cb147-13" aria-hidden="true" tabindex="-1"></a><span class="co">## np.save("ch5_Gauss_test.npy", sd_Gauss_test)  # 結果の保存</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">8</span>)</span>
+<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">16</span></span>
+<span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a>Cv_Gauss_train <span class="op">=</span> np.zeros((K, <span class="bu">len</span>(M)))</span>
+<span id="cb147-5"><a href="#cb147-5" aria-hidden="true" tabindex="-1"></a>Cv_Gauss_test <span class="op">=</span> np.zeros((K, <span class="bu">len</span>(M)))</span>
+<span id="cb147-6"><a href="#cb147-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(M)):</span>
+<span id="cb147-7"><a href="#cb147-7" aria-hidden="true" tabindex="-1"></a>    Cv_Gauss_train[:, i], Cv_Gauss_test[:, i] <span class="op">\</span></span>
+<span id="cb147-8"><a href="#cb147-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">=</span> kfold_gauss_func(X, T, M[i], K)  <span class="co"># k分割交差検定</span></span>
+<span id="cb147-9"><a href="#cb147-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 訓練データの各分割におけるMSEの平均、の平方根</span></span>
+<span id="cb147-10"><a href="#cb147-10" aria-hidden="true" tabindex="-1"></a>sd_Gauss_train <span class="op">=</span> np.sqrt(np.mean(Cv_Gauss_train, axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb147-11"><a href="#cb147-11" aria-hidden="true" tabindex="-1"></a><span class="co"># テストデータの各分割におけるMSEの平均、の平方根</span></span>
+<span id="cb147-12"><a href="#cb147-12" aria-hidden="true" tabindex="-1"></a>sd_Gauss_test <span class="op">=</span> np.sqrt(np.mean(Cv_Gauss_test, axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb147-13"><a href="#cb147-13" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">"ch5_Gauss_test.npy"</span>, sd_Gauss_test)  <span class="co"># 結果の保存</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
@@ -2060,11 +2060,11 @@ $mse_test
 <div class="cell">
 <div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
 <span id="cb180-2"><a href="#cb180-2" aria-hidden="true" tabindex="-1"></a>kfold_model_A <span class="ot">&lt;-</span> <span class="cf">function</span>(x, t, k) {</span>
-<span id="cb180-3"><a href="#cb180-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">length</span>(x)</span>
+<span id="cb180-3"><a href="#cb180-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
 <span id="cb180-4"><a href="#cb180-4" aria-hidden="true" tabindex="-1"></a>  mse_train <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="at">times =</span> k)</span>
 <span id="cb180-5"><a href="#cb180-5" aria-hidden="true" tabindex="-1"></a>  mse_test <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="at">times =</span> k)</span>
 <span id="cb180-6"><a href="#cb180-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
-<span id="cb180-7"><a href="#cb180-7" aria-hidden="true" tabindex="-1"></a>    i_test <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n <span class="sc">%%</span> k</span>
+<span id="cb180-7"><a href="#cb180-7" aria-hidden="true" tabindex="-1"></a>    i_test <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">:</span>n <span class="sc">%%</span> k) <span class="sc">+</span> <span class="dv">1</span></span>
 <span id="cb180-8"><a href="#cb180-8" aria-hidden="true" tabindex="-1"></a>    x_test <span class="ot">&lt;-</span> x[i_test <span class="sc">==</span> i]</span>
 <span id="cb180-9"><a href="#cb180-9" aria-hidden="true" tabindex="-1"></a>    t_test <span class="ot">&lt;-</span> t[i_test <span class="sc">==</span> i]</span>
 <span id="cb180-10"><a href="#cb180-10" aria-hidden="true" tabindex="-1"></a>    x_train <span class="ot">&lt;-</span> x[i_test <span class="sc">!=</span> i]</span>
@@ -2103,20 +2103,37 @@ $mse_test
 <span id="cb182-2"><a href="#cb182-2" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="dv">16</span></span>
 <span id="cb182-3"><a href="#cb182-3" aria-hidden="true" tabindex="-1"></a>Cv_A_res <span class="ot">&lt;-</span> <span class="fu">kfold_model_A</span>(X, t, K)</span>
 <span id="cb182-4"><a href="#cb182-4" aria-hidden="true" tabindex="-1"></a>Cv_A_train <span class="ot">&lt;-</span> Cv_A_res<span class="sc">$</span>mse_train; Cv_A_test <span class="ot">&lt;-</span> Cv_A_res<span class="sc">$</span>mse_test</span>
-<span id="cb182-5"><a href="#cb182-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb182-6"><a href="#cb182-6" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'data/ch5_Gauss_test.Rdata'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb182-5"><a href="#cb182-5" aria-hidden="true" tabindex="-1"></a>sd_A_test <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(Cv_A_test))</span>
+<span id="cb182-6"><a href="#cb182-6" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'data/ch5_Gauss_test.Rdata'</span>)</span>
+<span id="cb182-7"><a href="#cb182-7" aria-hidden="true" tabindex="-1"></a>SDs <span class="ot">&lt;-</span> <span class="fu">append</span>(sd_Gauss_test, sd_A_test)</span>
+<span id="cb182-8"><a href="#cb182-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Gauss (M = 3) SD ='</span>, sd_Gauss_test[<span class="dv">2</span>] <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>), <span class="st">'cm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gauss (M = 3) SD = 6.36 cm</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb184"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb184-1"><a href="#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Model A SD ='</span>, sd_A_test <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>), <span class="st">'cm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model A SD = 5.42 cm</code></pre>
+</div>
 </div>
 <p><strong>グラフ描画 ———</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb183"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
-<span id="cb183-2"><a href="#cb183-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="bu">range</span>(<span class="dv">6</span>)</span>
-<span id="cb183-3"><a href="#cb183-3" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> [<span class="st">"M=2"</span>, <span class="st">"M=3"</span>, <span class="st">"M=4"</span>, <span class="st">"M=5"</span>, <span class="st">"M=6"</span>, <span class="st">"Model A"</span>]</span>
-<span id="cb183-4"><a href="#cb183-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">3</span>))</span>
-<span id="cb183-5"><a href="#cb183-5" aria-hidden="true" tabindex="-1"></a>plt.bar(</span>
-<span id="cb183-6"><a href="#cb183-6" aria-hidden="true" tabindex="-1"></a>    M, SDs,facecolor<span class="op">=</span><span class="st">"cornflowerblue"</span>, align<span class="op">=</span><span class="st">"center"</span>, </span>
-<span id="cb183-7"><a href="#cb183-7" aria-hidden="true" tabindex="-1"></a>    tick_label<span class="op">=</span>label,</span>
-<span id="cb183-8"><a href="#cb183-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb183-9"><a href="#cb183-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb186"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb186-1"><a href="#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
+<span id="cb186-2"><a href="#cb186-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="bu">range</span>(<span class="dv">6</span>)</span>
+<span id="cb186-3"><a href="#cb186-3" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> [<span class="st">"M=2"</span>, <span class="st">"M=3"</span>, <span class="st">"M=4"</span>, <span class="st">"M=5"</span>, <span class="st">"M=6"</span>, <span class="st">"Model A"</span>]</span>
+<span id="cb186-4"><a href="#cb186-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">3</span>))</span>
+<span id="cb186-5"><a href="#cb186-5" aria-hidden="true" tabindex="-1"></a>plt.bar(</span>
+<span id="cb186-6"><a href="#cb186-6" aria-hidden="true" tabindex="-1"></a>    M, SDs,facecolor<span class="op">=</span><span class="st">"cornflowerblue"</span>, align<span class="op">=</span><span class="st">"center"</span>, </span>
+<span id="cb186-7"><a href="#cb186-7" aria-hidden="true" tabindex="-1"></a>    tick_label<span class="op">=</span>label,</span>
+<span id="cb186-8"><a href="#cb186-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb186-9"><a href="#cb186-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb187"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
+<span id="cb187-2"><a href="#cb187-2" aria-hidden="true" tabindex="-1"></a><span class="co"># M &lt;- 1:6</span></span>
+<span id="cb187-3"><a href="#cb187-3" aria-hidden="true" tabindex="-1"></a><span class="co"># label &lt;- c('M = 2', 'M = 3', 'M = 4', 'M = 5', 'M = 6', 'Model A')</span></span>
+<span id="cb187-4"><a href="#cb187-4" aria-hidden="true" tabindex="-1"></a><span class="co"># tibble(x_plt = label, y_plt = SDs) |&gt;</span></span>
+<span id="cb187-5"><a href="#cb187-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(x = x_plt, y = y_plt)) +</span></span>
+<span id="cb187-6"><a href="#cb187-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_bar()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
