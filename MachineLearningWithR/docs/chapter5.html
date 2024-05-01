@@ -239,6 +239,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#リセット-2" id="toc-リセット-2" class="nav-link" data-scroll-target="#リセット-2">リセット</a></li>
   <li><a href="#リスト-5-4-1" id="toc-リスト-5-4-1" class="nav-link" data-scroll-target="#リスト-5-4-1">リスト 5-4-(1)</a></li>
+  <li><a href="#リスト-5-4-2" id="toc-リスト-5-4-2" class="nav-link" data-scroll-target="#リスト-5-4-2">リスト 5-4-(2)</a></li>
+  <li><a href="#リスト-5-4-3" id="toc-リスト-5-4-3" class="nav-link" data-scroll-target="#リスト-5-4-3">リスト 5-4-(3)</a></li>
+  <li><a href="#リスト-5-4-4" id="toc-リスト-5-4-4" class="nav-link" data-scroll-target="#リスト-5-4-4">リスト 5-4-(4)</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -1857,7 +1860,7 @@ $mse_test
 </section>
 </section>
 <section id="第4節" class="level3">
-<h3 class="anchored">第4節</h3>
+<h3 class="anchored" data-anchor-id="第4節">第4節</h3>
 <section id="リセット-2" class="level4">
 <h4 class="anchored" data-anchor-id="リセット-2">リセット</h4>
 <div class="cell">
@@ -1870,7 +1873,7 @@ $mse_test
 </div>
 </section>
 <section id="リスト-5-4-1" class="level4">
-<h4 class="anchored">リスト 5-4-(1)</h4>
+<h4 class="anchored" data-anchor-id="リスト-5-4-1">リスト 5-4-(1)</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb158"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
 <span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -1892,9 +1895,8 @@ $mse_test
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
-<span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb161-3"><a href="#cb161-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'data/ch5_data.Rdata'</span>)</span>
-<span id="cb161-4"><a href="#cb161-4" aria-hidden="true" tabindex="-1"></a>X_min <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'data/ch5_data.Rdata'</span>)</span>
+<span id="cb161-3"><a href="#cb161-3" aria-hidden="true" tabindex="-1"></a>X_min <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>モデル A ———</strong></p>
 <div class="cell">
@@ -1925,9 +1927,10 @@ $mse_test
 <span id="cb165-4"><a href="#cb165-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">model_A</span>(x, w)</span>
 <span id="cb165-5"><a href="#cb165-5" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x_plt =</span> x, <span class="at">y_plt =</span> y) <span class="sc">|&gt;</span></span>
 <span id="cb165-6"><a href="#cb165-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb165-7"><a href="#cb165-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> x_plt, <span class="at">y =</span> y_plt))</span>
-<span id="cb165-8"><a href="#cb165-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(p)</span>
-<span id="cb165-9"><a href="#cb165-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb165-7"><a href="#cb165-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> x_plt, <span class="at">y =</span> y_plt)) <span class="sc">+</span></span>
+<span id="cb165-8"><a href="#cb165-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span>
+<span id="cb165-9"><a href="#cb165-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(p)</span>
+<span id="cb165-10"><a href="#cb165-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>モデル A の平均二乗誤差(MSE) ———</strong></p>
 <div class="cell">
@@ -1939,94 +1942,181 @@ $mse_test
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
-<span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a>mse_model_A <span class="ot">&lt;-</span> <span class="cf">function</span>(w) {</span>
-<span id="cb167-3"><a href="#cb167-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">model_A</span>(X, w)</span>
+<span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a>mse_model_A <span class="ot">&lt;-</span> <span class="cf">function</span>(w, x, t) {</span>
+<span id="cb167-3"><a href="#cb167-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">model_A</span>(x, w)</span>
 <span id="cb167-4"><a href="#cb167-4" aria-hidden="true" tabindex="-1"></a>  mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((y <span class="sc">-</span> t) <span class="sc">^</span> <span class="dv">2</span>)</span>
 <span id="cb167-5"><a href="#cb167-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(mse)</span>
 <span id="cb167-6"><a href="#cb167-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>関数の関係上，引数は<code>w</code>のみ．</p>
+</section>
+<section id="リスト-5-4-2" class="level4">
+<h4 class="anchored" data-anchor-id="リスト-5-4-2">リスト 5-4-(2)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
+<span id="cb168-2"><a href="#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-まだ
+<div class="cell">
+<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
+<span id="cb169-2"><a href="#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>モデル A のパラメータ最適化</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
+<span id="cb170-2"><a href="#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fit_model_A(w_init, x, t):</span>
+<span id="cb170-3"><a href="#cb170-3" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> minimize(mse_model_A, w_init, args<span class="op">=</span>(x, t), method<span class="op">=</span><span class="st">"powell"</span>)</span>
+<span id="cb170-4"><a href="#cb170-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res.x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
+<span id="cb171-2"><a href="#cb171-2" aria-hidden="true" tabindex="-1"></a>fit_model_A <span class="ot">&lt;-</span> <span class="cf">function</span>(w_init) {</span>
+<span id="cb171-3"><a href="#cb171-3" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">optim</span>(w_init,</span>
+<span id="cb171-4"><a href="#cb171-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">fn =</span> <span class="cf">function</span>(w) {</span>
+<span id="cb171-5"><a href="#cb171-5" aria-hidden="true" tabindex="-1"></a>                 y <span class="ot">&lt;-</span> <span class="fu">model_A</span>(X, w)</span>
+<span id="cb171-6"><a href="#cb171-6" aria-hidden="true" tabindex="-1"></a>                 mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((y <span class="sc">-</span> t) <span class="sc">^</span> <span class="dv">2</span>)</span>
+<span id="cb171-7"><a href="#cb171-7" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">return</span>(mse)</span>
+<span id="cb171-8"><a href="#cb171-8" aria-hidden="true" tabindex="-1"></a>               }, <span class="at">method =</span> <span class="st">'CG'</span>)</span>
+<span id="cb171-9"><a href="#cb171-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res<span class="sc">$</span>par)</span>
+<span id="cb171-10"><a href="#cb171-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="リスト-5-4-3" class="level4">
+<h4 class="anchored" data-anchor-id="リスト-5-4-3">リスト 5-4-(3)</h4>
+<p><strong>メイン ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb172"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
+<span id="cb172-2"><a href="#cb172-2" aria-hidden="true" tabindex="-1"></a>w_init <span class="op">=</span> np.array([<span class="fl">100.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>])  <span class="co"># wの初期値</span></span>
+<span id="cb172-3"><a href="#cb172-3" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> fit_model_A(w_init, X, T)         <span class="co"># wを計算</span></span>
+<span id="cb172-4"><a href="#cb172-4" aria-hidden="true" tabindex="-1"></a>sd <span class="op">=</span> np.sqrt(mse_model_A(w, X, T))    <span class="co"># SDを計算</span></span>
+<span id="cb172-5"><a href="#cb172-5" aria-hidden="true" tabindex="-1"></a>果表示</span>
+<span id="cb172-6"><a href="#cb172-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"w0 = </span><span class="sc">{</span>w[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">, w1 = </span><span class="sc">{</span>w[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">, w2 = </span><span class="sc">{</span>w[<span class="dv">2</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb172-7"><a href="#cb172-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"SD = </span><span class="sc">{</span>sd<span class="sc">:.2f}</span><span class="ss"> cm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb173"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
+<span id="cb173-2"><a href="#cb173-2" aria-hidden="true" tabindex="-1"></a>w_init <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb173-3"><a href="#cb173-3" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">fit_model_A</span>(w_init)</span>
+<span id="cb173-4"><a href="#cb173-4" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mse_model_A</span>(w, <span class="at">x =</span> X, <span class="at">t =</span> t))</span>
+<span id="cb173-5"><a href="#cb173-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'w0 ='</span>, <span class="fu">round</span>(w[<span class="dv">1</span>], <span class="dv">2</span>), <span class="st">'w1 ='</span>, <span class="fu">round</span>(w[<span class="dv">2</span>], <span class="dv">2</span>), <span class="st">'w2 ='</span>, <span class="fu">round</span>(w[<span class="dv">3</span>], <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>w0 = 126.25 w1 = -26.25 w2 = -0.02</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb175"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'SD ='</span>, <span class="fu">round</span>(sd, <span class="dv">2</span>), <span class="st">'cm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SD = 5.42 cm</code></pre>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<section id="仮" class="level7">
-<p class="heading">仮</p>
-<p>mse_model_A_for_optim &lt;- function(x, t) { return( function(par) { y &lt;- model_A(x, par) mse &lt;- mean((y - t) ^ 2) return(mse) } ) }</p>
-</section>
-<section id="リスト-5-4-2" class="level1">
-<h1>リスト 5-4-(2)</h1>
-<section id="from-scipy.optimize-import-minimize" class="level2">
-<h2 class="anchored" data-anchor-id="from-scipy.optimize-import-minimize">from scipy.optimize import minimize</h2>
-<p>NULL</p>
-</section>
-<section id="モデル-a-のパラメータ最適化" class="level2">
-<h2 class="anchored" data-anchor-id="モデル-a-のパラメータ最適化"># モデル A のパラメータ最適化</h2>
-</section>
-<section id="def-fit_model_aw_init-x-t" class="level2">
-<h2 class="anchored" data-anchor-id="def-fit_model_aw_init-x-t">def fit_model_A(w_init, x, t):</h2>
-</section>
-<section id="res-minimizemse_model_a-w_init-argsx-t-methodpowell" class="level2">
-<h2 class="anchored" data-anchor-id="res-minimizemse_model_a-w_init-argsx-t-methodpowell">res = minimize(mse_model_A, w_init, args=(x, t), method=“powell”)</h2>
-</section>
-<section id="return-res.x" class="level2">
-<h2 class="anchored" data-anchor-id="return-res.x">return res.x</h2>
-<p>fit_model_A &lt;- function(w_init, x, t) { res &lt;- optim(w_init, mse_model_A_for_optim(X, t)) return(res$par) }</p>
-</section>
-</section>
-<section id="リスト-5-4-3" class="level1">
-<h1>リスト 5-4-(3)</h1>
-<section id="メイン--" class="level2">
-<h2 class="anchored" data-anchor-id="メイン--"># メイン ———-</h2>
-</section>
-<section id="w_init-np.array100.0-0.0-0.0-wの初期値" class="level2">
-<h2 class="anchored" data-anchor-id="w_init-np.array100.0-0.0-0.0-wの初期値">w_init = np.array([100.0, 0.0, 0.0]) # wの初期値</h2>
-<p>w_init &lt;- array(c(100, 0, 0), dim = c(1, 3)) ## w = fit_model_A(w_init, X, T) # wを計算 w &lt;- fit_model_A(w_init, X, t) ## sd = np.sqrt(mse_model_A(w, X, T)) # SDを計算 sd &lt;- sqrt(mse_model_A(w, X, t)) # 結果表示 ## print(f”w0 = {w[0]:.2f}, w1 = {w[1]:.2f}, w2 = {w[2]:.2f}“) cat(‘w0 =’, round(w[1], 2), ‘w1 =’, round(w[2], 2), ‘w2 =’, round(w[3], 2)) ## print(f”SD = {sd:.2f} cm”) cat(‘SD =’, round(sd, 2), ‘cm’)</p>
-</section>
-<section id="グラフ描画--" class="level2">
-<h2 class="anchored" data-anchor-id="グラフ描画--"># グラフ描画 ———-</h2>
-</section>
-<section id="plt.figurefigsize4-4" class="level2">
-<h2 class="anchored" data-anchor-id="plt.figurefigsize4-4">plt.figure(figsize=(4, 4))</h2>
-</section>
-<section id="show_model_aw" class="level2">
-<h2 class="anchored" data-anchor-id="show_model_aw">show_model_A(w)</h2>
-</section>
-<section id="plt.plot" class="level2">
-<h2 class="anchored" data-anchor-id="plt.plot">plt.plot(</h2>
-</section>
-<section id="x-t-cornflowerblue" class="level2">
-<h2 class="anchored" data-anchor-id="x-t-cornflowerblue">X, T, “cornflowerblue”,</h2>
-</section>
-<section id="markero-linestylenone-markeredgecolorblack" class="level2">
-<h2 class="anchored" data-anchor-id="markero-linestylenone-markeredgecolorblack">marker=“o”, linestyle=“None”, markeredgecolor=“black”,</h2>
-</section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">)</h2>
-</section>
-<section id="plt.xlimx_min-x_max" class="level2">
-<h2 class="anchored" data-anchor-id="plt.xlimx_min-x_max">plt.xlim(X_min, X_max)</h2>
-</section>
-<section id="plt.grid" class="level2">
-<h2 class="anchored" data-anchor-id="plt.grid">plt.grid()</h2>
-</section>
-<section id="plt.show" class="level2">
-<h2 class="anchored" data-anchor-id="plt.show">plt.show()</h2>
-<p>show_model_A(w)</p>
-</section>
-</section>
-<section id="optim関数の使い方" class="level1">
-<h1>optim()関数の使い方</h1>
-</section>
-<section id="section-1" class="level1">
-<h1></h1>
-</section>
+<p><strong>グラフ描画 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb177"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb177-1"><a href="#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
+<span id="cb177-2"><a href="#cb177-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
+<span id="cb177-3"><a href="#cb177-3" aria-hidden="true" tabindex="-1"></a>show_model_A(w)</span>
+<span id="cb177-4"><a href="#cb177-4" aria-hidden="true" tabindex="-1"></a>plt.plot(</span>
+<span id="cb177-5"><a href="#cb177-5" aria-hidden="true" tabindex="-1"></a>  X, T, <span class="st">"cornflowerblue"</span>,</span>
+<span id="cb177-6"><a href="#cb177-6" aria-hidden="true" tabindex="-1"></a>  marker<span class="op">=</span><span class="st">"o"</span>, linestyle<span class="op">=</span><span class="st">"None"</span>, markeredgecolor<span class="op">=</span><span class="st">"black"</span>,</span>
+<span id="cb177-7"><a href="#cb177-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb177-8"><a href="#cb177-8" aria-hidden="true" tabindex="-1"></a>plt.xlim(X_min, X_max)</span>
+<span id="cb177-9"><a href="#cb177-9" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb177-10"><a href="#cb177-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
+<span id="cb178-2"><a href="#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="fu">show_model_A</span>(w) <span class="sc">+</span></span>
+<span id="cb178-3"><a href="#cb178-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">tibble</span>(<span class="at">x_plt =</span> X, <span class="at">y_plt =</span> t),</span>
+<span id="cb178-4"><a href="#cb178-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x_plt, <span class="at">y =</span> y_plt),</span>
+<span id="cb178-5"><a href="#cb178-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">'cornflowerblue'</span>) <span class="sc">+</span></span>
+<span id="cb178-6"><a href="#cb178-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">30</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">140</span>, <span class="dv">180</span>) <span class="sc">+</span></span>
+<span id="cb178-7"><a href="#cb178-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="dv">30</span> <span class="sc">/</span> <span class="dv">40</span>) <span class="sc">+</span></span>
+<span id="cb178-8"><a href="#cb178-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="chapter5_files/figure-html/unnamed-chunk-142-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="リスト-5-4-4" class="level4">
+<h4 class="anchored" data-anchor-id="リスト-5-4-4">リスト 5-4-(4)</h4>
+<p><strong>交差検証 モデル A ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb179"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
+<span id="cb179-2"><a href="#cb179-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kfold_model_A(x, t, k):</span>
+<span id="cb179-3"><a href="#cb179-3" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb179-4"><a href="#cb179-4" aria-hidden="true" tabindex="-1"></a>    mse_train <span class="op">=</span> np.zeros(k)</span>
+<span id="cb179-5"><a href="#cb179-5" aria-hidden="true" tabindex="-1"></a>    mse_test <span class="op">=</span> np.zeros(k)</span>
+<span id="cb179-6"><a href="#cb179-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, k):</span>
+<span id="cb179-7"><a href="#cb179-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 訓練データとテストデータに分割</span></span>
+<span id="cb179-8"><a href="#cb179-8" aria-hidden="true" tabindex="-1"></a>        i_test <span class="op">=</span> np.fmod(<span class="bu">range</span>(n), k)</span>
+<span id="cb179-9"><a href="#cb179-9" aria-hidden="true" tabindex="-1"></a>        x_test <span class="op">=</span> x[i_test <span class="op">==</span> i]</span>
+<span id="cb179-10"><a href="#cb179-10" aria-hidden="true" tabindex="-1"></a>        t_test <span class="op">=</span> t[i_test <span class="op">==</span> i]</span>
+<span id="cb179-11"><a href="#cb179-11" aria-hidden="true" tabindex="-1"></a>        x_train <span class="op">=</span> x[i_test <span class="op">!=</span> i]</span>
+<span id="cb179-12"><a href="#cb179-12" aria-hidden="true" tabindex="-1"></a>        t_train <span class="op">=</span> t[i_test <span class="op">!=</span> i]</span>
+<span id="cb179-13"><a href="#cb179-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 精度を上げるため</span></span>
+<span id="cb179-14"><a href="#cb179-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># リスト5-4-(3)で得た値を初期値に設定</span></span>
+<span id="cb179-15"><a href="#cb179-15" aria-hidden="true" tabindex="-1"></a>        w_init <span class="op">=</span> np.array([<span class="fl">169.04</span>, <span class="fl">113.66</span>, <span class="fl">0.22</span>])</span>
+<span id="cb179-16"><a href="#cb179-16" aria-hidden="true" tabindex="-1"></a>        w <span class="op">=</span> fit_model_A(w_init, x_train, t_train)</span>
+<span id="cb179-17"><a href="#cb179-17" aria-hidden="true" tabindex="-1"></a>        mse_train[i] <span class="op">=</span> mse_model_A(w, x_train, t_train)</span>
+<span id="cb179-18"><a href="#cb179-18" aria-hidden="true" tabindex="-1"></a>        mse_test[i] <span class="op">=</span> mse_model_A(w, x_test, t_test)</span>
+<span id="cb179-19"><a href="#cb179-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mse_train, mse_test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
+<span id="cb180-2"><a href="#cb180-2" aria-hidden="true" tabindex="-1"></a>kfold_model_A <span class="ot">&lt;-</span> <span class="cf">function</span>(x, t, k) {</span>
+<span id="cb180-3"><a href="#cb180-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">length</span>(x)</span>
+<span id="cb180-4"><a href="#cb180-4" aria-hidden="true" tabindex="-1"></a>  mse_train <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="at">times =</span> k)</span>
+<span id="cb180-5"><a href="#cb180-5" aria-hidden="true" tabindex="-1"></a>  mse_test <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="at">times =</span> k)</span>
+<span id="cb180-6"><a href="#cb180-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb180-7"><a href="#cb180-7" aria-hidden="true" tabindex="-1"></a>    i_test <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n <span class="sc">%%</span> k</span>
+<span id="cb180-8"><a href="#cb180-8" aria-hidden="true" tabindex="-1"></a>    x_test <span class="ot">&lt;-</span> x[i_test <span class="sc">==</span> i]</span>
+<span id="cb180-9"><a href="#cb180-9" aria-hidden="true" tabindex="-1"></a>    t_test <span class="ot">&lt;-</span> t[i_test <span class="sc">==</span> i]</span>
+<span id="cb180-10"><a href="#cb180-10" aria-hidden="true" tabindex="-1"></a>    x_train <span class="ot">&lt;-</span> x[i_test <span class="sc">!=</span> i]</span>
+<span id="cb180-11"><a href="#cb180-11" aria-hidden="true" tabindex="-1"></a>    t_train <span class="ot">&lt;-</span> t[i_test <span class="sc">!=</span> i]</span>
+<span id="cb180-12"><a href="#cb180-12" aria-hidden="true" tabindex="-1"></a>    w_init <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">c</span>(<span class="fl">126.25</span>, <span class="sc">-</span><span class="fl">26.25</span>, <span class="sc">-</span><span class="fl">0.02</span>), <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb180-13"><a href="#cb180-13" aria-hidden="true" tabindex="-1"></a>    w <span class="ot">&lt;-</span> <span class="fu">optim</span>(w_init,</span>
+<span id="cb180-14"><a href="#cb180-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">fn =</span> <span class="cf">function</span>(w) {</span>
+<span id="cb180-15"><a href="#cb180-15" aria-hidden="true" tabindex="-1"></a>                 y <span class="ot">&lt;-</span> <span class="fu">model_A</span>(x_train, t_train)</span>
+<span id="cb180-16"><a href="#cb180-16" aria-hidden="true" tabindex="-1"></a>                 mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((y <span class="sc">-</span> t_train) <span class="sc">^</span> <span class="dv">2</span>)</span>
+<span id="cb180-17"><a href="#cb180-17" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">return</span>(mse)</span>
+<span id="cb180-18"><a href="#cb180-18" aria-hidden="true" tabindex="-1"></a>               },</span>
+<span id="cb180-19"><a href="#cb180-19" aria-hidden="true" tabindex="-1"></a>               <span class="at">method =</span> <span class="st">'CG'</span>)</span>
+<span id="cb180-20"><a href="#cb180-20" aria-hidden="true" tabindex="-1"></a>    mse_train[i] <span class="ot">&lt;-</span> <span class="fu">mse_model_A</span>(w<span class="sc">$</span>par, <span class="at">x =</span> x_train, <span class="at">t =</span> t_train)</span>
+<span id="cb180-21"><a href="#cb180-21" aria-hidden="true" tabindex="-1"></a>    mse_test[i] <span class="ot">&lt;-</span> <span class="fu">mse_model_A</span>(w<span class="sc">$</span>par, <span class="at">x =</span> x_test, <span class="at">t =</span> t_test)</span>
+<span id="cb180-22"><a href="#cb180-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb180-23"><a href="#cb180-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">mse_train =</span> mse_train, <span class="at">mse_test =</span> mse_test))</span>
+<span id="cb180-24"><a href="#cb180-24" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>メイン ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb181"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
+<span id="cb181-2"><a href="#cb181-2" aria-hidden="true" tabindex="-1"></a><span class="co"># model A の交差検定</span></span>
+<span id="cb181-3"><a href="#cb181-3" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">16</span></span>
+<span id="cb181-4"><a href="#cb181-4" aria-hidden="true" tabindex="-1"></a>Cv_A_train, Cv_A_test <span class="op">=</span> kfold_model_A(X, T, K)</span>
+<span id="cb181-5"><a href="#cb181-5" aria-hidden="true" tabindex="-1"></a>sd_A_test <span class="op">=</span> np.sqrt(np.mean(Cv_A_test))</span>
+<span id="cb181-6"><a href="#cb181-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 線形基底関数モデルの交差検定の結果のロード</span></span>
+<span id="cb181-7"><a href="#cb181-7" aria-hidden="true" tabindex="-1"></a>sd_Gauss_test <span class="op">=</span> np.load(<span class="st">"ch5_Gauss_test.npy"</span>)</span>
+<span id="cb181-8"><a href="#cb181-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 結果のまとめ</span></span>
+<span id="cb181-9"><a href="#cb181-9" aria-hidden="true" tabindex="-1"></a>SDs <span class="op">=</span> np.append(sd_Gauss_test[<span class="dv">0</span>:<span class="dv">5</span>], sd_A_test)</span>
+<span id="cb181-10"><a href="#cb181-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 結果表示</span></span>
+<span id="cb181-11"><a href="#cb181-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gauss(M=3) SD = </span><span class="sc">{</span>sd_Gauss_test[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss"> cm"</span>)</span>
+<span id="cb181-12"><a href="#cb181-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Model A SD = </span><span class="sc">{</span>sd_A_test<span class="sc">:.2f}</span><span class="ss"> cm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R</span></span>
+<span id="cb182-2"><a href="#cb182-2" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb182-3"><a href="#cb182-3" aria-hidden="true" tabindex="-1"></a>Cv_A_res <span class="ot">&lt;-</span> <span class="fu">kfold_model_A</span>(X, t, K)</span>
+<span id="cb182-4"><a href="#cb182-4" aria-hidden="true" tabindex="-1"></a>Cv_A_train <span class="ot">&lt;-</span> Cv_A_res<span class="sc">$</span>mse_train; Cv_A_test <span class="ot">&lt;-</span> Cv_A_res<span class="sc">$</span>mse_test</span>
+<span id="cb182-5"><a href="#cb182-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-6"><a href="#cb182-6" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'data/ch5_Gauss_test.Rdata'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>グラフ描画 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb183"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
+<span id="cb183-2"><a href="#cb183-2" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="bu">range</span>(<span class="dv">6</span>)</span>
+<span id="cb183-3"><a href="#cb183-3" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> [<span class="st">"M=2"</span>, <span class="st">"M=3"</span>, <span class="st">"M=4"</span>, <span class="st">"M=5"</span>, <span class="st">"M=6"</span>, <span class="st">"Model A"</span>]</span>
+<span id="cb183-4"><a href="#cb183-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">3</span>))</span>
+<span id="cb183-5"><a href="#cb183-5" aria-hidden="true" tabindex="-1"></a>plt.bar(</span>
+<span id="cb183-6"><a href="#cb183-6" aria-hidden="true" tabindex="-1"></a>    M, SDs,facecolor<span class="op">=</span><span class="st">"cornflowerblue"</span>, align<span class="op">=</span><span class="st">"center"</span>, </span>
+<span id="cb183-7"><a href="#cb183-7" aria-hidden="true" tabindex="-1"></a>    tick_label<span class="op">=</span>label,</span>
+<span id="cb183-8"><a href="#cb183-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb183-9"><a href="#cb183-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
