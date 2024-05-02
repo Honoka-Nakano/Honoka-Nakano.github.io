@@ -626,6 +626,8 @@ plt.show()
 ```
 
 ```{r}
+#| warning: false
+
 # R
 show_line(w) +
   geom_point(data    = tibble(x_plt = X, y_plt = t),
@@ -720,6 +722,17 @@ print(np.round(T, 2))
 ```
 
 ```{r}
+#| eval: false
+
+# R
+print(round(X0, 2))
+print(round(X1, 2))
+print(round(t, 2))
+```
+
+```{r}
+#| echo: false
+
 # R
 print(round(X0, 2))
 print(round(X1, 2))
