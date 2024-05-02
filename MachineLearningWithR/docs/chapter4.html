@@ -668,7 +668,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb56-7"><a href="#cb56-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(w[<span class="dv">0</span>]), <span class="at">y =</span> <span class="fu">expression</span>(w[<span class="dv">1</span>])) <span class="sc">+</span></span>
 <span id="cb56-8"><a href="#cb56-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>グラフの描画には<code>{ggplot2}</code>を用いる．<code>{ggplot2}</code>でグラフを描画するときは，<strong>整然(tidy)なデータ</strong>が必要であるため，それを作成するところから始めなければならない(整然データについては<a href="https://www.jaysong.net/RBook/tidydata.html">宋・矢内『私たちのR』第17章</a>を参照されたい)．</p>
@@ -701,7 +701,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb58-9"><a href="#cb58-9"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(w[<span class="dv">0</span>]), <span class="at">y =</span> <span class="fu">expression</span>(w[<span class="dv">1</span>])) <span class="sc">+</span></span>
 <span id="cb58-10"><a href="#cb58-10"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>ベクトル表示には<code>ggplot2::geom_segment()</code>を用いる．引数にx軸, y軸の始まりである<code>x</code>, <code>y</code>と，終わりである<code>xend</code>, <code>yend</code>を指定する．そうすると始まりと終わりを繋ぐベクトルが表示される．<code>xend</code>, <code>yend</code>には，<span class="math inline">\((\mathrm{w}_0, \mathrm{w}_1)\)</span>からそれぞれの軸に対して偏微分した値を足した数値を指定している．</p>
@@ -1052,7 +1052,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb110-14"><a href="#cb110-14"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb110-15"><a href="#cb110-15"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-75-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-76-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1104,7 +1104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb114-14"><a href="#cb114-14"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb114-15"><a href="#cb114-15"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-79-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-80-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1150,7 +1150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb118-11"><a href="#cb118-11"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb118-12"><a href="#cb118-12"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-83-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-84-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1196,7 +1196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb122-11"><a href="#cb122-11"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb122-12"><a href="#cb122-12"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-87-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-88-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1240,7 +1240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb126-11"><a href="#cb126-11"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb126-12"><a href="#cb126-12"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-91-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-92-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1277,7 +1277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb130-7"><a href="#cb130-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb130-8"><a href="#cb130-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-95-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-96-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1374,14 +1374,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb143-4"><a href="#cb143-4"></a>        <span class="fu">matrix</span>(<span class="at">nrow =</span> x0_n, <span class="at">ncol =</span> x1_n, <span class="at">byrow =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb143-5"><a href="#cb143-5"></a>      <span class="at">zlab =</span> <span class="st">''</span>, <span class="at">theta =</span> <span class="sc">-</span><span class="dv">40</span>, <span class="at">phi =</span> <span class="dv">30</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-104-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-105-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb144"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1"></a><span class="fu">persp</span>(<span class="at">x =</span> x0, <span class="at">y =</span> x1,</span>
 <span id="cb144-2"><a href="#cb144-2"></a>      <span class="at">z =</span> y[,<span class="dv">2</span>] <span class="sc">|&gt;</span></span>
 <span id="cb144-3"><a href="#cb144-3"></a>        <span class="fu">matrix</span>(<span class="at">nrow =</span> x0_n, <span class="at">ncol =</span> x1_n, <span class="at">byrow =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb144-4"><a href="#cb144-4"></a>      <span class="at">zlab =</span> <span class="st">''</span>, <span class="at">theta =</span> <span class="sc">-</span><span class="dv">40</span>, <span class="at">phi =</span> <span class="dv">30</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-104-2.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-105-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>3Dプロットには<code>graphics::persp()</code>関数を用いた．<code>x</code>, <code>y</code>引数には<code>x0</code>, <code>x1</code>を，<code>z</code>引数には2つの値に対応した行列を指定しなければ描画されない点に注意．</p>
@@ -1431,7 +1431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb148-12"><a href="#cb148-12"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb148-13"><a href="#cb148-13"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-108-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-109-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1585,7 +1585,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb163-16"><a href="#cb163-16"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(x[<span class="dv">0</span>]), <span class="at">y =</span> <span class="fu">expression</span>(x[<span class="dv">1</span>])) <span class="sc">+</span></span>
 <span id="cb163-17"><a href="#cb163-17"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-122-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-123-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ol start="2" type="1">
@@ -1609,7 +1609,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb165-2"><a href="#cb165-2"></a><span class="fu">persp</span>(<span class="at">x =</span> x0, <span class="at">y =</span> x1, <span class="at">z =</span> f, <span class="at">zlab =</span> <span class="st">''</span>,</span>
 <span id="cb165-3"><a href="#cb165-3"></a>      <span class="at">theta =</span> <span class="sc">-</span><span class="dv">25</span>, <span class="at">phi =</span> <span class="dv">35</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="chapter4_files/figure-html/unnamed-chunk-124-1.png" class="img-fluid" width="672"></p>
+<p><img src="chapter4_files/figure-html/unnamed-chunk-125-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 

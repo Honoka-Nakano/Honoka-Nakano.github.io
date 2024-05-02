@@ -8,12 +8,32 @@ number-sections: false
 lang: ja
 ---
 
+```{r}
+#| include: false
+
+source('_common.R')
+
+# theme_set(theme_minimal(base_family = 'HiraginoSans-W3'))
+# ggplotのグラフ文字が出力されない問題．
+```
+
+:::{.callout-caution}
+## `{ggplot2}`のフォントについて
+
+`theme_set()`で指定しても文字が正しく出力されないため，無理やり対処する．
+
+```{r}
+myf <- 'HiraginoSans-W3'
+```
+
+:::
+
 ## 準備
 
 まず，パッケージを読み込む．
 
 ```{r}
-#| message: false
+#| eval: false
 
 library(tidyverse)
 ```

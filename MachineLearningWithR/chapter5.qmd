@@ -6,12 +6,30 @@ toc-depth: 4
 number-sections: false
 ---
 
+```{r}
+#| include: false
+
+source('_common.R')
+theme_set(theme_minimal(base_family = 'HiraginoSans-W3'))
+```
+
+:::{.callout-caution}
+## `{ggplot2}`のフォントについて
+
+`theme_set()`で指定しても文字が正しく出力されないため，無理やり対処する．
+
+```{r}
+myf <- 'HiraginoSans-W3'
+```
+
+:::
+
 ## 準備
 
 まず，パッケージを読み込む．
 
 ```{r}
-#| message: false
+#| eval: false
 
 library(tidyverse)
 ```
@@ -88,7 +106,11 @@ save(                                                  # (B) データの保存
 :::{.callout-warning}
 ## 「予約語」と「インデックスの違い」
 
+**予約語**
+
 Rにおいて，`T`は`TRUE`の予約語であるため，目標データを格納するオブジェクトは`t`としている．
+
+**インデックスの違い**
 
 Pythonでは，インデックスは0から始まる．例えば，$x = [1, 2]$というベクトルがあり，このベクトルから1つ目の要素を取り出したい場合は`x[0]`としなければならない．Rでは`x[1]`であるため，注意されたい．
 
@@ -167,8 +189,8 @@ ggplot() +
              color = 'cornflowerblue') +
   xlim(5, 30) + ylim(140, 180) +
   coord_fixed(ratio = 25 / 40) +
-  labs(x = element_blank(), y = element_blank()) +
-  theme_minimal()
+  labs(x = '年齢x', y = '身長t') +
+  theme_minimal(base_family = myf)
 ```
 
 #### リスト 5-1-(6)
@@ -254,7 +276,7 @@ ax.view_init(20, -60)           # グラフの向きの指定
 ```{r}
 # R
 persp(w0, w1, J, theta = 40, phi = 20, lwd = 0.3,
-      xlab = '', ylab = '', zlab = '')
+      xlab = expression(w[0]), ylab = expression(w[1]), zlab = '')
 ```
 
 2. 等高線表示
@@ -290,7 +312,7 @@ df |>
                color = 'black') +
   xlim(-25, 25) + ylim(120, 170) +
   coord_fixed(ratio = 50 / 50) +
-  labs(x = element_blank(), y = element_blank()) +
+  labs(x = expression(w[0]), y = expression(w[1])) +
   theme_minimal()
 ```
 
@@ -474,7 +496,7 @@ ggplot() +
              color = 'cornflowerblue') +
   xlim(-25, 25) + ylim(120, 170) +
   coord_fixed(ratio = 50 / 50) +
-  labs(x = element_blank(), y = element_blank()) +
+  labs(x = expression(w[0]), y = expression(w[1])) +
   theme_minimal()
 ```
 
@@ -534,7 +556,8 @@ show_line(w) +
              color   = 'cornflowerblue') +
   xlim(5, 30) + ylim(140, 180) +
   coord_fixed(ratio = 25 / 40) +
-  labs(x = element_blank(), y = element_blank())
+  labs(x = '年齢x', y = '身長t') +
+  theme_minimal(base_family = myf)
 ```
 
 #### リスト 5-1-(11)
@@ -635,7 +658,8 @@ show_line(w) +
              color   = 'cornflowerblue') +
   xlim(5, 30) + ylim(140, 180) +
   coord_fixed(ratio = 25 / 40) +
-  labs(x = element_blank(), y = element_blank())
+  labs(x = '年齢x', y = '身長t') +
+  theme_minimal(base_family = myf)
 ```
 
 ### 第2節
@@ -951,6 +975,18 @@ print(f"SD = {np.sqrt(mse):.2f} cm")
 ```
 
 ```{r}
+#| eval: false
+
+# R
+w <- fit_plane(X0, X1, t)
+mse <- mse_plane(X0, X1, t, w)
+cat('w0 =', round(w[1], 2), 'w1 =', round(w[2], 2), 'w2 =', round(w[3], 2))
+cat('SD =', sqrt(mse) |> round(2), 'cm')
+```
+
+```{r}
+#| echo: false
+
 # R
 w <- fit_plane(X0, X1, t)
 mse <- mse_plane(X0, X1, t, w)
@@ -1225,9 +1261,9 @@ fit_gauss_func <- function(x, t, m) {
 
 # Python
 def show_gauss_func(w):
-  x = np.linspace(X_min, X_max, 100)
-  y = gauss_func(w, x)
-  plt.plot(x, y, "gray", linewidth=4)
+    x = np.linspace(X_min, X_max, 100)
+    y = gauss_func(w, x)
+    plt.plot(x, y, "gray", linewidth=4)
 ```
 
 ```{r}
@@ -1259,6 +1295,20 @@ print(f"SD = {np.sqrt(mse):.2f} cm")
 ```
 
 ```{r}
+#| eval: false
+
+# R
+M <- 4                         # ガウス関数の数
+w <- fit_gauss_func(X, t, M)   # wを計算
+mse <- mse_gauss_func(X, t, w) # MSEを計算
+# 結果表示
+cat('w =', round(w, 2))
+cat('SD =', sqrt(mse) |> round(2), 'cm')
+```
+
+```{r}
+#| echo: false
+
 # R
 M <- 4                         # ガウス関数の数
 w <- fit_gauss_func(X, t, M)   # wを計算
@@ -1276,8 +1326,8 @@ cat('SD =', sqrt(mse) |> round(2), 'cm')
 plt.figure(figsize=(4, 4))
 show_gauss_func(w)
 plt.plot(
-  X, T, "cornflowerblue", 
-  marker="o", linestyle="None", markeredgecolor="black",
+    X, T, "cornflowerblue", 
+    marker="o", linestyle="None", markeredgecolor="black",
 )
 plt.xlim(X_min, X_max)
 plt.grid()
@@ -1305,19 +1355,19 @@ M = [2, 4, 7, 9]                    # 調べるMの値
 plt.figure(figsize=(10, 2.5))
 plt.subplots_adjust(wspace=0.3)
 for i in range(len(M)):
-  plt.subplot(1, len(M), i + 1)
-  w = fit_gauss_func(X, T, M[i])  # wを計算
-  mse = mse_gauss_func(X, T, w)   # MSEを計算
-  # グラフ描画
-  show_gauss_func(w)  # 線形基底関数
-  plt.plot(           # データ点
-    X, T, "cornflowerblue",
-    marker="o", linestyle="None", markeredgecolor="black",
-  )
-  plt.title(f"M={M[i]:d}, SD={np.sqrt(mse):.2f}")
-  plt.xlim(X_min, X_max)
-  plt.ylim(120, 180)
-  plt.grid()
+    plt.subplot(1, len(M), i + 1)
+    w = fit_gauss_func(X, T, M[i])  # wを計算
+    mse = mse_gauss_func(X, T, w)   # MSEを計算
+    # グラフ描画
+    show_gauss_func(w)  # 線形基底関数
+    plt.plot(           # データ点
+        X, T, "cornflowerblue",
+        marker="o", linestyle="None", markeredgecolor="black",
+    )
+    plt.title(f"M={M[i]:d}, SD={np.sqrt(mse):.2f}")
+    plt.xlim(X_min, X_max)
+    plt.ylim(120, 180)
+    plt.grid()
 plt.show()
 ```
 
@@ -1327,10 +1377,10 @@ plt.show()
 #| warning: false
 
 # R
-M <- c(2, 4, 7, 9)
+M <- c(2, 4, 7, 9)                # 調べるMの値
 for (i in 1:length(M)) {
-  w <- fit_gauss_func(X, t, M[i])
-  mse <- mse_gauss_func(X, t, w)
+  w <- fit_gauss_func(X, t, M[i]) # wを計算
+  mse <- mse_gauss_func(X, t, w)  # MSEを計算
   p <- show_gauss_func(w) +
     geom_point(data    = tibble(x_plt = X, y_plt = t),
                mapping = aes(x = x_plt, y = y_plt),
@@ -1352,11 +1402,11 @@ for (i in 1:length(M)) {
 #| eval: false
 
 # Python
-## M = range(2, 10)
-## sd = np.zeros(len(M))
-## for i in range(len(M)):
-##   w = fit_gauss_func(X, T, M[i])            # wを計算
-##   sd[i] = np.sqrt(mse_gauss_func(X, T, w))  # SDを計算
+M = range(2, 10)
+sd = np.zeros(len(M))
+for i in range(len(M)):
+    w = fit_gauss_func(X, T, M[i])            # wを計算
+    sd[i] = np.sqrt(mse_gauss_func(X, T, w))  # SDを計算
 ```
 
 ```{r}
@@ -1364,8 +1414,8 @@ for (i in 1:length(M)) {
 M <- 2:9
 sd <- rep(0, length(M))
 for (i in 1:length(M)) {
-  w <- fit_gauss_func(X, t, M[i])
-  sd[i] <- sqrt(mse_gauss_func(X, t, w))
+  w <- fit_gauss_func(X, t, M[i])        # wを計算
+  sd[i] <- sqrt(mse_gauss_func(X, t, w)) # SDを計算
 }
 ```
 
@@ -1375,10 +1425,10 @@ for (i in 1:length(M)) {
 #| eval: false
 
 # Python
-## plt.figure(figsize=(5, 4))
-## plt.plot(M, sd, "cornflowerblue", marker="o", markeredgecolor="black")
-## plt.grid()
-## plt.show()
+plt.figure(figsize=(5, 4))
+plt.plot(M, sd, "cornflowerblue", marker="o", markeredgecolor="black")
+plt.grid()
+plt.show()
 ```
 
 ```{r}
@@ -1435,26 +1485,26 @@ M = [2, 4, 7, 9]  # 調べるMの値
 plt.figure(figsize=(10, 2.5))
 plt.subplots_adjust(wspace=0.3)
 for i in range(len(M)):
-  w = fit_gauss_func(X_train, T_train, M[i])       # wを計算
-  sd = np.sqrt(mse_gauss_func(X_test, T_test, w))  # SDを計算
-  # グラフ描画
-  plt.subplot(1, len(M), i + 1)
-  show_gauss_func(w)  # 線形基底関数
-  plt.plot(           # 訓練データ
-    X_train, T_train, "white",
-    marker="o", linestyle="None", markeredgecolor="black", 
-    label="training",
-  )
-  plt.plot(           # テストデータ
-    X_test, T_test, "cornflowerblue",
-    marker="o", linestyle="None", markeredgecolor="black",
-    label="test",
-  )
-  plt.title(f"M={M[i]:d}, SD={sd:.2f}")
-  plt.legend(loc="lower right", fontsize=10, numpoints=1)
-  plt.xlim(X_min, X_max)
-  plt.ylim(120, 180)
-  plt.grid()
+    w = fit_gauss_func(X_train, T_train, M[i])       # wを計算
+    sd = np.sqrt(mse_gauss_func(X_test, T_test, w))  # SDを計算
+    # グラフ描画
+    plt.subplot(1, len(M), i + 1)
+    show_gauss_func(w)  # 線形基底関数
+    plt.plot(           # 訓練データ
+        X_train, T_train, "white",
+        marker="o", linestyle="None", markeredgecolor="black", 
+        label="training",
+    )
+    plt.plot(           # テストデータ
+        X_test, T_test, "cornflowerblue",
+        marker="o", linestyle="None", markeredgecolor="black",
+        label="test",
+    )
+    plt.title(f"M={M[i]:d}, SD={sd:.2f}")
+    plt.legend(loc="lower right", fontsize=10, numpoints=1)
+    plt.xlim(X_min, X_max)
+    plt.ylim(120, 180)
+    plt.grid()
 plt.show()
 ```
 
@@ -1498,12 +1548,12 @@ M = range(2, 10)  # 調べるMの値、2から9
 sd_train = np.zeros(len(M))
 sd_test = np.zeros(len(M))
 for i in range(len(M)):
-  # wを計算
-  w = fit_gauss_func(X_train, T_train, M[i])
-  # 訓練データのSDを計算
-  sd_train[i] = np.sqrt(mse_gauss_func(X_train, T_train, w))
-  # テストデータのSDを計算
-  sd_test[i] = np.sqrt(mse_gauss_func(X_test, T_test, w))
+    # wを計算
+    w = fit_gauss_func(X_train, T_train, M[i])
+    # 訓練データのSDを計算
+    sd_train[i] = np.sqrt(mse_gauss_func(X_train, T_train, w))
+    # テストデータのSDを計算
+    sd_test[i] = np.sqrt(mse_gauss_func(X_test, T_test, w))
 ```
 
 ```{r}
@@ -1526,16 +1576,16 @@ for (i in 1:length(M)) {
 # Python
 plt.figure(figsize=(5, 4))
 plt.plot(  # 訓練データのSD
-  M, sd_train, "black",
-  marker="o", linestyle="-", 
-  markerfacecolor="white", markeredgecolor="black",
-  label="training",
+    M, sd_train, "black",
+    marker="o", linestyle="-", 
+    markerfacecolor="white", markeredgecolor="black",
+    label="training",
 )
 plt.plot(  # テストデータのSD
-  M, sd_test, "cornflowerblue",
-  marker="o", linestyle="-",
-  markeredgecolor="black",
-  label="test",
+    M, sd_test, "cornflowerblue",
+    marker="o", linestyle="-",
+    markeredgecolor="black",
+    label="test",
 )
 plt.legend(loc="upper left", fontsize=10)
 plt.ylim(0, 12)
@@ -1569,24 +1619,24 @@ tibble(x_plt = c(M, M),
 
 # Python
 def kfold_gauss_func(x, t, m, k):
-  n = x.shape[0]
-  mse_train = np.zeros(k)
-  mse_test = np.zeros(k)
-  for i in range(0, k):
-    # 訓練データとテストデータに分割
-    # (A) テストデータのインデックス
-    i_test = np.fmod(range(n), k)
-    x_test = x[i_test == i]   # テストデータ x 
-    t_test = t[i_test == i]   # テストデータ t
-    x_train = x[i_test != i]  # 訓練データ x
-    t_train = t[i_test != i]  # 訓練データ t
-    # wを訓練データで決める
-    w = fit_gauss_func(x_train, t_train, m)
-    # 訓練データのMSEを計算
-    mse_train[i] = mse_gauss_func(x_train, t_train, w)
-    # テストデータのMSEを計算
-    mse_test[i] = mse_gauss_func(x_test, t_test, w)
-  return mse_train, mse_test
+    n = x.shape[0]
+    mse_train = np.zeros(k)
+    mse_test = np.zeros(k)
+    for i in range(0, k):
+        # 訓練データとテストデータに分割
+        # (A) テストデータのインデックス
+        i_test = np.fmod(range(n), k)
+        x_test = x[i_test == i]   # テストデータ x
+        t_test = t[i_test == i]   # テストデータ t
+        x_train = x[i_test != i]  # 訓練データ x
+        t_train = t[i_test != i]  # 訓練データ t
+        # wを訓練データで決める
+        w = fit_gauss_func(x_train, t_train, m)
+        # 訓練データのMSEを計算
+        mse_train[i] = mse_gauss_func(x_train, t_train, w)
+        # テストデータのMSEを計算
+        mse_test[i] = mse_gauss_func(x_test, t_test, w)
+    return mse_train, mse_test
 ```
 
 ```{r}
@@ -1610,6 +1660,8 @@ kfold_gauss_func <- function(x, t, m, k) {
 }
 ```
 
+Rのインデックスの都合上，`i - 1`としている．
+
 
 #### リスト 5-3-(13)
 
@@ -1617,13 +1669,15 @@ kfold_gauss_func <- function(x, t, m, k) {
 #| eval: false
 
 # Python
-## np.fmod(range(10), 5)
+np.fmod(range(10), 5)
 ```
 
 ```{r}
 # R
 (0:9 %% 5)
 ```
+
+Rでmodの計算をするには，`%%`を用いるとよい．
 
 #### リスト 5-3-(14)
 
@@ -1692,17 +1746,17 @@ save(list = 'sd_Gauss_test', file = 'data/ch5_Gauss_test.Rdata')
 plt.figure(figsize=(5, 4))
 # 訓練データに対するMSEのグラフ
 plt.plot(
-  M, sd_Gauss_train, "black",
-  marker="o", linestyle="-", 
-  markerfacecolor="white", markeredgecolor="black",
-  label="training",
+    M, sd_Gauss_train, "black",
+    marker="o", linestyle="-", 
+    markerfacecolor="white", markeredgecolor="black",
+    label="training",
 )
 # テストデータに対するMSEのグラフ
 plt.plot(
-  M, sd_Gauss_test, "cornflowerblue",
-  marker="o", linestyle="-",
-  markeredgecolor="black",
-  label="test",
+    M, sd_Gauss_test, "cornflowerblue",
+    marker="o", linestyle="-",
+    markeredgecolor="black",
+    label="test",
 )
 plt.legend(loc="upper left", fontsize=10)
 plt.ylim(0, 20)
@@ -1754,6 +1808,8 @@ sd <- sqrt(mse_gauss_func(X, t, w))
 cat('SD =', round(sd, 2))
 ```
 
+リスト 5-3-(15)より，今回の最適な`M`は2であることがわかるので`M = 2`としている．
+
 **グラフ描画 ---------**
 
 ```{python}
@@ -1763,8 +1819,8 @@ cat('SD =', round(sd, 2))
 plt.figure(figsize=(4, 4))
 show_gauss_func(w)
 plt.plot(
-  X, T, "cornflowerblue",
-  marker="o", linestyle="None", markeredgecolor="black",
+    X, T, "cornflowerblue",
+    marker="o", linestyle="None", markeredgecolor="black",
 )
 plt.xlim(X_min, X_max)
 plt.grid()
@@ -1842,8 +1898,8 @@ X_min <- 0
 
 # Python
 def model_A(x, w):
-  y = w[0] - w[1] * np.exp(-w[2] * x)  # 式5-71
-  return y
+    y = w[0] - w[1] * np.exp(-w[2] * x)  # 式5-71
+    return y
 ```
 
 ```{r}
@@ -1861,9 +1917,9 @@ model_A <- function(x, w) {
 
 # Python
 def show_model_A(w):
-  x = np.linspace(X_min, X_max, 100)
-  y = model_A(x, w)
-  plt.plot(x, y, "gray", linewidth=4)
+    x = np.linspace(X_min, X_max, 100)
+    y = model_A(x, w)
+    plt.plot(x, y, "gray", linewidth=4)
 ```
 
 ```{r}
@@ -1900,8 +1956,6 @@ mse_model_A <- function(w, x, t) {
 }
 ```
 
-関数の関係上，引数は`w`のみ．
-
 #### リスト 5-4-(2)
 
 ```{python}
@@ -1917,6 +1971,8 @@ from scipy.optimize import minimize
 # R
 NULL
 ```
+
+Rの最適化関数には`optimize()`と`optim()`がある．最適化したいパラメタが1つの場合は前者を，2つ以上の場合は後者を用いる．今回は，`w[1]`, `w[2]`, `w[3]`の3つのパラメタを求めたいため，`optim()`関数を用いる．
 
 **モデル A のパラメータ最適化**
 
@@ -1942,6 +1998,10 @@ fit_model_A <- function(w_init) {
 }
 ```
 
+`optim()`関数は，第一引数に求めたいパラメタの初期値を指定し，`fn`引数に関数を指定する．`fn`引数に指定する関数は引数を1つにしなければならない．引数を3つ持っている`mse_model_A()`関数は指定できないため，`optim()`関数内で改めて関数を定義している．
+
+また，パウェルアルゴリズムは実装されていないため，共役勾配法を用いて最適化を行なっている．
+
 #### リスト 5-4-(3)
 
 **メイン ---------**
@@ -1959,6 +2019,19 @@ print(f"SD = {sd:.2f} cm")
 ```
 
 ```{r}
+#| eval: false
+
+# R
+w_init <- array(c(100, 0, 0), dim = c(1, 3))
+w <- fit_model_A(w_init)
+sd <- sqrt(mse_model_A(w, x = X, t = t))
+cat('w0 =', round(w[1], 2), 'w1 =', round(w[2], 2), 'w2 =', round(w[3], 2))
+cat('SD =', round(sd, 2), 'cm')
+```
+
+```{r}
+#| echo: false
+
 # R
 w_init <- array(c(100, 0, 0), dim = c(1, 3))
 w <- fit_model_A(w_init)
@@ -1994,6 +2067,8 @@ show_model_A(w) +
   coord_fixed(ratio = 30 / 40) +
   labs(x = element_blank(), y = element_blank())
 ```
+
+教科書とは曲線の形がやや異なるが，データにはフィットしていそうである．
 
 #### リスト 5-4-(4)
 
@@ -2070,16 +2145,34 @@ print(f"Model A SD = {sd_A_test:.2f} cm")
 ```
 
 ```{r}
+#| eval: false
+
 # R
 K <- 16
 Cv_A_res <- kfold_model_A(X, t, K)
 Cv_A_train <- Cv_A_res$mse_train; Cv_A_test <- Cv_A_res$mse_test
 sd_A_test <- sqrt(mean(Cv_A_test))
 load('data/ch5_Gauss_test.Rdata')
-SDs <- append(sd_Gauss_test, sd_A_test)
+SDs <- append(sd_Gauss_test[1:5], sd_A_test)
 cat('Gauss (M = 3) SD =', sd_Gauss_test[2] |> round(2), 'cm')
 cat('Model A SD =', sd_A_test |> round(2), 'cm')
 ```
+
+```{r}
+#| echo: false
+
+# R
+K <- 16
+Cv_A_res <- kfold_model_A(X, t, K)
+Cv_A_train <- Cv_A_res$mse_train; Cv_A_test <- Cv_A_res$mse_test
+sd_A_test <- sqrt(mean(Cv_A_test))
+load('data/ch5_Gauss_test.Rdata')
+SDs <- append(sd_Gauss_test[1:5], sd_A_test)
+cat('Gauss (M = 2) SD =', sd_Gauss_test[2] |> round(2), 'cm')
+cat('Model A SD =', sd_A_test |> round(2), 'cm')
+```
+
+`M = 2`を用いたため．
 
 **グラフ描画 ---------**
 
@@ -2099,9 +2192,13 @@ plt.show()
 
 ```{r}
 # R
-# M <- 1:6
-# label <- c('M = 2', 'M = 3', 'M = 4', 'M = 5', 'M = 6', 'Model A')
-# tibble(x_plt = label, y_plt = SDs) |>
-#   ggplot(aes(x = x_plt, y = y_plt)) +
-#   geom_bar()
+M <- 1:6
+label <- c('M = 2', 'M = 3', 'M = 4', 'M = 5', 'M = 6', 'Model A')
+tibble(x_plt = label, y_plt = SDs) |>
+  ggplot(aes(x = x_plt, y = y_plt)) +
+  geom_bar(stat = 'identity',
+           fill = 'cornflowerblue') +
+  coord_fixed(ratio = 6 / 7) +
+  labs(x = element_blank(), y = 'SD') +
+  theme_minimal()
 ```
