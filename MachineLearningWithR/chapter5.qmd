@@ -46,6 +46,8 @@ import matplotlib.pyplot as plt
 NULL
 ```
 
+`Numpy`, `Matplotlib`に対応するパッケージとして，`{tidyverse}`を用いる．グラフ描画には`{ggplot2}`を用いるが，これは`{tidyverse}`を読み込めば，連動して読み込まれる．
+
 **データ生成 ---------**
 
 ```{python}
@@ -60,33 +62,35 @@ prm = [170, 108, 0.2]           # データ生成のパラメータ
 T = prm[0] - prm[1] * np.exp(-prm[2] * X) \
     + 4 * np.random.randn(N)    # (A) 目標データの生成
 np.savez(                       # (B) データの保存
-  "ch5_data.npz",
-  X=X, T=T, X_min=X_min, X_max=X_max, N=N,
+    "ch5_data.npz",
+    X=X, T=T, X_min=X_min, X_max=X_max, N=N,
 )
 ```
 
 ```{r}
 # R
-set.seed(1)
-X_min <- 4; X_max <- 30
-N <- 16
-X <- 5 + 25 * runif(N)
-prm <- c(170, 108, 0.2)
-t <- prm[1] - prm[2] * exp(-prm[3] * X) + 4 * rnorm(N)
-save(
+set.seed(1)                                            # 乱数を固定する
+X_min <- 4; X_max <- 30                                # X の下限と上限
+N <- 16                                                # データの個数
+X <- 5 + 25 * runif(N)                                 # X の生成
+prm <- c(170, 108, 0.2)                                # データ生成のパラメタ
+t <- prm[1] - prm[2] * exp(-prm[3] * X) + 4 * rnorm(N) # (A) 目標データの生成
+save(                                                  # (B) データの保存
   list = c('X', 't', 'X_min', 'X_max', 'N'),
   file = 'data/ch5_data.Rdata'
 )
 ```
 
-`np.random.seed()`では乱数の種を指定している．Rにおける`set.seed()`である．`np.random.rand()`は$[0, 1]$の一様分布から乱数を発生させる関数ある．Rでは`runif()`を用いると同じ操作が可能である．
+`np.random.seed()`では乱数の種を指定している．Rにおける`set.seed()`と同じである．
 
-Rにおいて，`T`は`TRUE`の予約語であるため，テストデータを格納するオブジェクトは`t`としている．
+`np.random.rand()`は$[0, 1]$の一様分布から乱数を発生させる関数である．Rでは`runif()`を用いると同じ操作が可能だ．
 
 :::{.callout-warning}
-## インデックスの違い
+## 「予約語」と「インデックスの違い」
 
-Pythonでは，インデックスは0から始まる．例えば，$x = [1, 2, 3]$というベクトルがあり，このベクトルから1つ目の要素を取り出したい場合は`x[0]`としなければならない．Rでは`x[1]`であるため，注意されたい．
+Rにおいて，`T`は`TRUE`の予約語であるため，目標データを格納するオブジェクトは`t`としている．
+
+Pythonでは，インデックスは0から始まる．例えば，$x = [1, 2]$というベクトルがあり，このベクトルから1つ目の要素を取り出したい場合は`x[0]`としなければならない．Rでは`x[1]`であるため，注意されたい．
 
 :::
 
@@ -103,6 +107,7 @@ print(X)
 # R
 print(X)
 ```
+
 
 #### リスト 5-1-(3)
 
@@ -142,12 +147,12 @@ print(round(t, 2))
 # Python
 plt.figure(figsize=(4, 4))
 plt.plot(
-  X,                        # 入力データ
-  T,                        # 目標データ
-  "cornflowerblue",         # マーカーを水色にする
-  marker="o",               # マーカーの形をoにする
-  linestyle="None",         # マーカーを線で結ばない
-  markeredgecolor="black",  # マーカーの輪郭を黒にする
+    X,                        # 入力データ
+    T,                        # 目標データ
+    "cornflowerblue",         # マーカーを水色にする
+    marker="o",               # マーカーの形をoにする
+    linestyle="None",         # マーカーを線で結ばない
+    markeredgecolor="black",  # マーカーの輪郭を黒にする
 )
 plt.xlim(X_min, X_max)        # x軸の範囲を指定
 plt.grid()                    # グリッドを表示する
@@ -175,9 +180,9 @@ ggplot() +
 
 # Python
 def mse_line(x, t, w):
-  y = w[0] * x + w[1]          # 式5-4、yを求める
-  mse = np.mean((y - t) ** 2)  # 式5-3、平均二乗誤差
-  return mse
+    y = w[0] * x + w[1]          # 式5-4、yを求める
+    mse = np.mean((y - t) ** 2)  # 式5-3、平均二乗誤差
+    return mse
 ```
 
 ```{r}
@@ -203,9 +208,9 @@ w1 = np.linspace(w1_min, w1_max, w1_n)  # w1を準備
 J = np.zeros((w1_n, w0_n))              # MSEを入れる配列Jを準備
 # グリッド状の点(w0, w1)に対してJを計算
 for i0 in range(w0_n):
-  for i1 in range(w1_n):
-    w = np.array([w0[i0], w1[i1]])
-    J[i1, i0] = mse_line(X, T, w)
+    for i1 in range(w1_n):
+      w = np.array([w0[i0], w1[i1]])
+      J[i1, i0] = mse_line(X, T, w)
 ww0, ww1 = np.meshgrid(w0, w1)          # グリッド座標の作成
 ```
 
@@ -234,16 +239,16 @@ grid_w0w1 <- expand_grid(w0, w1)
 #| eval: false
 
 # Python
-## plt.figure(figsize=(9.5, 4))
-## plt.subplots_adjust(wspace=0.5)
-## ax = plt.subplot(1, 2, 1, projection="3d")
-## ax.plot_surface(
-##   ww0, ww1, J,
-##   rstride=10, cstride=10, alpha=0.3, color="blue", edgecolor="black",
-## )
-## ax.set_xticks([-20, 0, 20])     # x軸の目盛り指定
-## ax.set_yticks([120, 140, 160])  # y軸の目盛り指定
-## ax.view_init(20, -60)           # グラフの向きの指定
+plt.figure(figsize=(9.5, 4))
+plt.subplots_adjust(wspace=0.5)
+ax = plt.subplot(1, 2, 1, projection="3d")
+ax.plot_surface(
+    ww0, ww1, J,
+    rstride=10, cstride=10, alpha=0.3, color="blue", edgecolor="black",
+)
+ax.set_xticks([-20, 0, 20])     # x軸の目盛り指定
+ax.set_yticks([120, 140, 160])  # y軸の目盛り指定
+ax.view_init(20, -60)           # グラフの向きの指定
 ```
 
 ```{r}
@@ -260,8 +265,8 @@ persp(w0, w1, J, theta = 40, phi = 20, lwd = 0.3,
 # Python
 plt.subplot(1, 2, 2)
 cont = plt.contour(
-  ww0, ww1, J, colors="black",
-  levels=[100, 1000, 10000, 100000],  # 描く等高線の値を指定
+    ww0, ww1, J, colors="black",
+    levels=[100, 1000, 10000, 100000],  # 描く等高線の値を指定
 )
 cont.clabel(fmt="%d", fontsize=8)
 plt.grid()
@@ -298,18 +303,18 @@ df |>
 
 # Python
 def dmse_line(x, t, w):
-  y = w[0] * x + w[1]
-  d_w0 = 2 * np.mean((y - t) * x)  # 式5-9
-  d_w1 = 2 * np.mean(y - t)        # 式5-10
-  return d_w0, d_w1
+    y = w[0] * x + w[1]
+    d_w0 = 2 * np.mean((y - t) * x)  # 式5-9
+    d_w1 = 2 * np.mean(y - t)        # 式5-10
+    return d_w0, d_w1
 ```
 
 ```{r}
 # R
 dmse_line <- function(x, t, w) {
   y <- w[1] * x + w[2]
-  d_w0 <- 2 * mean((y - t) * x)
-  d_w1 <- 2 * mean(y - t)
+  d_w0 <- 2 * mean((y - t) * x) # 式5-9
+  d_w1 <- 2 * mean(y - t)       # 式5-10
   return(c(d_w0, d_w1))
 }
 ```
@@ -360,20 +365,23 @@ def fit_line_num(x, t, w_init):
 ```
 
 ```{r}
+# R
 fit_line_num <- function(x, t, w_init) {
-  alpha <- 0.001
-  tau_max <- 100000
-  eps <- 0.1
-  w <- array(0, dim = c(tau_max + 1, 2))
-  w[1,] <- w_init
+  # パラメタ
+  alpha <- 0.001    # 学習率
+  tau_max <- 100000 # 繰り返しの最大数
+  eps <- 0.1        # 繰り返し計算を終了するための閾値
+  # 勾配法
+  w <- array(0, dim = c(tau_max + 1, 2)) # 変化するwの履歴を入れる配列
+  w[1,] <- w_init                        # wの初期値をセット
   for (tau in 1:tau_max) {
     dmse <- dmse_line(x, t, w[tau,])
-    w[tau + 1, 1] <- w[tau, 1] - alpha * dmse[1]
-    w[tau + 1, 2] <- w[tau, 2] - alpha * dmse[2]
-    if (max(abs(dmse)) < eps) break
+    w[tau + 1, 1] <- w[tau, 1] - alpha * dmse[1] # 式5-6
+    w[tau + 1, 2] <- w[tau, 2] - alpha * dmse[2] # 式5-7
+    if (max(abs(dmse)) < eps) break              # 終了判定, tauのループから抜ける
   }
-  w_final <- w[tau + 1,]
-  w_hist <- w[1:(tau + 2),]
+  w_final <- w[tau + 1,]    # 最終的に得られたw
+  w_hist <- w[1:(tau + 2),] # wの履歴で更新した分を抜き出す
   res <- list(w_final = w_final, dmse = dmse, w_hist = w_hist)
   return(res)
 }
@@ -398,11 +406,30 @@ print(f"SD = {np.sqrt(mse):.6f} cm")
 ```
 
 ```{r}
+#| eval: false
+
 # R
-w_init <- array(c(10, 165), dim = c(1, 2))
-res <- fit_line_num(X, t, w_init)
+# 勾配法でwを計算
+w_init <- array(c(10, 165), dim = c(1, 2))                  # wの初期値
+res <- fit_line_num(X, t, w_init)                           # wを計算
 w <- res$w_final; dmse <- res$dmse; w_history <- res$w_hist
-mse <- mse_line(X, t, w)
+mse <- mse_line(X, t, w)                                    # MSEを計算
+cat('繰り返し数', nrow(w_history))
+cat('w0 =', round(w[1],6), 'w1 =', round(w[2], 6))
+cat('dMSE =', '[', dmse[1], ',', dmse[2], ']')
+cat('MSE =', round(mse, 6))
+cat('SD =', sqrt(mse) |> round(6), 'cm')
+```
+
+```{r}
+#| echo: false
+
+# R
+# 勾配法でwを計算
+w_init <- array(c(10, 165), dim = c(1, 2))                  # wの初期値
+res <- fit_line_num(X, t, w_init)                           # wを計算
+w <- res$w_final; dmse <- res$dmse; w_history <- res$w_hist
+mse <- mse_line(X, t, w)                                    # MSEを計算
 cat('繰り返し数', nrow(w_history))
 cat('w0 =', round(w[1],6), 'w1 =', round(w[2], 6))
 cat('dMSE =', '[', dmse[1], ',', dmse[2], ']')
@@ -532,12 +559,12 @@ def fit_line(x, t):
 ```{r}
 # R
 fit_line <- function(x, t) {
-  mx <- mean(x)
-  mt <- mean(t)
-  mtx <- mean(t * x)
-  mxx <- mean(x * x)
-  w0 <- (mtx - mt * mx) / (mxx - mx ^ 2)
-  w1 <- mt - w0 * mx
+  mx <- mean(x)      # <x>
+  mt <- mean(t)      # <t>
+  mtx <- mean(t * x) # <tx>
+  mxx <- mean(x * x) # <x^2>
+  w0 <- (mtx - mt * mx) / (mxx - mx ^ 2) # 式5-20
+  w1 <- mt - w0 * mx                     # 式5-21
   w <- array(c(w0, w1), dim = c(1, 2))
   return(w)
 }
@@ -558,9 +585,24 @@ print(f"SD = {np.sqrt(mse):.2f} cm")
 ```
 
 ```{r}
+#| eval: false
+
 # R
-w <- fit_line(X, t)
-mse <- mse_line(X, t, w)
+w <- fit_line(X, t)      # 解析解でwを計算
+mse <- mse_line(X, t, w) # MSEを計算
+# 結果表示
+cat('w0 =', round(w[1], 2), 'w1 =', round(w[2], 2))
+cat('MSE =', round(mse, 2))
+cat('SD =', sqrt(mse) |> round(2), 'cm')
+```
+
+```{r}
+#| echo: false
+
+# R
+w <- fit_line(X, t)      # 解析解でwを計算
+mse <- mse_line(X, t, w) # MSEを計算
+# 結果表示
 cat('w0 =', round(w[1], 2), 'w1 =', round(w[2], 2))
 cat('MSE =', round(mse, 2))
 cat('SD =', sqrt(mse) |> round(2), 'cm')
@@ -584,8 +626,6 @@ plt.show()
 ```
 
 ```{r}
-#| warning: false
-
 # R
 show_line(w) +
   geom_point(data    = tibble(x_plt = X, y_plt = t),
@@ -662,10 +702,10 @@ X1_min, X1_max = 40, 75  # X1の下限と上限（表示用）
 
 ```{r}
 # R
-set.seed(1)
-X1 <- 23 * (t / 100) ^ 2 + 2 * rnorm(N)
-X0_min <- 5; X0_max <- 30
-X1_min <- 40; X1_max <- 75
+set.seed(1)                             # 乱数を固定
+X1 <- 23 * (t / 100) ^ 2 + 2 * rnorm(N) # X1を生成
+X0_min <- 5; X0_max <- 30               # X0の下限と上限
+X1_min <- 40; X1_max <- 75              # X1の下限と上限
 ```
 
 #### リスト 5-2-(2)
@@ -723,7 +763,7 @@ def show_data2d(ax, x0, x1, t):  # axは3dグラフ描画のため
 NULL
 ```
 
-グラフ描画には`{scatterplot3d}`パッケージを用いた．
+このリストにおけるRの操作は必要ない．
 
 **メイン ---------**
 
@@ -742,6 +782,8 @@ plt.show()
 scatterplot3d::scatterplot3d(x = X0, y = X1, z = t, type = 'h')
 ```
 
+グラフ描画には`{scatterplot3d}`パッケージを用いた．
+
 #### リスト 5-2-(4)
 
 **面の表示 ---------**
@@ -751,20 +793,21 @@ scatterplot3d::scatterplot3d(x = X0, y = X1, z = t, type = 'h')
 
 # Python
 def show_plane(ax, w):
-  # 表示データの計算
-  x0_n, x1_n = 5, 5
-  x0 = np.linspace(X0_min, X0_max, x0_n)
-  x1 = np.linspace(X1_min, X1_max, x1_n)
-  xx0, xx1 = np.meshgrid(x0, x1)  # グリッド座標の作成
-  y = w[0] * xx0 + w[1] * xx1 + w[2]  # (A) 式5-28
-  # サーフェス表示
-  ax.plot_surface(
-    xx0, xx1, y,
-    rstride=1, cstride=1, alpha=0.3, color="blue", edgecolor="black",
-  )
+    # 表示データの計算
+    x0_n, x1_n = 5, 5
+    x0 = np.linspace(X0_min, X0_max, x0_n)
+    x1 = np.linspace(X1_min, X1_max, x1_n)
+    xx0, xx1 = np.meshgrid(x0, x1)  # グリッド座標の作成
+    y = w[0] * xx0 + w[1] * xx1 + w[2]  # (A) 式5-28
+    # サーフェス表示
+    ax.plot_surface(
+        xx0, xx1, y,
+        rstride=1, cstride=1, alpha=0.3, color="blue", edgecolor="black",
+    )
 ```
 
 ```{r}
+# R
 show_plane <- function(w) {
   x0_n <- 5; x1_n <- 5
   x0 <- seq(X0_min, X0_max, length.out = x0_n)
@@ -793,6 +836,7 @@ def mse_plane(x0, x1, t, w):
 ```
 
 ```{r}
+# R
 mse_plane <- function(x0, x1, t, w) {
   y <- w[1] * x0 + w[2] * x1 + w[3]
   mse <- mean((y - t) ^ 2)
@@ -846,31 +890,34 @@ show_plane(w)
 
 # Python
 def fit_plane(x0, x1, t):  
-  c_tx0 = np.mean(t * x0) - np.mean(t) * np.mean(x0)     # cov(t, x0)
-  c_tx1 = np.mean(t * x1) - np.mean(t) * np.mean(x1)     # cov(t, x1)
-  c_x0x1 = np.mean(x0 * x1) - np.mean(x0) * np.mean(x1)  # cov(x0, x1)
-  v_x0 = np.var(x0)                                      # var(x0)
-  v_x1 = np.var(x1)                                      # var(x1)
-  # 式5-34
-  w0 = (c_tx1 * c_x0x1 - v_x1 * c_tx0) / (c_x0x1 ** 2 - v_x0 * v_x1)
-  # 式5-35
-  w1 = (c_tx0 * c_x0x1 - v_x0 * c_tx1) / (c_x0x1 ** 2 - v_x0 * v_x1)
-  # 式5-36
-  w2 = -w0 * np.mean(x0) - w1 * np.mean(x1) + np.mean(t)
-  w = np.array([w0, w1, w2])
-  return w
+    c_tx0 = np.mean(t * x0) - np.mean(t) * np.mean(x0)     # cov(t, x0)
+    c_tx1 = np.mean(t * x1) - np.mean(t) * np.mean(x1)     # cov(t, x1)
+    c_x0x1 = np.mean(x0 * x1) - np.mean(x0) * np.mean(x1)  # cov(x0, x1)
+    v_x0 = np.var(x0)                                      # var(x0)
+    v_x1 = np.var(x1)                                      # var(x1)
+    # 式5-34
+    w0 = (c_tx1 * c_x0x1 - v_x1 * c_tx0) / (c_x0x1 ** 2 - v_x0 * v_x1)
+    # 式5-35
+    w1 = (c_tx0 * c_x0x1 - v_x0 * c_tx1) / (c_x0x1 ** 2 - v_x0 * v_x1)
+    # 式5-36
+    w2 = -w0 * np.mean(x0) - w1 * np.mean(x1) + np.mean(t)
+    w = np.array([w0, w1, w2])
+    return w
 ```
 
 ```{r}
 # R
 fit_plane <- function(x0, x1, t) {
-  c_tx0 <- mean(t * x0) - mean(t) * mean(x0)
-  c_tx1 <- mean(t * x1) - mean(t) * mean(x1)
-  c_x0x1 <- mean(x0 * x1) - mean(x0) * mean(x1)
-  v_x0 <- var(x0)
-  v_x1 <- var(x1)
+  c_tx0 <- mean(t * x0) - mean(t) * mean(x0)    # cov(t, x0)
+  c_tx1 <- mean(t * x1) - mean(t) * mean(x1)    # cov(t, x1)
+  c_x0x1 <- mean(x0 * x1) - mean(x0) * mean(x1) # cov(x0, x1)
+  v_x0 <- var(x0)                               # var(x0)
+  v_x1 <- var(x1)                               # var(x1)
+  # 式5-34
   w0 <- (c_tx1 * c_x0x1 - v_x1 * c_tx0) / (c_x0x1 ^ 2 - v_x0 * v_x1)
+  # 式5-35
   w1 <- (c_tx0 * c_x0x1 - v_x0 * c_tx1) / (c_x0x1 ^ 2 - v_x0 * v_x1)
+  # 式5-36
   w2 <- -w0 * mean(x0) - w1 * mean(x1) + mean(t)
   w <- array(c(w0, w1, w2), dim = c(1, 3))
   return(w)
@@ -956,12 +1003,12 @@ NULL
 #| eval: false
 
 # Python
-## data = np.load("ch5_data.npz")
-## X = data["X"]
-## X_min = 0
-## X_max = data["X_max"]
-## N = data["N"]
-## T = data["T"]
+data = np.load("ch5_data.npz")
+X = data["X"]
+X_min = 0
+X_max = data["X_max"]
+N = data["N"]
+T = data["T"]
 ```
 
 ```{r}
@@ -979,13 +1026,14 @@ X_min <- 0
 
 # Python
 def gauss(x, mu, s):
-  y = np.exp(-((x - mu) ** 2) / (2 * s ** 2))  # 式5-64
-  return y
+    y = np.exp(-((x - mu) ** 2) / (2 * s ** 2))  # 式5-64
+    return y
 ```
 
 ```{r}
+# R
 gauss <- function(x, mu, s) {
-  y <- exp(-((x - mu) ^ 2) / (2 * s ^ 2))
+  y <- exp(-((x - mu) ^ 2) / (2 * s ^ 2)) # 式5-64
   return(y)
 }
 ```
@@ -1004,21 +1052,23 @@ s = mu[1] - mu[0]                    # (A) 標準偏差パラメータ
 xb = np.linspace(X_min, X_max, 100)
 y = np.zeros((M, 100))  # M個のガウス関数の値を入れるyを準備
 for j in range(M):
-  y[j, :] = gauss(xb, mu[j], s)    # ガウス関数
+    y[j, :] = gauss(xb, mu[j], s)    # ガウス関数
 ```
 
 ```{r}
-M <- 4
-mu <- seq(5, 30, length.out = M)
-s <- mu[2] - mu[1]
+M <- 4                           # ガウス関数の数
+mu <- seq(5, 30, length.out = M) # 平均パラメタ
+s <- mu[2] - mu[1]               # (A) 標準偏差パラメタ
 xb <- seq(X_min, X_max, length.out = 100)
-y <- array(0, dim = c(100, M)) |> # 便宜上行と列を入れ替える．
+y <- array(0, dim = c(100, M)) |>
   data.frame() |>
   rename(mu1 = 'X1', mu2 = 'X2', mu3 = 'X3', mu4 = 'X4')
 for (j in 1:M) {
-  y[, j] <- gauss(xb, mu[j], s)
+  y[, j] <- gauss(xb, mu[j], s)  # ガウス関数
 }
 ```
+
+`{ggplot2}`で描画する際のデータには，**tidy**であることが望ましいため，便宜上`y`の行数と列数を入れ替えている．
 
 **グラフ描画 ---------**
 
@@ -1028,11 +1078,11 @@ for (j in 1:M) {
 # Python
 plt.figure(figsize=(4, 4))
 for j in range(M):
-  plt.plot(xb, y[j, :], "gray", linewidth=3)
-  plt.xlim(X_min, X_max)
-  plt.ylim(0, 1.2)
-  plt.grid()
-  plt.show()
+    plt.plot(xb, y[j, :], "gray", linewidth=3)
+    plt.xlim(X_min, X_max)
+    plt.ylim(0, 1.2)
+    plt.grid()
+    plt.show()
 ```
 
 ```{r}
@@ -1052,6 +1102,8 @@ y |>
   theme(legend.position = 'none')
 ```
 
+`pivot_longer()`は，wideな(tidyではない)データをlongな(tidyである)データに変換する関数である．`cols`引数で変換する列を選択し，`names_to`, `values_to`引数で変換後の列名を指定している(詳しい解説は[宋・矢内『私たちのR』第17章](https://www.jaysong.net/RBook/tidydata.html)を参照されたい)．
+
 #### リスト 5-3-(4)
 
 **線形基底関数モデル ---------**
@@ -1061,29 +1113,31 @@ y |>
 
 # Python
 def gauss_func(w, x):
-  m = len(w) - 1        # ガウス関数の数
-  mu = np.linspace(5, 30, m)
-  s = mu[1] - mu[0]
-  # xと同じサイズで要素が0のndarray型を作成
-   y = np.zeros_like(x)
-  # ここでは式5-66ではなく式5-65で実装
- for j in range(m):
-    y = y + w[j] * gauss(x, mu[j], s)
-  y = y + w[m]  # phiを掛けないパラメータを最後に加える
-  return y
+    m = len(w) - 1        # ガウス関数の数
+    mu = np.linspace(5, 30, m)
+    s = mu[1] - mu[0]
+    # xと同じサイズで要素が0のndarray型を作成
+    y = np.zeros_like(x)
+    # ここでは式5-66ではなく式5-65で実装
+    for j in range(m):
+        y = y + w[j] * gauss(x, mu[j], s)
+    y = y + w[m]  # phiを掛けないパラメータを最後に加える
+    return y
 ```
 
 ```{r}
 # R
 gauss_func <- function(w, x) {
-  m <- length(w) - 1
+  m <- length(w) - 1                      # ガウス関数の数 
   mu <- seq(5, 30, length.out = m)
   s = mu[2] - mu[1]
+  # xと同じサイズで要素が0のarray型を作成
   y <- array(0, dim = c(1, length(x)))
+  # ここでは式5-66ではなく式5-65で実装
   for (j in 1:m) {
     y <- y + w[j] * gauss(x, mu[j], s)
   }
-  y <- y + w[m + 1]
+  y <- y + w[m + 1]                       # phiをかけないパラメタを最後に加える
   return(y)
 }
 ```
@@ -1097,9 +1151,9 @@ gauss_func <- function(w, x) {
 
 # Python
 def mse_gauss_func(x, t, w):
-  y = gauss_func(w, x)
-  mse = np.mean((y - t) ** 2)
-  return mse
+    y = gauss_func(w, x)
+    mse = np.mean((y - t) ** 2)
+    return mse
 ```
 
 ```{r}
@@ -1120,16 +1174,16 @@ mse_gauss_func <- function(x, t, w) {
 
 # R
 def fit_gauss_func(x, t, m):
-  mu = np.linspace(5, 30, m)
-  s = mu[1] - mu[0]
-  n = x.shape[0]
-  # 式5-69 の計画行列phiを作成
-  phi = np.ones((n, m + 1))  # (A) 要素が1のn x (m+1)行列
-  for j in range(m):         # (B) 0～m-1列に値を割り振る
-    phi[:, j] = gauss(x, mu[j], s)
-  # 式5-68 で厳密解のwを計算
-  w = np.linalg.inv(phi.T @ phi) @ phi.T @ t
-  return w
+    mu = np.linspace(5, 30, m)
+    s = mu[1] - mu[0]
+    n = x.shape[0]
+    # 式5-69 の計画行列phiを作成
+    phi = np.ones((n, m + 1))  # (A) 要素が1のn x (m+1)行列
+    for j in range(m):         # (B) 0～m-1列に値を割り振る
+        phi[:, j] = gauss(x, mu[j], s)
+    # 式5-68 で厳密解のwを計算
+    w = np.linalg.inv(phi.T @ phi) @ phi.T @ t
+    return w
 ```
 
 ```{r}
@@ -1138,10 +1192,12 @@ fit_gauss_func <- function(x, t, m) {
   mu <- seq(5, 30, length.out = m)
   s <- mu[2] - mu[1]
   n <- length(x)
-  phi <- array(1, dim = c(n, m + 1))
-  for (j in 1:m) {
+  # 式5-69 の計画行列phiを作成
+  phi <- array(1, dim = c(n, m + 1)) # (A) 要素が1のn x (m + 1)行列
+  for (j in 1:m) {                   # (B) 0 ~ (m - 1)列に値を割り振る
     phi[, j] <- gauss(x, mu[j], s)
   }
+  # 式5-68 で厳密解のwを計算
   w <- solve(t(phi) %*% phi) %*% t(phi) %*% t
   return(w)
 }
@@ -1191,9 +1247,9 @@ print(f"SD = {np.sqrt(mse):.2f} cm")
 
 ```{r}
 # R
-M <- 4
-w <- fit_gauss_func(X, t, M)
-mse <- mse_gauss_func(X, t, w)
+M <- 4                         # ガウス関数の数
+w <- fit_gauss_func(X, t, M)   # wを計算
+mse <- mse_gauss_func(X, t, w) # MSEを計算
 cat('w =', round(w, 2))
 cat('SD =', sqrt(mse) |> round(2), 'cm')
 ```
@@ -2036,4 +2092,3 @@ plt.show()
 #   ggplot(aes(x = x_plt, y = y_plt)) +
 #   geom_bar()
 ```
-

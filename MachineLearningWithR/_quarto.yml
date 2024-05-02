@@ -24,10 +24,14 @@ book:
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme:
+      - cosmo
+      - styles.scss
     toc: true
     grid: 
       sidebar-width: 300px
+    code-line-numbers: true
+    highlight-style: a11y
+    code-annotations: hover
 
 
