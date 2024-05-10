@@ -10,7 +10,6 @@ number-sections: false
 #| include: false
 
 source('_common.R')
-theme_set(theme_minimal(base_family = 'HiraginoSans-W3'))
 ```
 
 :::{.callout-caution}
@@ -26,19 +25,12 @@ myf <- 'HiraginoSans-W3'
 
 ## 準備
 
-まず，パッケージを読み込む．
+まず，パッケージを読み込む．また，`data`というディレクトリを作成しておく．
 
 ```{r}
 #| eval: false
 
 library(tidyverse)
-```
-
-また，`data`というディレクトリを作成しておく．
-
-```{r}
-#| eval: false
-
 dir.create('data')
 ```
 
@@ -446,12 +438,10 @@ cat('SD =', sqrt(mse) |> round(6), 'cm')
 ```{r}
 #| echo: false
 
-# R
-# 勾配法でwを計算
-w_init <- array(c(10, 165), dim = c(1, 2))                  # wの初期値
-res <- fit_line_num(X, t, w_init)                           # wを計算
+w_init <- array(c(10, 165), dim = c(1, 2))
+res <- fit_line_num(X, t, w_init)
 w <- res$w_final; dmse <- res$dmse; w_history <- res$w_hist
-mse <- mse_line(X, t, w)                                    # MSEを計算
+mse <- mse_line(X, t, w)
 cat('繰り返し数', nrow(w_history))
 cat('w0 =', round(w[1],6), 'w1 =', round(w[2], 6))
 cat('dMSE =', '[', dmse[1], ',', dmse[2], ']')
@@ -622,10 +612,8 @@ cat('SD =', sqrt(mse) |> round(2), 'cm')
 ```{r}
 #| echo: false
 
-# R
-w <- fit_line(X, t)      # 解析解でwを計算
-mse <- mse_line(X, t, w) # MSEを計算
-# 結果表示
+w <- fit_line(X, t)
+mse <- mse_line(X, t, w)
 cat('w0 =', round(w[1], 2), 'w1 =', round(w[2], 2))
 cat('MSE =', round(mse, 2))
 cat('SD =', sqrt(mse) |> round(2), 'cm')
@@ -675,8 +663,15 @@ show_line(w) +
 
 ```{r}
 # R
-rm(list = ls(all.names = TRUE))
+rm(list = setdiff(ls(), 'myf'))
 ```
+
+:::{.callout-warning}
+## 注意
+
+フォントを指定している`myf`オブジェクトは消さない．
+
+:::
 
 #### リスト 5-2-(1)
 
@@ -757,7 +752,6 @@ print(round(t, 2))
 ```{r}
 #| echo: false
 
-# R
 print(round(X0, 2))
 print(round(X1, 2))
 print(round(t, 2))
@@ -987,7 +981,6 @@ cat('SD =', sqrt(mse) |> round(2), 'cm')
 ```{r}
 #| echo: false
 
-# R
 w <- fit_plane(X0, X1, t)
 mse <- mse_plane(X0, X1, t, w)
 cat('w0 =', round(w[1], 2), 'w1 =', round(w[2], 2), 'w2 =', round(w[3], 2))
@@ -1025,8 +1018,15 @@ show_plane(w)
 
 ```{r}
 # R
-rm(list = ls(all.names = TRUE))
+rm(list = setdiff(ls(), 'myf'))
 ```
+
+:::{.callout-warning}
+## 注意
+
+フォントを指定している`myf`オブジェクトは消さない．
+
+:::
 
 #### リスト 5-3-(1)
 
@@ -1105,6 +1105,7 @@ for j in range(M):
 ```
 
 ```{r}
+# R
 M <- 4                           # ガウス関数の数
 mu <- seq(5, 30, length.out = M) # 平均パラメタ
 s <- mu[2] - mu[1]               # (A) 標準偏差パラメタ
@@ -1275,7 +1276,7 @@ show_gauss_func <- function(w) {
     ggplot() +
     geom_line(aes(x = x_plt, y = y_plt),
               color = 'gray') +
-    theme_minimal()
+    theme_minimal(base_family = myf)
   return(p)
 }
 ```
@@ -1309,10 +1310,9 @@ cat('SD =', sqrt(mse) |> round(2), 'cm')
 ```{r}
 #| echo: false
 
-# R
-M <- 4                         # ガウス関数の数
-w <- fit_gauss_func(X, t, M)   # wを計算
-mse <- mse_gauss_func(X, t, w) # MSEを計算
+M <- 4
+w <- fit_gauss_func(X, t, M)
+mse <- mse_gauss_func(X, t, w)
 cat('w =', round(w, 2))
 cat('SD =', sqrt(mse) |> round(2), 'cm')
 ```
@@ -1342,7 +1342,7 @@ show_gauss_func(w) +
              color   = 'cornflowerblue') +
   xlim(0, 30) + ylim(120, 180) +
   coord_fixed(ratio = 30 / 60) +
-  labs(x = element_blank(), y = element_blank())
+  labs(x = '年齢x', y = '身長t')
 ```
 
 #### リスト 5-3-(8)
@@ -1447,7 +1447,7 @@ tibble(x_plt = M, y_plt = sd) |>
   coord_fixed(ratio = 7 / (4.5 - 3.00)) +
   scale_x_continuous(breaks = c(2:9),
                      labels = c(2:9)) +
-  labs(x = element_blank(), y = element_blank()) +
+  labs(x = 'M', y = 'SD') +
   theme_minimal()
 ```
 
@@ -1662,7 +1662,6 @@ kfold_gauss_func <- function(x, t, m, k) {
 
 Rのインデックスの都合上，`i - 1`としている．
 
-
 #### リスト 5-3-(13)
 
 ```{python}
@@ -1834,8 +1833,8 @@ show_gauss_func(w) +
              color   = 'cornflowerblue') +
   xlim(0, 30) + ylim(130, 180) +
   coord_fixed(ratio = 30 / 50) +
-  labs(x = element_blank(), y = element_blank()) +
-  theme_minimal()
+  labs(x = '年齢x', y = '身長t') +
+  theme_minimal(base_family = myf)
 ```
 
 ### 第4節
@@ -1851,8 +1850,15 @@ show_gauss_func(w) +
 
 ```{r}
 # R
-rm(list = ls(all.names = TRUE))
+rm(list = setdiff(ls(), 'myf'))
 ```
+
+:::{.callout-warning}
+## 注意
+
+フォントを指定している`myf`オブジェクトは消さない．
+
+:::
 
 #### リスト 5-4-(1)
 
@@ -1930,7 +1936,7 @@ show_model_A <- function(w) {
   p <- tibble(x_plt = x, y_plt = y) |>
     ggplot() +
     geom_line(aes(x = x_plt, y = y_plt)) +
-    theme_minimal()
+    theme_minimal(base_family = myf)
   return(p)
 }
 ```
@@ -2032,7 +2038,6 @@ cat('SD =', round(sd, 2), 'cm')
 ```{r}
 #| echo: false
 
-# R
 w_init <- array(c(100, 0, 0), dim = c(1, 3))
 w <- fit_model_A(w_init)
 sd <- sqrt(mse_model_A(w, x = X, t = t))
@@ -2065,7 +2070,7 @@ show_model_A(w) +
              color = 'cornflowerblue') +
   xlim(0, 30) + ylim(140, 180) +
   coord_fixed(ratio = 30 / 40) +
-  labs(x = element_blank(), y = element_blank())
+  labs(x = '年齢x', y = '身長t')
 ```
 
 教科書とは曲線の形がやや異なるが，データにはフィットしていそうである．
@@ -2161,7 +2166,6 @@ cat('Model A SD =', sd_A_test |> round(2), 'cm')
 ```{r}
 #| echo: false
 
-# R
 K <- 16
 Cv_A_res <- kfold_model_A(X, t, K)
 Cv_A_train <- Cv_A_res$mse_train; Cv_A_test <- Cv_A_res$mse_test
