@@ -31,5 +31,4 @@ format:
     grid: 
       sidebar-width: 300px
     code-line-numbers: true
-    highlight-style: a11y
     code-annotations: hover
