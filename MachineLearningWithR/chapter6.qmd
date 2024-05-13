@@ -28,7 +28,9 @@ library(tidyverse)
 
 ## 内容
 
-### リスト 6-1-(1)
+### 第1節
+
+#### リスト 6-1-(1)
 
 ```{python}
 #| eval: false
@@ -109,7 +111,7 @@ cat('X =', round(X, 2))
 cat('T =', t)
 ```
 
-### リスト 6-1-(2)
+#### リスト 6-1-(2)
 
 **データ分布表示 ---------**
 
@@ -161,10 +163,11 @@ show_data1d(X, t) +
   labs(x = element_blank(), y = element_blank()) +
   xlim(X_min, X_max) +
   coord_fixed(ratio = abs(X_min - X_max) / 2) +
+  labs(x = '質量xg', y = 'ラベルt') +
   theme(legend.position = 'none')
 ```
 
-### リスト 6-1-(3)
+#### リスト 6-1-(3)
 
 **ロジスティック回帰モデル ---------**
 
@@ -185,7 +188,7 @@ logistic <- function(x, w) {
 }
 ```
 
-### リスト 6-1-(4)
+#### リスト 6-1-(4)
 
 **ロジスティック回帰モデルの表示 ---------**
 
@@ -257,7 +260,7 @@ cat('dicision boundary =', b$boundry)
 plot(b$p)
 ```
 
-### リスト 6-1-(5)
+#### リスト 6-1-(5)
 
 **平均交差エントロピー誤差 ---------**
 
@@ -306,7 +309,7 @@ cee <- cee_logistic(w, X, t)
 cat('CEE =', round(cee, 6))
 ```
 
-### リスト 6-1-(6)
+#### リスト 6-1-(6)
 
 **平均交差エントロピー誤差の計算 ---------**
 
@@ -422,7 +425,7 @@ df |>
   coord_fixed(ratio = (w0_max - w0_min) / (w1_max - w1_min))
 ```
 
-### リスト 6-1-(7)
+#### リスト 6-1-(7)
 
 **平均交差エントロピー誤差の微分 ---------**
 
@@ -483,7 +486,7 @@ dcee <- dcee_logistic(w, X, t)
 cat('dCEE =', round(dcee, 6))
 ```
 
-### リスト 6-1-(8)
+#### リスト 6-1-(8)
 
 ```{python}
 #| eval: false
@@ -605,13 +608,220 @@ cat('CEE =', cee |> round(2))
 cat('Boundary =', boundary$boundry |> round(2), 'g')
 ```
 
+### 第2節
 
+#### リセット
 
-:::{.callout-warning}
-## まだ
+```{r}
+rm(list = ls(all.names = TRUE))
+```
 
+#### リスト 6-2-(1)
 
+```{python}
+#| eval: false
 
+# Python
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+```
 
+```{r}
+#| eval: false
 
-:::
+# R
+NULL
+```
+
+**データ生成 ---------**
+
+```{python}
+#| eval: false
+
+# Python
+np.random.seed(seed=1)  # 乱数を固定
+N = 100                 # データの数
+K = 3                   # 分布の数
+T3 = np.zeros((N, 3), dtype=int)
+T2 = np.zeros((N, 2), dtype=int)
+X = np.zeros((N, 2))    # 今までのX0とX1を統合してXで表す
+X0_min, X0_max = -3, 3  # X0 の範囲、表示用
+X1_min, X1_max = -3, 3  # X1 の範囲、表示用
+prm_mu = np.array([[-0.5, -0.5], [0.5, 1.0], [1, -0.5]])  # 分布の中心
+prm_sig = np.array([[0.7, 0.7], [0.8, 0.3], [0.3, 0.8]])  # 分布の分散
+prm_pi = np.array([0.4, 0.8, 1])  # (A) 各分布への割合を決めるパラメータ
+# 3クラス用のラベル"T3"を作成
+for n in range(N):         # 各データのループ
+    r = np.random.rand()
+    for k in range(K):     # (B) 各クラスのループ
+        if r < prm_pi[k]:  # クラスを決める
+            T3[n, k] = 1
+            break          # クラスが決まったらkのループから抜ける
+    for k in range(2):     # (C) 決まったT3に対して2次元のXを作成
+        X[n, k] = \
+            np.random.randn() * prm_sig[T3[n, :] == 1, k] \
+            + prm_mu[T3[n, :] == 1, k]
+# 2クラス用のラベル"T2"を作成
+T2[:, 0] = T3[:, 0]
+# T3のクラス1と2をまとめてT2のクラス1とする
+T2[:, 1] = T3[:, 1] | T3[:, 2]
+```
+
+```{r}
+# R
+set.seed(1)
+N <- 100
+K <- 3
+T3 <- array(0, dim = c(N, 3))
+T2 <- array(0, dim = c(N, 2))
+X <- array(0, dim = c(N, 2))
+X0_min <- -3; X0_max <- 3
+X1_min <- -3; X1_max <- 3
+prm_mu <- array(c(-0.5, 0.5, 1, -0.5, 1.0, -0.5), dim = c(3, 2))
+prm_sig <- array(c(0.7, 0.8, 0.3, 0.7, 0.3, 0.8), dim = c(3, 2))
+prm_pi <- array(c(0.4, 0.8, 1), dim = c(3, 1))
+for (n in 1:N) {
+  r <- runif(1)
+  for (k in 1:K) {
+    if (r < prm_pi[k]) {
+      T3[n, k] <- 1
+      break
+    }
+  }
+  for (k in c(1, 2)) {
+    X[n, k] <- rnorm(1) * prm_sig[T3[n,] == 1, k] + prm_mu[T3[n,] == 1, k]
+  }
+}
+T2[, 1] <- T3[, 1]
+T2[, 2] <- T3[, 2] | T3[, 3]
+```
+
+#### リスト 6-2-(2)
+
+```{python}
+#| eval: false
+
+# Python
+print(X[:5, :])
+```
+
+```{r}
+# R
+print(X[1:5,])
+```
+
+#### リスト 6-2-(3)
+
+```{python}
+#| eval: false
+
+# Python
+print(T2[:5, :])
+```
+
+```{r}
+# R
+print(T2[1:5,])
+```
+
+#### リスト 6-2-(4)
+
+```{python}
+#| eval: false
+
+# Python
+print(T3[:5, :])
+```
+
+```{r}
+# R
+print(T3[1:5,])
+```
+
+#### リスト 6-2-(5)
+
+**データ表示 ---------**
+
+```{python}
+#| eval: false
+
+# Python
+def show_data2d(x, t):
+    K = t.shape[1]  # tの列数からクラス数を取得
+    col = ["gray", "white", "black"]
+    for k in range(K):
+        plt.plot(
+            x[t[:, k] == 1, 0], x[t[:, k] == 1, 1], col[k],
+            marker="o", linestyle="None",
+            markeredgecolor="black", alpha=0.8,
+        )
+        plt.xlim(X0_min, X0_max)
+        plt.ylim(X1_min, X1_max)
+```
+
+```{r}
+# R
+
+show_data2d <- function(x, t) {
+  K <- ncol(t)
+  col <- c('gray', 'white', 'black')
+  df <- as.data.frame(x) |>
+    rename(X0 = 'V1',
+           X1 = 'V2') |>
+    mutate(C = rep(NA, times = n()))
+  for (i in 1:nrow(t)) {
+    c <- 1
+    for (j in 1:K) {
+      if (t[i, j] == 1) {
+        df$C[i] <- c
+        break
+      }
+      c <- c + 1
+    }
+  }
+  p <- df |>
+    ggplot() +
+    geom_point(aes(x = X0, y = X1,
+                   fill = as.factor(C)),
+               shape = 21, color = 'black',
+               size = 3) +
+    xlim(X0_min, X0_max) + ylim(X1_min, X1_max) +
+    coord_fixed(ratio = 1) +
+    scale_fill_manual(name = 'クラス',
+                      values = col,
+                      labels = c('1', '2', '3'))
+  return(p)
+}
+```
+
+**メイン ---------**
+
+```{python}
+#| eval: false
+
+# Python
+plt.figure(figsize=(7.5, 3))
+plt.subplots_adjust(wspace=0.5)
+# 2クラス用データ表示
+plt.subplot(1, 2, 1)
+show_data2d(X, T2)
+plt.grid()
+# 3クラス用データ表示
+plt.subplot(1, 2, 2)
+show_data2d(X, T3)
+plt.xlim(X0_min, X0_max)
+plt.ylim(X1_min, X1_max)
+plt.grid()
+plt.show()
+```
+
+```{r}
+#| layout-ncol: 2
+#| layout-nrow: 1
+
+# R
+show_data2d(X, T2)
+show_data2d(X, T3)
+```
+
