@@ -107,9 +107,9 @@
   {
     "objectID": "chapter6.html",
     "href": "chapter6.html",
-    "title": "第6章: 教師あり学習[分類]",
+    "title": "3  教師あり学習 : 分類",
     "section": "",
-    "text": "まず，パッケージを読み込む．\n\nlibrary(tidyverse)"
+    "text": "minimize &lt;- function(w_init, x, t, alpha = 0.001, tau = 10000, eps = 0.1) {"
   },
   {
     "objectID": "chapter6.html#準備",
@@ -123,7 +123,7 @@
     "href": "chapter6.html#内容",
     "title": "3  教師あり学習 : 分類",
     "section": "内容",
-    "text": "内容"
+    "text": "内容\n\nリスト 6-1-(1)\n\n%matplotlib inline\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n\nNULL\n\nデータ生成 ———\n\n# Python\nnp.random.seed(seed=0)             # 乱数を固定\nX_min, X_max = 0, 2.5              # x の上限と下限（表示用）\nN = 30                             # データ数\ncol = [\"cornflowerblue\", \"gray\"]   # クラス0と1の表示色\nX = np.zeros(N)                    # 空のXを準備\nT = np.zeros(N, dtype=np.uint8)    # 空のTを準備\nprm_s = [0.4, 0.8]                 # クラス0と1の分布の開始地点\nprm_w = [0.8, 1.6]                 # クラス0と1の分布の幅\nprm_pi = 0.5                       # クラス0の全体に対する比率\nfor n in range(N):\n    r = np.random.rand()\n    T[n] = 0 * (r &lt; prm_pi) + 1 * (r &gt;= prm_pi)          # (A)\n    X[n] = prm_s[T[n]] + np.random.rand() * prm_w[T[n]]  # (B)\n# データ表示\nprint(\"X =\", np.round(X, 2))\nprint(\"T =\", T)\n\n\n# R\nset.seed(0)\nX_min &lt;- 0; X_max &lt;- 2.5\nN &lt;- 30\ncol &lt;- c('cornflowerblue', 'gray')\nX &lt;- rep(0, times = N)\nt &lt;- rep(0, times = N)\nprm_s &lt;- c(0.4, 0.8)\nprm_w = c(0.8, 1.6)\nprm_pi &lt;- 0.5\nfor (n in 1:N) {\n  r &lt;- runif(1)\n  t[n] &lt;- 0 * (r &lt; prm_pi) + 1 * (r &gt;= prm_pi)\n  X[n] &lt;- prm_s[t[n] + 1] + runif(1) * prm_w[t[n] + 1]\n}\n\n\n\nX = 1.22 0.86 1.12 2.31 1.81 0.56 0.95 1.02 0.97 1.41 2.3 0.92 0.61 0.41 1.1 0.79 1.59 1.06 2.07 0.98 1.06 2.05 1.65 0.84 0.99 1.56 1.5 0.46 0.65 1.86\n\n\nT = 1 0 1 1 1 0 0 0 0 1 1 0 0 0 0 0 1 0 1 0 0 1 1 1 0 1 1 0 0 1\n\n\n\n\nリスト 6-1-(2)\nデータ分布表示 ———\n\n# Python\ndef show_data1d(x, t):\n    for k in range(2):  # (A) k=0、1 のループ\n        plt.plot(       # (B) 分布を表示\n            x[t == k], t[t == k], col[k],\n            alpha=0.5, linestyle=\"none\", marker=\"o\",\n        )\n    plt.xticks(np.arange(0, 3, 0.5))\n    plt.yticks([0, 1])\n    plt.xlim(X_min, X_max)\n    plt.ylim(-0.5, 1.5)\n\n\n# R\nshow_data1d &lt;- function(x, t) {\n  df &lt;- tibble(x = x, t = t)\n  p &lt;- df |&gt;\n    ggplot() +\n    geom_point(aes(x = x, y = as.factor(t),\n                   color = as.factor(t)))\n  return(p)\n}\n\nメイン ———\n\n# Python\nfig = plt.figure(ﬁgsize=(3, 3))\nshow_data1d(X, T)\nplt.grid()\nplt.show()\n\n\n# R\nshow_data1d(X, t) +\n  labs(x = element_blank(), y = element_blank()) +\n  xlim(X_min, X_max) +\n  coord_fixed(ratio = abs(X_min - X_max) / 2) +\n  theme(legend.position = 'none')\n\n\n\n\n\n\nリスト 6-1-(3)\nロジスティック回帰モデル ———\n\n# Python\ndef logistic(x, w):\n    y = 1 / (1 + np.exp(-(w[0] * x + w[1])))  # 式6-10\n    return y\n\n\n# R\nlogistic &lt;- function(x, w) {\n  y &lt;- 1 / (1 + exp(-(w[1] * x + w[2])))\n  return(y)\n}\n\n\n\nリスト 6-1-(4)\nロジスティック回帰モデルの表示 ———\n\n# Python\ndef show_logistic(w):\n    x = np.linspace(X_min, X_max, 100)\n    y = logistic(x, w)\n    plt.plot(x, y, \"gray\", linewidth=4)\n    # 決定境界\n    i = np.min(np.where(y &gt; 0.5))     # (A)\n    boundary = (x[i - 1] + x[i]) / 2  # (B)\n    plt.plot([boundary, boundary], [-0.5, 1.5], \"black\", linestyle=\"--\")\n    return boundary\n\n\n# R\nshow_logistic &lt;- function(w) {\n  x &lt;- seq(X_min, X_max, length.out = 100)\n  y &lt;- logistic(x, w)\n  df &lt;- tibble(x = x, y = y) |&gt;\n    mutate(id = 1:n())\n  p &lt;- df |&gt;\n    ggplot() +\n    geom_line(aes(x = x, y = y),\n              color = 'gray')\n  i &lt;- df |&gt;\n    filter(y &gt; 0.5) |&gt;\n    filter(y == min(y))\n  boundary &lt;- (x[i$id - 1] + x[i$id]) / 2\n  p &lt;- p +\n    geom_vline(xintercept = boundary, linetype = 'dashed')\n  return(list(p = p, boundry = boundary))\n}\n\nテスト ———\n\n# Python\nw = np.array([8, -10])\nb = show_logistic(w)\nprint(f'decision boundary = {b}')\nplt.grid()\nplt.show()\n\n\n# R\nw &lt;- c(8, -10)\nb &lt;- show_logistic(w)\ncat('dicision boundary =', b$boundry)\nplot(b$p)\n\n\n\ndicision boundary = 1.25\n\n\n\n\n\n\n\nリスト 6-1-(5)\n平均交差エントロピー誤差 ———\n\n# Python\ndef cee_logistic(w, x, t):\n    y = logistic(x, w)\n    # 式6-16の計算\n    cee = 0\n    for n in range(len(y)):\n        cee = cee - (t[n] * np.log(y[n]) + (1 - t[n]) * np.log(1 - y[n]))\n    cee = cee / N\n    return cee\n\n\n# R\ncee_logistic &lt;- function(w, x, t) {\n  y &lt;- logistic(x, w)\n  cee &lt;- 0\n  for (n in 1:length(y)) {\n    cee &lt;- cee - (t[n] * log(y[n]) + (1 - t[n]) * log(1 - y[n]))\n  }\n  cee &lt;- cee / N\n  return(cee)\n}\n\nテスト ———\n\n# Python\nw = np.array([1, 1])\ncee = cee_logistic(w, X, T)\nprint(f\"CEE = {cee:.6f}\")\n\n\n# R\nw &lt;- c(1, 1)\ncee &lt;- cee_logistic(w, X, t)\ncat('CEE =', round(cee, 6))\n\nCEE = 1.093926\n\n\n\n\nリスト 6-1-(6)\n平均交差エントロピー誤差の計算 ———\n\n# Python\nw0_n, w1_n = 80, 80  # 等高線表示の解像度\nw0_min, w0_max = 0, 15\nw1_min, w1_max = -15, 0\nw0 = np.linspace(w0_min, w0_max, w0_n)\nw1 = np.linspace(w1_min, w1_max, w1_n)\nC = np.zeros((w1_n, w0_n))\nfor i0 in range(w0_n):\n    for i1 in range(w1_n):\n        w = np.array([w0[i0], w1[i1]])\n        C[i1, i0] = cee_logistic(w, X, T)  # CEEを計算\nww0, ww1 = np.meshgrid(w0, w1)  # 描画用座標の作成\n\n\n# R\nw0_n &lt;- 80; w1_n &lt;- 80\nw0_min &lt;- 0; w0_max &lt;- 15\nw1_min &lt;- -15; w1_max &lt;- 0\nw0 &lt;- seq(w0_min, w0_max, length.out = w0_n)\nw1 &lt;- seq(w1_min, w1_max, length.out = w1_n)\nC &lt;- array(0, dim = c(w1_n, w0_n))\nfor (i0 in 1:w0_n) {\n  for (i1 in 1:w1_n) {\n    w &lt;- c(w0[i0], w1[i1])\n    C[i0, i1] &lt;- cee_logistic(w, X, t)\n  }\n}\ngrid_w0w1 &lt;- expand_grid(w0, w1)\n\nグラフ描画 ———\n\n# Python\nplt.ﬁgure(ﬁgsize=(12, 5))\nplt.subplots_adjust(wspace=0.5)\n\n\n# R\nNULL\n\n\nサーフェス表示\n\n\n# Python\nax = plt.subplot(1, 2, 1, projection=\"3d\")\nax.plot_surface(\n    ww0, ww1, C,\n    color=\"blue\", edgecolor=\"black\", rstride=10, cstride=10, alpha=0.3,\n)\nax.set_xlabel(\"$w_0$\", fontsize=14)\nax.set_ylabel(\"$w_1$\", fontsize=14)\nax.set_xlim(0, 15)\nax.set_ylim(-15, 0)\nax.set_zlim(0, 8)\nax.view_init(30, -95)\n\n\n# R\npersp(w0, w1, C, theta = -200, phi = 30, lwd = 0.3)\n\n\n\n\n\n等高線表示\n\n\n# Python\nplt.subplot(1, 2, 2)\ncont = plt.contour(\n    ww0, ww1, C,\n    colors=\"black\", levels=[0.26, 0.4, 0.8, 1.6, 3.2, 6.4],\n)\ncont.clabel(fmt=\"%.2f\", fontsize=8)\nplt.xlabel(\"$w_0$\", fontsize=14)\nplt.ylabel(\"$w_1$\", fontsize=14)\nplt.grid()\nplt.show()\n\n\n# R\ndf &lt;- grid_w0w1 |&gt;\n  mutate(C = rep(NA, times = n()))\nn &lt;- 1\nfor (i in 1:w0_n) {\n  for (j in 1:w1_n) {\n    df$C[n] &lt;- C[i, j]\n    n &lt;- n + 1\n  }\n}\ndf |&gt;\n  ggplot() +\n  geom_contour(aes(w0, w1, z = C)) +\n  labs(x = element_blank(), y = element_blank()) +\n  xlim(w0_min, w0_max) + ylim(w1_min, w1_max) +\n  coord_fixed(ratio = (w0_max - w0_min) / (w1_max - w1_min))\n\n\n\n\n\n\nリスト 6-1-(7)\n平均交差エントロピー誤差の微分 ———\n\n# Python\ndef dcee_logistic(w, x, t):\n    y = logistic(x, w)\n    # 式6-32、式6-33の計算\n    dcee = np.zeros(2)\n    for n in range(len(y)):\n        dcee[0] = dcee[0] + (y[n] - t[n]) * x[n]\n        dcee[1] = dcee[1] + (y[n] - t[n])\n    dcee = dcee / N\n    return dcee\n\n\n# R\ndcee_logistic &lt;- function(w, x, t) {\n  y &lt;- logistic(x, w)\n  dcee &lt;- rep(0, times = 2)\n  for (n in 1:length(y)) {\n    dcee[1] &lt;- dcee[1] + (y[n] - t[n]) * x[n]\n    dcee[2] &lt;- dcee[2] + (y[n] - t[n])\n  }\n  dcee &lt;- dcee / N\n  return(dcee)\n}\n\nテスト ———\n\n# Python\nw = np.array([1, 1])\ndcee = dcee_logistic(w, X, T)\nprint(\"dCEE =\", np.round(dcee, 6))\n\n\n# R\nw &lt;- c(1, 1)\ndcee &lt;- dcee_logistic(w, X, t)\ncat('dCEE =', round(dcee, 6))\n\n\n\ndCEE = 0.338119 0.426262\n\n\n\n\nリスト 6-1-(8)\n\n# Python\nfrom scipy.optimize import minimize\n\n\n# R\nNULL\n\nロジスティック回帰モデルのパラメータ最適化\n\n# Python\ndef fit_logistic(w_init, x, t):\n    res = minimize(  # (A)\n        cee_logistic, w_init, args=(x, t),\n        jac=dcee_logistic, method=\"CG\",\n    )\n    return res.x\n\n\n# R\nfit_logistic &lt;- function(w_init) {\n  res &lt;- optim(w_init,\n               fn = function(w) {\n                 y &lt;- logistic(X, w)\n                 cee &lt;- 0\n                 for (n in 1:length(y)) {\n                   cee &lt;- cee - (t[n] * log(y[n]) + (1 - t[n]) * log(1 - y[n]))\n                 }\n                 cee &lt;- cee / N\n                 return(cee)\n               },\n               method = 'CG')\n  return(res$par)\n}\n\nメイン ———\n\n# Python\nw_init = np.array([1.0, -1.0])  # wの初期値\nw = fit_logistic(w_init, X, T)  # wを計算\ncee = cee_logistic(w, X, T)     # CEEを計算\n\n\n# R\nw_init &lt;- c(1, -1)\nw &lt;- fit_logistic(w_init)\ncee &lt;- cee_logistic(w_init, X, t)\n\nグラフ描画 ———\n\n# Python\nplt.figure(figsize=(3, 3))\nboundary = show_logistic(w)\nshow_data1d(X, T)\nplt.grid()\nplt.show()\n\n\n# R\nboundary &lt;- show_logistic(w)\nboundary$p +\n  geom_point(data    = tibble(x = X, t = t),\n             mapping = aes(x = x, y = t,\n                           color = as.factor(t))) +\n  xlim(X_min, X_max) +\n  coord_fixed(ratio = abs(X_max - X_min) / 1) +\n  labs(x = '質量xg', y = 'ラベルt') +\n  scale_y_continuous(breaks = c(0, 1),\n                     labels = c(0, 1)) +\n  theme(legend.position = 'none')\n\n\n\n\n結果表示 ———\n\n# Python\nprint(f\"w0 = {w[0]:.2f}, w1 = {w[1]:.2f}\")\nprint(f\"CEE = {cee:.2f}\")\nprint(f\"Boundary = {boundary:.2f} g\")\n\n\n# R\ncat('w0 =', w[1] |&gt; round(2), 'w1 =', w[2] |&gt; round(2))\ncat('CEE =', cee |&gt; round(2))\ncat('Boundary =', boundary$boundry |&gt; round(2), 'g')\n\n\n\nw0 = 4.48 w1 = -5.33\n\n\nCEE = 0.53\n\n\nBoundary = 1.2 g\n\n\n\n\n\n\n\n\nまだ"
   },
   {
     "objectID": "chapter7.html",
@@ -2014,5 +2014,698 @@
     "title": "2  教師あり学習[回帰]",
     "section": "plt.show()",
     "text": "plt.show()\nshow_model_A(w)"
+  },
+  {
+    "objectID": "chapter6.html#machine-learning-with-rchapter6.r",
+    "href": "chapter6.html#machine-learning-with-rchapter6.r",
+    "title": "3  教師あり学習 : 分類",
+    "section": "Machine-Learning-with-R/chapter6.R",
+    "text": "Machine-Learning-with-R/chapter6.R"
+  },
+  {
+    "objectID": "chapter6.html#section",
+    "href": "chapter6.html#section",
+    "title": "3  教師あり学習 : 分類",
+    "section": ")",
+    "text": ")"
+  },
+  {
+    "objectID": "chapter6.html#nakano-keisuke",
+    "href": "chapter6.html#nakano-keisuke",
+    "title": "3  教師あり学習 : 分類",
+    "section": "Nakano Keisuke",
+    "text": "Nakano Keisuke"
+  },
+  {
+    "objectID": "chapter6.html#matplotlib-inline",
+    "href": "chapter6.html#matplotlib-inline",
+    "title": "3  教師あり学習 : 分類",
+    "section": "%matplotlib inline",
+    "text": "%matplotlib inline"
+  },
+  {
+    "objectID": "chapter6.html#import-numpy-as-np",
+    "href": "chapter6.html#import-numpy-as-np",
+    "title": "3  教師あり学習 : 分類",
+    "section": "import numpy as np",
+    "text": "import numpy as np"
+  },
+  {
+    "objectID": "chapter6.html#import-matplotlib.pyplot-as-plt",
+    "href": "chapter6.html#import-matplotlib.pyplot-as-plt",
+    "title": "3  教師あり学習 : 分類",
+    "section": "import matplotlib.pyplot as plt",
+    "text": "import matplotlib.pyplot as plt\nNULL"
+  },
+  {
+    "objectID": "chapter6.html#データ生成--",
+    "href": "chapter6.html#データ生成--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# データ生成 ———-",
+    "text": "# データ生成 ———-"
+  },
+  {
+    "objectID": "chapter6.html#np.random.seedseed0-乱数を固定",
+    "href": "chapter6.html#np.random.seedseed0-乱数を固定",
+    "title": "3  教師あり学習 : 分類",
+    "section": "np.random.seed(seed=0) # 乱数を固定",
+    "text": "np.random.seed(seed=0) # 乱数を固定\nset.seed(0) ## X_min, X_max = 0, 2.5 # x の上限と下限（表示用） X_min &lt;- 0; X_max &lt;- 2.5 ## N = 30 # データ数 N &lt;- 30 ## col = [“cornflowerblue”, “gray”] # クラス0と1の表示色 col &lt;- c(‘cornflowerblue’, ‘gray’) ## X = np.zeros(N) # 空のXを準備 X &lt;- rep(NA, times = N) ## T = np.zeros(N, dtype=np.uint8) # 空のTを準備 t &lt;- rep(NA, times = N) ## prm_s = [0.4, 0.8] # クラス0と1の分布の開始地点 prm_s &lt;- c(0.4, 0.8) ## prm_w = [0.8, 1.6] # クラス0と1の分布の幅 prm_w = c(0.8, 1.6) ## prm_pi = 0.5 # クラス0の全体に対する比率 prm_pi &lt;- 0.5 ## for n in range(N): ## r = np.random.rand() ## T[n] = 0 * (r &lt; prm_pi) + 1 * (r &gt;= prm_pi) # (A) ## X[n] = prm_s[T[n]] + np.random.rand() * prm_w[T[n]] # (B) for (n in 1:N) { r &lt;- runif(1) t[n] &lt;- 0 * (r &lt; prm_pi) + 1 * (r &gt;= prm_pi) X[n] &lt;- prm_s[t[n] + 1] + runif(1) * prm_w[t[n] + 1] } # データ表示 ## print(“X =”, np.round(X, 2)) cat(‘X =’, round(X, 2)) ## print(“T =”, T) cat(‘T =’, t)"
+  },
+  {
+    "objectID": "chapter6.html#データ分布表示--",
+    "href": "chapter6.html#データ分布表示--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# データ分布表示 ———-",
+    "text": "# データ分布表示 ———-"
+  },
+  {
+    "objectID": "chapter6.html#def-show_data1dx-t",
+    "href": "chapter6.html#def-show_data1dx-t",
+    "title": "3  教師あり学習 : 分類",
+    "section": "def show_data1d(x, t):",
+    "text": "def show_data1d(x, t):"
+  },
+  {
+    "objectID": "chapter6.html#for-k-in-range2-a-k01-のループ",
+    "href": "chapter6.html#for-k-in-range2-a-k01-のループ",
+    "title": "3  教師あり学習 : 分類",
+    "section": "for k in range(2): # (A) k=0、1 のループ",
+    "text": "for k in range(2): # (A) k=0、1 のループ"
+  },
+  {
+    "objectID": "chapter6.html#plt.plot-b-分布を表示",
+    "href": "chapter6.html#plt.plot-b-分布を表示",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.plot( # (B) 分布を表示",
+    "text": "plt.plot( # (B) 分布を表示"
+  },
+  {
+    "objectID": "chapter6.html#xt-k-tt-k-colk",
+    "href": "chapter6.html#xt-k-tt-k-colk",
+    "title": "3  教師あり学習 : 分類",
+    "section": "x[t == k], t[t == k], col[k],",
+    "text": "x[t == k], t[t == k], col[k],"
+  },
+  {
+    "objectID": "chapter6.html#alpha0.5-linestylenone-markero",
+    "href": "chapter6.html#alpha0.5-linestylenone-markero",
+    "title": "3  教師あり学習 : 分類",
+    "section": "alpha=0.5, linestyle=“none”, marker=“o”,",
+    "text": "alpha=0.5, linestyle=“none”, marker=“o”,"
+  },
+  {
+    "objectID": "chapter6.html#section-1",
+    "href": "chapter6.html#section-1",
+    "title": "3  教師あり学習 : 分類",
+    "section": ")",
+    "text": ")"
+  },
+  {
+    "objectID": "chapter6.html#plt.xticksnp.arange0-3-0.5",
+    "href": "chapter6.html#plt.xticksnp.arange0-3-0.5",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.xticks(np.arange(0, 3, 0.5))",
+    "text": "plt.xticks(np.arange(0, 3, 0.5))"
+  },
+  {
+    "objectID": "chapter6.html#plt.yticks0-1",
+    "href": "chapter6.html#plt.yticks0-1",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.yticks([0, 1])",
+    "text": "plt.yticks([0, 1])"
+  },
+  {
+    "objectID": "chapter6.html#plt.xlimx_min-x_max",
+    "href": "chapter6.html#plt.xlimx_min-x_max",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.xlim(X_min, X_max)",
+    "text": "plt.xlim(X_min, X_max)"
+  },
+  {
+    "objectID": "chapter6.html#plt.ylim-0.5-1.5",
+    "href": "chapter6.html#plt.ylim-0.5-1.5",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.ylim(-0.5, 1.5)",
+    "text": "plt.ylim(-0.5, 1.5)\nshow_data1d &lt;- function(x, t) { df &lt;- tibble(x = x, t = t) p &lt;- df |&gt; ggplot() + geom_point(aes(x = x, y = t, color = as.factor(t))) return(p) }"
+  },
+  {
+    "objectID": "chapter6.html#メイン--",
+    "href": "chapter6.html#メイン--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# メイン ———-",
+    "text": "# メイン ———-"
+  },
+  {
+    "objectID": "chapter6.html#fig-plt.figureﬁgsize3-3",
+    "href": "chapter6.html#fig-plt.figureﬁgsize3-3",
+    "title": "3  教師あり学習 : 分類",
+    "section": "fig = plt.figure(ﬁgsize=(3, 3))",
+    "text": "fig = plt.figure(ﬁgsize=(3, 3))"
+  },
+  {
+    "objectID": "chapter6.html#show_data1dx-t",
+    "href": "chapter6.html#show_data1dx-t",
+    "title": "3  教師あり学習 : 分類",
+    "section": "show_data1d(X, T)",
+    "text": "show_data1d(X, T)"
+  },
+  {
+    "objectID": "chapter6.html#plt.grid",
+    "href": "chapter6.html#plt.grid",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.grid()",
+    "text": "plt.grid()"
+  },
+  {
+    "objectID": "chapter6.html#plt.show",
+    "href": "chapter6.html#plt.show",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.show()",
+    "text": "plt.show()"
+  },
+  {
+    "objectID": "chapter6.html#ロジスティック回帰モデル--",
+    "href": "chapter6.html#ロジスティック回帰モデル--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# ロジスティック回帰モデル ———-",
+    "text": "# ロジスティック回帰モデル ———-"
+  },
+  {
+    "objectID": "chapter6.html#def-logisticx-w",
+    "href": "chapter6.html#def-logisticx-w",
+    "title": "3  教師あり学習 : 分類",
+    "section": "def logistic(x, w):",
+    "text": "def logistic(x, w):"
+  },
+  {
+    "objectID": "chapter6.html#y-1-1-np.exp-w0-x-w1-式6-10",
+    "href": "chapter6.html#y-1-1-np.exp-w0-x-w1-式6-10",
+    "title": "3  教師あり学習 : 分類",
+    "section": "y = 1 / (1 + np.exp(-(w[0] * x + w[1]))) # 式6-10",
+    "text": "y = 1 / (1 + np.exp(-(w[0] * x + w[1]))) # 式6-10"
+  },
+  {
+    "objectID": "chapter6.html#return-y",
+    "href": "chapter6.html#return-y",
+    "title": "3  教師あり学習 : 分類",
+    "section": "return y",
+    "text": "return y\nlogistic &lt;- function(x, w) { y &lt;- 1 / (1 + exp(-(w[1] * x + w[2]))) return(y) }"
+  },
+  {
+    "objectID": "chapter6.html#ロジスティック回帰モデルの表示--",
+    "href": "chapter6.html#ロジスティック回帰モデルの表示--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# ロジスティック回帰モデルの表示 ———-",
+    "text": "# ロジスティック回帰モデルの表示 ———-"
+  },
+  {
+    "objectID": "chapter6.html#def-show_logisticw",
+    "href": "chapter6.html#def-show_logisticw",
+    "title": "3  教師あり学習 : 分類",
+    "section": "def show_logistic(w):",
+    "text": "def show_logistic(w):"
+  },
+  {
+    "objectID": "chapter6.html#x-np.linspacex_min-x_max-100",
+    "href": "chapter6.html#x-np.linspacex_min-x_max-100",
+    "title": "3  教師あり学習 : 分類",
+    "section": "x = np.linspace(X_min, X_max, 100)",
+    "text": "x = np.linspace(X_min, X_max, 100)"
+  },
+  {
+    "objectID": "chapter6.html#y-logisticx-w",
+    "href": "chapter6.html#y-logisticx-w",
+    "title": "3  教師あり学習 : 分類",
+    "section": "y = logistic(x, w)",
+    "text": "y = logistic(x, w)"
+  },
+  {
+    "objectID": "chapter6.html#plt.plotx-y-gray-linewidth4",
+    "href": "chapter6.html#plt.plotx-y-gray-linewidth4",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.plot(x, y, “gray”, linewidth=4)",
+    "text": "plt.plot(x, y, “gray”, linewidth=4)"
+  },
+  {
+    "objectID": "chapter6.html#決定境界",
+    "href": "chapter6.html#決定境界",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# 決定境界",
+    "text": "# 決定境界"
+  },
+  {
+    "objectID": "chapter6.html#i-np.minnp.wherey-0.5-a",
+    "href": "chapter6.html#i-np.minnp.wherey-0.5-a",
+    "title": "3  教師あり学習 : 分類",
+    "section": "i = np.min(np.where(y > 0.5)) # (A)",
+    "text": "i = np.min(np.where(y &gt; 0.5)) # (A)"
+  },
+  {
+    "objectID": "chapter6.html#boundary-xi---1-xi-2-b",
+    "href": "chapter6.html#boundary-xi---1-xi-2-b",
+    "title": "3  教師あり学習 : 分類",
+    "section": "boundary = (x[i - 1] + x[i]) / 2 # (B)",
+    "text": "boundary = (x[i - 1] + x[i]) / 2 # (B)"
+  },
+  {
+    "objectID": "chapter6.html#plt.plotboundary-boundary--0.5-1.5-black-linestyle",
+    "href": "chapter6.html#plt.plotboundary-boundary--0.5-1.5-black-linestyle",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.plot([boundary, boundary], [-0.5, 1.5], “black”, linestyle=“–”)",
+    "text": "plt.plot([boundary, boundary], [-0.5, 1.5], “black”, linestyle=“–”)"
+  },
+  {
+    "objectID": "chapter6.html#return-boundary",
+    "href": "chapter6.html#return-boundary",
+    "title": "3  教師あり学習 : 分類",
+    "section": "return boundary",
+    "text": "return boundary\nshow_logistic &lt;- function(w) { x &lt;- seq(X_min, X_max, length.out = 100) y &lt;- logistic(x, w) df &lt;- tibble(x = x, y = y) |&gt; mutate(id = 1:n()) p &lt;- df |&gt; ggplot() + geom_line(aes(x = x, y = y), color = ‘gray’) i &lt;- df |&gt; filter(y &gt; 0.5) |&gt; filter(y == min(y)) boundary &lt;- (x[i\\(id - 1] + x[i\\)id]) / 2 p &lt;- p + geom_vline(xintercept = boundary, linetype = ‘dashed’) return(list(p = p, boundry = boundary)) }"
+  },
+  {
+    "objectID": "chapter6.html#テスト--",
+    "href": "chapter6.html#テスト--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# テスト ———-",
+    "text": "# テスト ———-"
+  },
+  {
+    "objectID": "chapter6.html#w-np.array8--10",
+    "href": "chapter6.html#w-np.array8--10",
+    "title": "3  教師あり学習 : 分類",
+    "section": "w = np.array([8, -10])",
+    "text": "w = np.array([8, -10])\nw &lt;- c(8, -10) ## b = show_logistic(w) b &lt;- show_logistic(w) ## ## print(f’decision boundary = {b}‘) cat(’dicision boundary =’, b\\(boundry) ## ## plt.grid() ## ## plt.show() plot(b\\)p)"
+  },
+  {
+    "objectID": "chapter6.html#平均交差エントロピー誤差--",
+    "href": "chapter6.html#平均交差エントロピー誤差--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# 平均交差エントロピー誤差 ———-",
+    "text": "# 平均交差エントロピー誤差 ———-"
+  },
+  {
+    "objectID": "chapter6.html#def-cee_logisticw-x-t",
+    "href": "chapter6.html#def-cee_logisticw-x-t",
+    "title": "3  教師あり学習 : 分類",
+    "section": "def cee_logistic(w, x, t):",
+    "text": "def cee_logistic(w, x, t):"
+  },
+  {
+    "objectID": "chapter6.html#y-logisticx-w-1",
+    "href": "chapter6.html#y-logisticx-w-1",
+    "title": "3  教師あり学習 : 分類",
+    "section": "y = logistic(x, w)",
+    "text": "y = logistic(x, w)"
+  },
+  {
+    "objectID": "chapter6.html#式6-16の計算",
+    "href": "chapter6.html#式6-16の計算",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# 式6-16の計算",
+    "text": "# 式6-16の計算"
+  },
+  {
+    "objectID": "chapter6.html#cee-0",
+    "href": "chapter6.html#cee-0",
+    "title": "3  教師あり学習 : 分類",
+    "section": "cee = 0",
+    "text": "cee = 0"
+  },
+  {
+    "objectID": "chapter6.html#for-n-in-rangeleny",
+    "href": "chapter6.html#for-n-in-rangeleny",
+    "title": "3  教師あり学習 : 分類",
+    "section": "for n in range(len(y)):",
+    "text": "for n in range(len(y)):"
+  },
+  {
+    "objectID": "chapter6.html#cee-cee---tn-np.logyn-1---tn-np.log1---yn",
+    "href": "chapter6.html#cee-cee---tn-np.logyn-1---tn-np.log1---yn",
+    "title": "3  教師あり学習 : 分類",
+    "section": "cee = cee - (t[n] * np.log(y[n]) + (1 - t[n]) * np.log(1 - y[n]))",
+    "text": "cee = cee - (t[n] * np.log(y[n]) + (1 - t[n]) * np.log(1 - y[n]))"
+  },
+  {
+    "objectID": "chapter6.html#cee-cee-n",
+    "href": "chapter6.html#cee-cee-n",
+    "title": "3  教師あり学習 : 分類",
+    "section": "cee = cee / N",
+    "text": "cee = cee / N"
+  },
+  {
+    "objectID": "chapter6.html#return-cee",
+    "href": "chapter6.html#return-cee",
+    "title": "3  教師あり学習 : 分類",
+    "section": "return cee",
+    "text": "return cee\ncee_logistic &lt;- function(w, x, t) { y &lt;- logistic(x, w) cee &lt;- 0 for (n in 1:length(y)) { cee &lt;- cee - (t[n] * log(y[n]) + (1 - t[n]) * log(1 - y[n])) } cee &lt;- cee / N return(cee) }"
+  },
+  {
+    "objectID": "chapter6.html#テスト---1",
+    "href": "chapter6.html#テスト---1",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# テスト ———-",
+    "text": "# テスト ———-"
+  },
+  {
+    "objectID": "chapter6.html#w-np.array1-1",
+    "href": "chapter6.html#w-np.array1-1",
+    "title": "3  教師あり学習 : 分類",
+    "section": "w = np.array([1, 1])",
+    "text": "w = np.array([1, 1])\nw &lt;- c(1, 1) ## dcee = dcee_logistic(w, X, T) dcee &lt;- dcee_logistic(w, X, t) ## print(“dCEE =”, np.round(dcee, 6)) cat(‘dCEE =’, round(dcee, 6))"
+  },
+  {
+    "objectID": "chapter6.html#平均交差エントロピー誤差の計算--",
+    "href": "chapter6.html#平均交差エントロピー誤差の計算--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# 平均交差エントロピー誤差の計算 ———-",
+    "text": "# 平均交差エントロピー誤差の計算 ———-"
+  },
+  {
+    "objectID": "chapter6.html#w0_n-w1_n-80-80-等高線表示の解像度",
+    "href": "chapter6.html#w0_n-w1_n-80-80-等高線表示の解像度",
+    "title": "3  教師あり学習 : 分類",
+    "section": "w0_n, w1_n = 80, 80 # 等高線表示の解像度",
+    "text": "w0_n, w1_n = 80, 80 # 等高線表示の解像度\nw0_n &lt;- 80; w1_n &lt;- 80 ## w0_min, w0_max = 0, 15 w0_min &lt;- 0; w0_max &lt;- 15 ## w1_min, w1_max = -15, 0 w1_min &lt;- -15; w1_max &lt;- 0 ## w0 = np.linspace(w0_min, w0_max, w0_n) w0 &lt;- seq(w0_min, w0_max, length.out = w0_n) ## w1 = np.linspace(w1_min, w1_max, w1_n) w1 &lt;- seq(w1_min, w1_max, length.out = w1_n) ## C = np.zeros((w1_n, w0_n)) C &lt;- array(0, dim = c(w1_n, w0_n)) ## for i0 in range(w0_n): ## for i1 in range(w1_n): ## w = np.array([w0[i0], w1[i1]]) ## C[i1, i0] = cee_logistic(w, X, T) # CEEを計算 for (i0 in 1:w0_n) { for (i1 in 1:w1_n) { w &lt;- c(w0[i0], w1[i1]) C[i1, i0] &lt;- cee_logistic(w, X, t) } } ## ww0, ww1 = np.meshgrid(w0, w1) # 描画用座標の作成 NULL"
+  },
+  {
+    "objectID": "chapter6.html#グラフ描画--",
+    "href": "chapter6.html#グラフ描画--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# グラフ描画 ———-",
+    "text": "# グラフ描画 ———-"
+  },
+  {
+    "objectID": "chapter6.html#plt.ﬁgureﬁgsize12-5",
+    "href": "chapter6.html#plt.ﬁgureﬁgsize12-5",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.ﬁgure(ﬁgsize=(12, 5))",
+    "text": "plt.ﬁgure(ﬁgsize=(12, 5))"
+  },
+  {
+    "objectID": "chapter6.html#plt.subplots_adjustwspace0.5",
+    "href": "chapter6.html#plt.subplots_adjustwspace0.5",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.subplots_adjust(wspace=0.5)",
+    "text": "plt.subplots_adjust(wspace=0.5)"
+  },
+  {
+    "objectID": "chapter6.html#サーフェス表示",
+    "href": "chapter6.html#サーフェス表示",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# サーフェス表示",
+    "text": "# サーフェス表示"
+  },
+  {
+    "objectID": "chapter6.html#ax-plt.subplot1-2-1-projection3d",
+    "href": "chapter6.html#ax-plt.subplot1-2-1-projection3d",
+    "title": "3  教師あり学習 : 分類",
+    "section": "ax = plt.subplot(1, 2, 1, projection=“3d”)",
+    "text": "ax = plt.subplot(1, 2, 1, projection=“3d”)"
+  },
+  {
+    "objectID": "chapter6.html#ax.plot_surface",
+    "href": "chapter6.html#ax.plot_surface",
+    "title": "3  教師あり学習 : 分類",
+    "section": "ax.plot_surface(",
+    "text": "ax.plot_surface("
+  },
+  {
+    "objectID": "chapter6.html#ww0-ww1-c",
+    "href": "chapter6.html#ww0-ww1-c",
+    "title": "3  教師あり学習 : 分類",
+    "section": "ww0, ww1, C,",
+    "text": "ww0, ww1, C,"
+  },
+  {
+    "objectID": "chapter6.html#colorblue-edgecolorblack-rstride10-cstride10-alpha0.3",
+    "href": "chapter6.html#colorblue-edgecolorblack-rstride10-cstride10-alpha0.3",
+    "title": "3  教師あり学習 : 分類",
+    "section": "color=“blue”, edgecolor=“black”, rstride=10, cstride=10, alpha=0.3,",
+    "text": "color=“blue”, edgecolor=“black”, rstride=10, cstride=10, alpha=0.3,"
+  },
+  {
+    "objectID": "chapter6.html#section-2",
+    "href": "chapter6.html#section-2",
+    "title": "3  教師あり学習 : 分類",
+    "section": ")",
+    "text": ")"
+  },
+  {
+    "objectID": "chapter6.html#ax.set_xlabelw_0-fontsize14",
+    "href": "chapter6.html#ax.set_xlabelw_0-fontsize14",
+    "title": "3  教師あり学習 : 分類",
+    "section": "ax.set_xlabel(“\\(w_0\\)”, fontsize=14)",
+    "text": "ax.set_xlabel(“\\(w_0\\)”, fontsize=14)"
+  },
+  {
+    "objectID": "chapter6.html#ax.set_ylabelw_1-fontsize14",
+    "href": "chapter6.html#ax.set_ylabelw_1-fontsize14",
+    "title": "3  教師あり学習 : 分類",
+    "section": "ax.set_ylabel(“\\(w_1\\)”, fontsize=14)",
+    "text": "ax.set_ylabel(“\\(w_1\\)”, fontsize=14)"
+  },
+  {
+    "objectID": "chapter6.html#ax.set_xlim0-15",
+    "href": "chapter6.html#ax.set_xlim0-15",
+    "title": "3  教師あり学習 : 分類",
+    "section": "ax.set_xlim(0, 15)",
+    "text": "ax.set_xlim(0, 15)"
+  },
+  {
+    "objectID": "chapter6.html#ax.set_ylim-15-0",
+    "href": "chapter6.html#ax.set_ylim-15-0",
+    "title": "3  教師あり学習 : 分類",
+    "section": "ax.set_ylim(-15, 0)",
+    "text": "ax.set_ylim(-15, 0)"
+  },
+  {
+    "objectID": "chapter6.html#ax.set_zlim0-8",
+    "href": "chapter6.html#ax.set_zlim0-8",
+    "title": "3  教師あり学習 : 分類",
+    "section": "ax.set_zlim(0, 8)",
+    "text": "ax.set_zlim(0, 8)"
+  },
+  {
+    "objectID": "chapter6.html#ax.view_init30--95",
+    "href": "chapter6.html#ax.view_init30--95",
+    "title": "3  教師あり学習 : 分類",
+    "section": "ax.view_init(30, -95)",
+    "text": "ax.view_init(30, -95)\npersp(w0, w1, C, theta = -195, phi = 30, lwd = 0.3) ## # 等高線表示 ## plt.subplot(1, 2, 2) ## cont = plt.contour( ## ww0, ww1, C, ## colors=“black”, levels=[0.26, 0.4, 0.8, 1.6, 3.2, 6.4], ## ) ## cont.clabel(fmt=“%.2f”, fontsize=8) ## plt.xlabel(“\\(w_0\\)”, fontsize=14) ## plt.ylabel(“\\(w_1\\)”, fontsize=14) ## plt.grid() ## plt.show() df &lt;- data.frame(array(NA, dim = c(w0_n, w1_n))) n &lt;- 1 for (i in 1:w0_n) { for (j in 1:w1_n) { df[n, 1] &lt;- w0[i] df[n, 2] &lt;- w1[j] df[n, 3] &lt;- C[i, j] n &lt;- n + 1 } } df |&gt; ggplot() + geom_contour(aes(X1, X2, z = X3)) + labs(x = element_blank(), y = element_blank()) + xlim(w0_min, w0_max) + ylim(w1_min, w1_max) + coord_fixed(ratio = (w0_max - w0_min) / (w1_max - w1_min))"
+  },
+  {
+    "objectID": "chapter6.html#平均交差エントロピー誤差の微分--",
+    "href": "chapter6.html#平均交差エントロピー誤差の微分--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# 平均交差エントロピー誤差の微分 ———-",
+    "text": "# 平均交差エントロピー誤差の微分 ———-"
+  },
+  {
+    "objectID": "chapter6.html#def-dcee_logisticw-x-t",
+    "href": "chapter6.html#def-dcee_logisticw-x-t",
+    "title": "3  教師あり学習 : 分類",
+    "section": "def dcee_logistic(w, x, t):",
+    "text": "def dcee_logistic(w, x, t):"
+  },
+  {
+    "objectID": "chapter6.html#y-logisticx-w-2",
+    "href": "chapter6.html#y-logisticx-w-2",
+    "title": "3  教師あり学習 : 分類",
+    "section": "y = logistic(x, w)",
+    "text": "y = logistic(x, w)"
+  },
+  {
+    "objectID": "chapter6.html#式6-32式6-33の計算",
+    "href": "chapter6.html#式6-32式6-33の計算",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# 式6-32、式6-33の計算",
+    "text": "# 式6-32、式6-33の計算"
+  },
+  {
+    "objectID": "chapter6.html#dcee-np.zeros2",
+    "href": "chapter6.html#dcee-np.zeros2",
+    "title": "3  教師あり学習 : 分類",
+    "section": "dcee = np.zeros(2)",
+    "text": "dcee = np.zeros(2)"
+  },
+  {
+    "objectID": "chapter6.html#for-n-in-rangeleny-1",
+    "href": "chapter6.html#for-n-in-rangeleny-1",
+    "title": "3  教師あり学習 : 分類",
+    "section": "for n in range(len(y)):",
+    "text": "for n in range(len(y)):"
+  },
+  {
+    "objectID": "chapter6.html#dcee0-dcee0-yn---tn-xn",
+    "href": "chapter6.html#dcee0-dcee0-yn---tn-xn",
+    "title": "3  教師あり学習 : 分類",
+    "section": "dcee[0] = dcee[0] + (y[n] - t[n]) * x[n]",
+    "text": "dcee[0] = dcee[0] + (y[n] - t[n]) * x[n]"
+  },
+  {
+    "objectID": "chapter6.html#dcee1-dcee1-yn---tn",
+    "href": "chapter6.html#dcee1-dcee1-yn---tn",
+    "title": "3  教師あり学習 : 分類",
+    "section": "dcee[1] = dcee[1] + (y[n] - t[n])",
+    "text": "dcee[1] = dcee[1] + (y[n] - t[n])"
+  },
+  {
+    "objectID": "chapter6.html#dcee-dcee-n",
+    "href": "chapter6.html#dcee-dcee-n",
+    "title": "3  教師あり学習 : 分類",
+    "section": "dcee = dcee / N",
+    "text": "dcee = dcee / N"
+  },
+  {
+    "objectID": "chapter6.html#return-dcee",
+    "href": "chapter6.html#return-dcee",
+    "title": "3  教師あり学習 : 分類",
+    "section": "return dcee",
+    "text": "return dcee\ndcee_logistic &lt;- function(w, x, t) { y &lt;- logistic(x, w) dcee &lt;- rep(0, times = 2) for (n in 1:length(y)) { dcee[1] &lt;- dcee[1] + (y[n] - t[n]) * x[n] dcee[2] &lt;- dcee[2] + (y[n] - t[n]) } dcee &lt;- dcee / N return(dcee) }"
+  },
+  {
+    "objectID": "chapter6.html#テスト---2",
+    "href": "chapter6.html#テスト---2",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# テスト ———-",
+    "text": "# テスト ———-"
+  },
+  {
+    "objectID": "chapter6.html#w-np.array1-1-1",
+    "href": "chapter6.html#w-np.array1-1-1",
+    "title": "3  教師あり学習 : 分類",
+    "section": "w = np.array([1, 1])",
+    "text": "w = np.array([1, 1])\nw &lt;- c(1, 1) ## dcee = dcee_logistic(w, X, T) dcee &lt;- dcee_logistic(w, X, t) ## print(“dCEE =”, np.round(dcee, 6)) cat(‘dCEE =’, round(dcee, 6))"
+  },
+  {
+    "objectID": "chapter6.html#from-scipy.optimize-import-minimize",
+    "href": "chapter6.html#from-scipy.optimize-import-minimize",
+    "title": "3  教師あり学習 : 分類",
+    "section": "from scipy.optimize import minimize",
+    "text": "from scipy.optimize import minimize\nNULL"
+  },
+  {
+    "objectID": "chapter6.html#ロジスティック回帰モデルのパラメータ最適化",
+    "href": "chapter6.html#ロジスティック回帰モデルのパラメータ最適化",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# ロジスティック回帰モデルのパラメータ最適化",
+    "text": "# ロジスティック回帰モデルのパラメータ最適化"
+  },
+  {
+    "objectID": "chapter6.html#def-fit_logisticw_init-x-t",
+    "href": "chapter6.html#def-fit_logisticw_init-x-t",
+    "title": "3  教師あり学習 : 分類",
+    "section": "def fit_logistic(w_init, x, t):",
+    "text": "def fit_logistic(w_init, x, t):"
+  },
+  {
+    "objectID": "chapter6.html#res-minimize-a",
+    "href": "chapter6.html#res-minimize-a",
+    "title": "3  教師あり学習 : 分類",
+    "section": "res = minimize( # (A)",
+    "text": "res = minimize( # (A)"
+  },
+  {
+    "objectID": "chapter6.html#cee_logistic-w_init-argsx-t",
+    "href": "chapter6.html#cee_logistic-w_init-argsx-t",
+    "title": "3  教師あり学習 : 分類",
+    "section": "cee_logistic, w_init, args=(x, t),",
+    "text": "cee_logistic, w_init, args=(x, t),"
+  },
+  {
+    "objectID": "chapter6.html#jacdcee_logistic-methodcg",
+    "href": "chapter6.html#jacdcee_logistic-methodcg",
+    "title": "3  教師あり学習 : 分類",
+    "section": "jac=dcee_logistic, method=“CG”,",
+    "text": "jac=dcee_logistic, method=“CG”,"
+  },
+  {
+    "objectID": "chapter6.html#section-3",
+    "href": "chapter6.html#section-3",
+    "title": "3  教師あり学習 : 分類",
+    "section": ")",
+    "text": ")"
+  },
+  {
+    "objectID": "chapter6.html#return-res.x",
+    "href": "chapter6.html#return-res.x",
+    "title": "3  教師あり学習 : 分類",
+    "section": "return res.x",
+    "text": "return res.x\n\n共役勾配法の実装に苦戦中"
+  },
+  {
+    "objectID": "chapter6.html#w_init-np.array1.0--1.0-wの初期値",
+    "href": "chapter6.html#w_init-np.array1.0--1.0-wの初期値",
+    "title": "3  教師あり学習 : 分類",
+    "section": "w_init = np.array([1.0, -1.0]) # wの初期値",
+    "text": "w_init = np.array([1.0, -1.0]) # wの初期値\nw_init &lt;- c(1, -1) ## w = fit_logistic(w_init, X, T) # wを計算 res &lt;- minimize(w_init, X, t) ## cee = cee_logistic(w, X, T) # CEEを計算 cee &lt;- res$cee"
+  },
+  {
+    "objectID": "chapter6.html#グラフ描画---1",
+    "href": "chapter6.html#グラフ描画---1",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# グラフ描画 ———-",
+    "text": "# グラフ描画 ———-"
+  },
+  {
+    "objectID": "chapter6.html#plt.figurefigsize3-3",
+    "href": "chapter6.html#plt.figurefigsize3-3",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.figure(figsize=(3, 3))",
+    "text": "plt.figure(figsize=(3, 3))"
+  },
+  {
+    "objectID": "chapter6.html#boundary-show_logisticw",
+    "href": "chapter6.html#boundary-show_logisticw",
+    "title": "3  教師あり学習 : 分類",
+    "section": "boundary = show_logistic(w)",
+    "text": "boundary = show_logistic(w)"
+  },
+  {
+    "objectID": "chapter6.html#show_data1dx-t-1",
+    "href": "chapter6.html#show_data1dx-t-1",
+    "title": "3  教師あり学習 : 分類",
+    "section": "show_data1d(X, T)",
+    "text": "show_data1d(X, T)"
+  },
+  {
+    "objectID": "chapter6.html#plt.grid-1",
+    "href": "chapter6.html#plt.grid-1",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.grid()",
+    "text": "plt.grid()"
+  },
+  {
+    "objectID": "chapter6.html#plt.show-1",
+    "href": "chapter6.html#plt.show-1",
+    "title": "3  教師あり学習 : 分類",
+    "section": "plt.show()",
+    "text": "plt.show()"
+  },
+  {
+    "objectID": "chapter6.html#結果表示--",
+    "href": "chapter6.html#結果表示--",
+    "title": "3  教師あり学習 : 分類",
+    "section": "# 結果表示 ———-",
+    "text": "# 結果表示 ———-"
+  },
+  {
+    "objectID": "chapter6.html#printfw0-w0.2f-w1-w1.2f",
+    "href": "chapter6.html#printfw0-w0.2f-w1-w1.2f",
+    "title": "3  教師あり学習 : 分類",
+    "section": "print(f”w0 = {w[0]:.2f}, w1 = {w[1]:.2f}“)",
+    "text": "print(f”w0 = {w[0]:.2f}, w1 = {w[1]:.2f}“)"
+  },
+  {
+    "objectID": "chapter6.html#printfcee-cee.2f",
+    "href": "chapter6.html#printfcee-cee.2f",
+    "title": "3  教師あり学習 : 分類",
+    "section": "print(f”CEE = {cee:.2f}“)",
+    "text": "print(f”CEE = {cee:.2f}“)"
+  },
+  {
+    "objectID": "chapter6.html#printfboundary-boundary.2f-g",
+    "href": "chapter6.html#printfboundary-boundary.2f-g",
+    "title": "3  教師あり学習 : 分類",
+    "section": "print(f”Boundary = {boundary:.2f} g”)",
+    "text": "print(f”Boundary = {boundary:.2f} g”)\n\n\n\n\n\n\nまだ\n\n\n\n\n共役勾配法の実装に苦戦中\n\n\n\n\n\nw_for_calc &lt;- w_init\n\n\nw_hist &lt;- array(NA, dim = c(tau, 2))\n\n\nw_hist[1,] &lt;- w_init\n\n\nn &lt;- 1\n\n\nfor (i in 1:tau) {\n\n\ndcee &lt;- dcee_logistic(w_for_calc, x, t)\n\n\nw_for_calc &lt;- w_for_calc - alpha * dcee\n\n\nw_hist[i+1,] &lt;- w_for_calc\n\n\nif (max(abs(dcee)) &lt; eps) break\n\n\nn &lt;- n + 1\n\n\n}\n\n\ncee &lt;- cee_logistic(w_for_calc, x, t)\n\n\nreturn(list(w = w_for_calc, w_history = w_hist[1:n,], cee = cee, dcee = dcee))\n\n\n}\n\n\nfit_logistic &lt;- function(w_init, x, t) {\n\n\nres &lt;- minimize(w_init, x, t)\n\n\n}"
   }
 ]

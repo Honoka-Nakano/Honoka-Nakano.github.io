@@ -187,7 +187,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#準備" id="toc-準備" class="nav-link active" data-scroll-target="#準備">準備</a></li>
-  <li><a href="#内容" id="toc-内容" class="nav-link" data-scroll-target="#内容">内容</a></li>
+  <li><a href="#内容" id="toc-内容" class="nav-link" data-scroll-target="#内容">内容</a>
+  <ul>
+  <li><a href="#リスト-6-1-1" id="toc-リスト-6-1-1" class="nav-link" data-scroll-target="#リスト-6-1-1">リスト 6-1-(1)</a></li>
+  <li><a href="#リスト-6-1-2" id="toc-リスト-6-1-2" class="nav-link" data-scroll-target="#リスト-6-1-2">リスト 6-1-(2)</a></li>
+  <li><a href="#リスト-6-1-3" id="toc-リスト-6-1-3" class="nav-link" data-scroll-target="#リスト-6-1-3">リスト 6-1-(3)</a></li>
+  <li><a href="#リスト-6-1-4" id="toc-リスト-6-1-4" class="nav-link" data-scroll-target="#リスト-6-1-4">リスト 6-1-(4)</a></li>
+  <li><a href="#リスト-6-1-5" id="toc-リスト-6-1-5" class="nav-link" data-scroll-target="#リスト-6-1-5">リスト 6-1-(5)</a></li>
+  <li><a href="#リスト-6-1-6" id="toc-リスト-6-1-6" class="nav-link" data-scroll-target="#リスト-6-1-6">リスト 6-1-(6)</a></li>
+  <li><a href="#リスト-6-1-7" id="toc-リスト-6-1-7" class="nav-link" data-scroll-target="#リスト-6-1-7">リスト 6-1-(7)</a></li>
+  <li><a href="#リスト-6-1-8" id="toc-リスト-6-1-8" class="nav-link" data-scroll-target="#リスト-6-1-8">リスト 6-1-(8)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -220,8 +230,497 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="内容" class="level2">
 <h2 class="anchored" data-anchor-id="内容">内容</h2>
+<section id="リスト-6-1-1" class="level3">
+<h3 class="anchored" data-anchor-id="リスト-6-1-1">リスト 6-1-(1)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="cn">NULL</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>データ生成 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Python</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>np.random.seed(seed<span class="op">=</span><span class="dv">0</span>)             <span class="co"># 乱数を固定</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>X_min, X_max <span class="op">=</span> <span class="dv">0</span>, <span class="fl">2.5</span>              <span class="co"># x の上限と下限（表示用）</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>N <span class="op">=</span> <span class="dv">30</span>                             <span class="co"># データ数</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>col <span class="op">=</span> [<span class="st">"cornflowerblue"</span>, <span class="st">"gray"</span>]   <span class="co"># クラス0と1の表示色</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>X <span class="op">=</span> np.zeros(N)                    <span class="co"># 空のXを準備</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>T <span class="op">=</span> np.zeros(N, dtype<span class="op">=</span>np.uint8)    <span class="co"># 空のTを準備</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>prm_s <span class="op">=</span> [<span class="fl">0.4</span>, <span class="fl">0.8</span>]                 <span class="co"># クラス0と1の分布の開始地点</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>prm_w <span class="op">=</span> [<span class="fl">0.8</span>, <span class="fl">1.6</span>]                 <span class="co"># クラス0と1の分布の幅</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>prm_pi <span class="op">=</span> <span class="fl">0.5</span>                       <span class="co"># クラス0の全体に対する比率</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb4-12"><a href="#cb4-12"></a>    r <span class="op">=</span> np.random.rand()</span>
+<span id="cb4-13"><a href="#cb4-13"></a>    T[n] <span class="op">=</span> <span class="dv">0</span> <span class="op">*</span> (r <span class="op">&lt;</span> prm_pi) <span class="op">+</span> <span class="dv">1</span> <span class="op">*</span> (r <span class="op">&gt;=</span> prm_pi)          <span class="co"># (A)</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>    X[n] <span class="op">=</span> prm_s[T[n]] <span class="op">+</span> np.random.rand() <span class="op">*</span> prm_w[T[n]]  <span class="co"># (B)</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co"># データ表示</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="bu">print</span>(<span class="st">"X ="</span>, np.<span class="bu">round</span>(X, <span class="dv">2</span>))</span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="bu">print</span>(<span class="st">"T ="</span>, T)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># R</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>X_min <span class="ot">&lt;-</span> <span class="dv">0</span>; X_max <span class="ot">&lt;-</span> <span class="fl">2.5</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>N <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>col <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'cornflowerblue'</span>, <span class="st">'gray'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6"></a>X <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="at">times =</span> N)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>t <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="at">times =</span> N)</span>
+<span id="cb5-8"><a href="#cb5-8"></a>prm_s <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.8</span>)</span>
+<span id="cb5-9"><a href="#cb5-9"></a>prm_w <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">1.6</span>)</span>
+<span id="cb5-10"><a href="#cb5-10"></a>prm_pi <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb5-12"><a href="#cb5-12"></a>  r <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb5-13"><a href="#cb5-13"></a>  t[n] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">*</span> (r <span class="sc">&lt;</span> prm_pi) <span class="sc">+</span> <span class="dv">1</span> <span class="sc">*</span> (r <span class="sc">&gt;=</span> prm_pi)</span>
+<span id="cb5-14"><a href="#cb5-14"></a>  X[n] <span class="ot">&lt;-</span> prm_s[t[n] <span class="sc">+</span> <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">*</span> prm_w[t[n] <span class="sc">+</span> <span class="dv">1</span>]</span>
+<span id="cb5-15"><a href="#cb5-15"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>X = 1.22 0.86 1.12 2.31 1.81 0.56 0.95 1.02 0.97 1.41 2.3 0.92 0.61 0.41 1.1 0.79 1.59 1.06 2.07 0.98 1.06 2.05 1.65 0.84 0.99 1.56 1.5 0.46 0.65 1.86</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>T = 1 0 1 1 1 0 0 0 0 1 1 0 0 0 0 0 1 0 1 0 0 1 1 1 0 1 1 0 0 1</code></pre>
+</div>
+</div>
+</section>
+<section id="リスト-6-1-2" class="level3">
+<h3 class="anchored" data-anchor-id="リスト-6-1-2">リスト 6-1-(2)</h3>
+<p><strong>データ分布表示 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Python</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">def</span> show_data1d(x, t):</span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):  <span class="co"># (A) k=0、1 のループ</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>        plt.plot(       <span class="co"># (B) 分布を表示</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>            x[t <span class="op">==</span> k], t[t <span class="op">==</span> k], col[k],</span>
+<span id="cb8-6"><a href="#cb8-6"></a>            alpha<span class="op">=</span><span class="fl">0.5</span>, linestyle<span class="op">=</span><span class="st">"none"</span>, marker<span class="op">=</span><span class="st">"o"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7"></a>        )</span>
+<span id="cb8-8"><a href="#cb8-8"></a>    plt.xticks(np.arange(<span class="dv">0</span>, <span class="dv">3</span>, <span class="fl">0.5</span>))</span>
+<span id="cb8-9"><a href="#cb8-9"></a>    plt.yticks([<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb8-10"><a href="#cb8-10"></a>    plt.xlim(X_min, X_max)</span>
+<span id="cb8-11"><a href="#cb8-11"></a>    plt.ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># R</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>show_data1d <span class="ot">&lt;-</span> <span class="cf">function</span>(x, t) {</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> x, <span class="at">t =</span> t)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>  p <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">as.factor</span>(t),</span>
+<span id="cb9-7"><a href="#cb9-7"></a>                   <span class="at">color =</span> <span class="fu">as.factor</span>(t)))</span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="fu">return</span>(p)</span>
+<span id="cb9-9"><a href="#cb9-9"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>メイン ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Python</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>fig <span class="op">=</span> plt.figure(ﬁgsize<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb10-3"><a href="#cb10-3"></a>show_data1d(X, T)</span>
+<span id="cb10-4"><a href="#cb10-4"></a>plt.grid()</span>
+<span id="cb10-5"><a href="#cb10-5"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># R</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">show_data1d</span>(X, t) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">xlim</span>(X_min, X_max) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="fu">abs</span>(X_min <span class="sc">-</span> X_max) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="chapter6_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="リスト-6-1-3" class="level3">
+<h3 class="anchored" data-anchor-id="リスト-6-1-3">リスト 6-1-(3)</h3>
+<p><strong>ロジスティック回帰モデル ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Python</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="kw">def</span> logistic(x, w):</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    y <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>(w[<span class="dv">0</span>] <span class="op">*</span> x <span class="op">+</span> w[<span class="dv">1</span>])))  <span class="co"># 式6-10</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="cf">return</span> y</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># R</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(x, w) {</span>
+<span id="cb13-3"><a href="#cb13-3"></a>  y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>(w[<span class="dv">1</span>] <span class="sc">*</span> x <span class="sc">+</span> w[<span class="dv">2</span>])))</span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb13-5"><a href="#cb13-5"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="リスト-6-1-4" class="level3">
+<h3 class="anchored" data-anchor-id="リスト-6-1-4">リスト 6-1-(4)</h3>
+<p><strong>ロジスティック回帰モデルの表示 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Python</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="kw">def</span> show_logistic(w):</span>
+<span id="cb14-3"><a href="#cb14-3"></a>    x <span class="op">=</span> np.linspace(X_min, X_max, <span class="dv">100</span>)</span>
+<span id="cb14-4"><a href="#cb14-4"></a>    y <span class="op">=</span> logistic(x, w)</span>
+<span id="cb14-5"><a href="#cb14-5"></a>    plt.plot(x, y, <span class="st">"gray"</span>, linewidth<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb14-6"><a href="#cb14-6"></a>    <span class="co"># 決定境界</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>    i <span class="op">=</span> np.<span class="bu">min</span>(np.where(y <span class="op">&gt;</span> <span class="fl">0.5</span>))     <span class="co"># (A)</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a>    boundary <span class="op">=</span> (x[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> x[i]) <span class="op">/</span> <span class="dv">2</span>  <span class="co"># (B)</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a>    plt.plot([boundary, boundary], [<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>], <span class="st">"black"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb14-10"><a href="#cb14-10"></a>    <span class="cf">return</span> boundary</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># R</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>show_logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(w) {</span>
+<span id="cb15-3"><a href="#cb15-3"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(X_min, X_max, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>  y <span class="ot">&lt;-</span> <span class="fu">logistic</span>(x, w)</span>
+<span id="cb15-5"><a href="#cb15-5"></a>  df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> x, <span class="at">y =</span> y) <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>    <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())</span>
+<span id="cb15-7"><a href="#cb15-7"></a>  p <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y),</span>
+<span id="cb15-10"><a href="#cb15-10"></a>              <span class="at">color =</span> <span class="st">'gray'</span>)</span>
+<span id="cb15-11"><a href="#cb15-11"></a>  i <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>    <span class="fu">filter</span>(y <span class="sc">&gt;</span> <span class="fl">0.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a>    <span class="fu">filter</span>(y <span class="sc">==</span> <span class="fu">min</span>(y))</span>
+<span id="cb15-14"><a href="#cb15-14"></a>  boundary <span class="ot">&lt;-</span> (x[i<span class="sc">$</span>id <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> x[i<span class="sc">$</span>id]) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a>  p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> boundary, <span class="at">linetype =</span> <span class="st">'dashed'</span>)</span>
+<span id="cb15-17"><a href="#cb15-17"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">p =</span> p, <span class="at">boundry =</span> boundary))</span>
+<span id="cb15-18"><a href="#cb15-18"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>テスト ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Python</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>w <span class="op">=</span> np.array([<span class="dv">8</span>, <span class="op">-</span><span class="dv">10</span>])</span>
+<span id="cb16-3"><a href="#cb16-3"></a>b <span class="op">=</span> show_logistic(w)</span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="bu">print</span>(<span class="ss">f'decision boundary = </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb16-5"><a href="#cb16-5"></a>plt.grid()</span>
+<span id="cb16-6"><a href="#cb16-6"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># R</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="sc">-</span><span class="dv">10</span>)</span>
+<span id="cb17-3"><a href="#cb17-3"></a>b <span class="ot">&lt;-</span> <span class="fu">show_logistic</span>(w)</span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="fu">cat</span>(<span class="st">'dicision boundary ='</span>, b<span class="sc">$</span>boundry)</span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="fu">plot</span>(b<span class="sc">$</span>p)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>dicision boundary = 1.25</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="chapter6_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="リスト-6-1-5" class="level3">
+<h3 class="anchored" data-anchor-id="リスト-6-1-5">リスト 6-1-(5)</h3>
+<p><strong>平均交差エントロピー誤差 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Python</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">def</span> cee_logistic(w, x, t):</span>
+<span id="cb19-3"><a href="#cb19-3"></a>    y <span class="op">=</span> logistic(x, w)</span>
+<span id="cb19-4"><a href="#cb19-4"></a>    <span class="co"># 式6-16の計算</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>    cee <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(y)):</span>
+<span id="cb19-7"><a href="#cb19-7"></a>        cee <span class="op">=</span> cee <span class="op">-</span> (t[n] <span class="op">*</span> np.log(y[n]) <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> t[n]) <span class="op">*</span> np.log(<span class="dv">1</span> <span class="op">-</span> y[n]))</span>
+<span id="cb19-8"><a href="#cb19-8"></a>    cee <span class="op">=</span> cee <span class="op">/</span> N</span>
+<span id="cb19-9"><a href="#cb19-9"></a>    <span class="cf">return</span> cee</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># R</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>cee_logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(w, x, t) {</span>
+<span id="cb20-3"><a href="#cb20-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">logistic</span>(x, w)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>  cee <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(y)) {</span>
+<span id="cb20-6"><a href="#cb20-6"></a>    cee <span class="ot">&lt;-</span> cee <span class="sc">-</span> (t[n] <span class="sc">*</span> <span class="fu">log</span>(y[n]) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> t[n]) <span class="sc">*</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> y[n]))</span>
+<span id="cb20-7"><a href="#cb20-7"></a>  }</span>
+<span id="cb20-8"><a href="#cb20-8"></a>  cee <span class="ot">&lt;-</span> cee <span class="sc">/</span> N</span>
+<span id="cb20-9"><a href="#cb20-9"></a>  <span class="fu">return</span>(cee)</span>
+<span id="cb20-10"><a href="#cb20-10"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>テスト ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Python</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>w <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb21-3"><a href="#cb21-3"></a>cee <span class="op">=</span> cee_logistic(w, X, T)</span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="bu">print</span>(<span class="ss">f"CEE = </span><span class="sc">{</span>cee<span class="sc">:.6f}</span><span class="ss">"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># R</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb22-3"><a href="#cb22-3"></a>cee <span class="ot">&lt;-</span> <span class="fu">cee_logistic</span>(w, X, t)</span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="fu">cat</span>(<span class="st">'CEE ='</span>, <span class="fu">round</span>(cee, <span class="dv">6</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CEE = 1.093926</code></pre>
+</div>
+</div>
+</section>
+<section id="リスト-6-1-6" class="level3">
+<h3 class="anchored" data-anchor-id="リスト-6-1-6">リスト 6-1-(6)</h3>
+<p><strong>平均交差エントロピー誤差の計算 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Python</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>w0_n, w1_n <span class="op">=</span> <span class="dv">80</span>, <span class="dv">80</span>  <span class="co"># 等高線表示の解像度</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>w0_min, w0_max <span class="op">=</span> <span class="dv">0</span>, <span class="dv">15</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a>w1_min, w1_max <span class="op">=</span> <span class="op">-</span><span class="dv">15</span>, <span class="dv">0</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>w0 <span class="op">=</span> np.linspace(w0_min, w0_max, w0_n)</span>
+<span id="cb24-6"><a href="#cb24-6"></a>w1 <span class="op">=</span> np.linspace(w1_min, w1_max, w1_n)</span>
+<span id="cb24-7"><a href="#cb24-7"></a>C <span class="op">=</span> np.zeros((w1_n, w0_n))</span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="cf">for</span> i0 <span class="kw">in</span> <span class="bu">range</span>(w0_n):</span>
+<span id="cb24-9"><a href="#cb24-9"></a>    <span class="cf">for</span> i1 <span class="kw">in</span> <span class="bu">range</span>(w1_n):</span>
+<span id="cb24-10"><a href="#cb24-10"></a>        w <span class="op">=</span> np.array([w0[i0], w1[i1]])</span>
+<span id="cb24-11"><a href="#cb24-11"></a>        C[i1, i0] <span class="op">=</span> cee_logistic(w, X, T)  <span class="co"># CEEを計算</span></span>
+<span id="cb24-12"><a href="#cb24-12"></a>ww0, ww1 <span class="op">=</span> np.meshgrid(w0, w1)  <span class="co"># 描画用座標の作成</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># R</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>w0_n <span class="ot">&lt;-</span> <span class="dv">80</span>; w1_n <span class="ot">&lt;-</span> <span class="dv">80</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>w0_min <span class="ot">&lt;-</span> <span class="dv">0</span>; w0_max <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>w1_min <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">15</span>; w1_max <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>w0 <span class="ot">&lt;-</span> <span class="fu">seq</span>(w0_min, w0_max, <span class="at">length.out =</span> w0_n)</span>
+<span id="cb25-6"><a href="#cb25-6"></a>w1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(w1_min, w1_max, <span class="at">length.out =</span> w1_n)</span>
+<span id="cb25-7"><a href="#cb25-7"></a>C <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">0</span>, <span class="at">dim =</span> <span class="fu">c</span>(w1_n, w0_n))</span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="cf">for</span> (i0 <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>w0_n) {</span>
+<span id="cb25-9"><a href="#cb25-9"></a>  <span class="cf">for</span> (i1 <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>w1_n) {</span>
+<span id="cb25-10"><a href="#cb25-10"></a>    w <span class="ot">&lt;-</span> <span class="fu">c</span>(w0[i0], w1[i1])</span>
+<span id="cb25-11"><a href="#cb25-11"></a>    C[i0, i1] <span class="ot">&lt;-</span> <span class="fu">cee_logistic</span>(w, X, t)</span>
+<span id="cb25-12"><a href="#cb25-12"></a>  }</span>
+<span id="cb25-13"><a href="#cb25-13"></a>}</span>
+<span id="cb25-14"><a href="#cb25-14"></a>grid_w0w1 <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(w0, w1)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>グラフ描画 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Python</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>plt.ﬁgure(ﬁgsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb26-3"><a href="#cb26-3"></a>plt.subplots_adjust(wspace<span class="op">=</span><span class="fl">0.5</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># R</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="cn">NULL</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>サーフェス表示</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Python</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, projection<span class="op">=</span><span class="st">"3d"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3"></a>ax.plot_surface(</span>
+<span id="cb28-4"><a href="#cb28-4"></a>    ww0, ww1, C,</span>
+<span id="cb28-5"><a href="#cb28-5"></a>    color<span class="op">=</span><span class="st">"blue"</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>, rstride<span class="op">=</span><span class="dv">10</span>, cstride<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.3</span>,</span>
+<span id="cb28-6"><a href="#cb28-6"></a>)</span>
+<span id="cb28-7"><a href="#cb28-7"></a>ax.set_xlabel(<span class="st">"$w_0$"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb28-8"><a href="#cb28-8"></a>ax.set_ylabel(<span class="st">"$w_1$"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb28-9"><a href="#cb28-9"></a>ax.set_xlim(<span class="dv">0</span>, <span class="dv">15</span>)</span>
+<span id="cb28-10"><a href="#cb28-10"></a>ax.set_ylim(<span class="op">-</span><span class="dv">15</span>, <span class="dv">0</span>)</span>
+<span id="cb28-11"><a href="#cb28-11"></a>ax.set_zlim(<span class="dv">0</span>, <span class="dv">8</span>)</span>
+<span id="cb28-12"><a href="#cb28-12"></a>ax.view_init(<span class="dv">30</span>, <span class="op">-</span><span class="dv">95</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># R</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="fu">persp</span>(w0, w1, C, <span class="at">theta =</span> <span class="sc">-</span><span class="dv">200</span>, <span class="at">phi =</span> <span class="dv">30</span>, <span class="at">lwd =</span> <span class="fl">0.3</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="chapter6_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ol start="2" type="1">
+<li>等高線表示</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># Python</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb30-3"><a href="#cb30-3"></a>cont <span class="op">=</span> plt.contour(</span>
+<span id="cb30-4"><a href="#cb30-4"></a>    ww0, ww1, C,</span>
+<span id="cb30-5"><a href="#cb30-5"></a>    colors<span class="op">=</span><span class="st">"black"</span>, levels<span class="op">=</span>[<span class="fl">0.26</span>, <span class="fl">0.4</span>, <span class="fl">0.8</span>, <span class="fl">1.6</span>, <span class="fl">3.2</span>, <span class="fl">6.4</span>],</span>
+<span id="cb30-6"><a href="#cb30-6"></a>)</span>
+<span id="cb30-7"><a href="#cb30-7"></a>cont.clabel(fmt<span class="op">=</span><span class="st">"</span><span class="sc">%.2f</span><span class="st">"</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb30-8"><a href="#cb30-8"></a>plt.xlabel(<span class="st">"$w_0$"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb30-9"><a href="#cb30-9"></a>plt.ylabel(<span class="st">"$w_1$"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb30-10"><a href="#cb30-10"></a>plt.grid()</span>
+<span id="cb30-11"><a href="#cb30-11"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># R</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>df <span class="ot">&lt;-</span> grid_w0w1 <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">mutate</span>(<span class="at">C =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="at">times =</span> <span class="fu">n</span>()))</span>
+<span id="cb31-4"><a href="#cb31-4"></a>n <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>w0_n) {</span>
+<span id="cb31-6"><a href="#cb31-6"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>w1_n) {</span>
+<span id="cb31-7"><a href="#cb31-7"></a>    df<span class="sc">$</span>C[n] <span class="ot">&lt;-</span> C[i, j]</span>
+<span id="cb31-8"><a href="#cb31-8"></a>    n <span class="ot">&lt;-</span> n <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb31-9"><a href="#cb31-9"></a>  }</span>
+<span id="cb31-10"><a href="#cb31-10"></a>}</span>
+<span id="cb31-11"><a href="#cb31-11"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb31-12"><a href="#cb31-12"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb31-13"><a href="#cb31-13"></a>  <span class="fu">geom_contour</span>(<span class="fu">aes</span>(w0, w1, <span class="at">z =</span> C)) <span class="sc">+</span></span>
+<span id="cb31-14"><a href="#cb31-14"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">element_blank</span>(), <span class="at">y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb31-15"><a href="#cb31-15"></a>  <span class="fu">xlim</span>(w0_min, w0_max) <span class="sc">+</span> <span class="fu">ylim</span>(w1_min, w1_max) <span class="sc">+</span></span>
+<span id="cb31-16"><a href="#cb31-16"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> (w0_max <span class="sc">-</span> w0_min) <span class="sc">/</span> (w1_max <span class="sc">-</span> w1_min))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="chapter6_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="リスト-6-1-7" class="level3">
+<h3 class="anchored" data-anchor-id="リスト-6-1-7">リスト 6-1-(7)</h3>
+<p><strong>平均交差エントロピー誤差の微分 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Python</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="kw">def</span> dcee_logistic(w, x, t):</span>
+<span id="cb32-3"><a href="#cb32-3"></a>    y <span class="op">=</span> logistic(x, w)</span>
+<span id="cb32-4"><a href="#cb32-4"></a>    <span class="co"># 式6-32、式6-33の計算</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a>    dcee <span class="op">=</span> np.zeros(<span class="dv">2</span>)</span>
+<span id="cb32-6"><a href="#cb32-6"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(y)):</span>
+<span id="cb32-7"><a href="#cb32-7"></a>        dcee[<span class="dv">0</span>] <span class="op">=</span> dcee[<span class="dv">0</span>] <span class="op">+</span> (y[n] <span class="op">-</span> t[n]) <span class="op">*</span> x[n]</span>
+<span id="cb32-8"><a href="#cb32-8"></a>        dcee[<span class="dv">1</span>] <span class="op">=</span> dcee[<span class="dv">1</span>] <span class="op">+</span> (y[n] <span class="op">-</span> t[n])</span>
+<span id="cb32-9"><a href="#cb32-9"></a>    dcee <span class="op">=</span> dcee <span class="op">/</span> N</span>
+<span id="cb32-10"><a href="#cb32-10"></a>    <span class="cf">return</span> dcee</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># R</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>dcee_logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(w, x, t) {</span>
+<span id="cb33-3"><a href="#cb33-3"></a>  y <span class="ot">&lt;-</span> <span class="fu">logistic</span>(x, w)</span>
+<span id="cb33-4"><a href="#cb33-4"></a>  dcee <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="at">times =</span> <span class="dv">2</span>)</span>
+<span id="cb33-5"><a href="#cb33-5"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(y)) {</span>
+<span id="cb33-6"><a href="#cb33-6"></a>    dcee[<span class="dv">1</span>] <span class="ot">&lt;-</span> dcee[<span class="dv">1</span>] <span class="sc">+</span> (y[n] <span class="sc">-</span> t[n]) <span class="sc">*</span> x[n]</span>
+<span id="cb33-7"><a href="#cb33-7"></a>    dcee[<span class="dv">2</span>] <span class="ot">&lt;-</span> dcee[<span class="dv">2</span>] <span class="sc">+</span> (y[n] <span class="sc">-</span> t[n])</span>
+<span id="cb33-8"><a href="#cb33-8"></a>  }</span>
+<span id="cb33-9"><a href="#cb33-9"></a>  dcee <span class="ot">&lt;-</span> dcee <span class="sc">/</span> N</span>
+<span id="cb33-10"><a href="#cb33-10"></a>  <span class="fu">return</span>(dcee)</span>
+<span id="cb33-11"><a href="#cb33-11"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>テスト ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Python</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>w <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb34-3"><a href="#cb34-3"></a>dcee <span class="op">=</span> dcee_logistic(w, X, T)</span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="bu">print</span>(<span class="st">"dCEE ="</span>, np.<span class="bu">round</span>(dcee, <span class="dv">6</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># R</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb35-3"><a href="#cb35-3"></a>dcee <span class="ot">&lt;-</span> <span class="fu">dcee_logistic</span>(w, X, t)</span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="fu">cat</span>(<span class="st">'dCEE ='</span>, <span class="fu">round</span>(dcee, <span class="dv">6</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>dCEE = 0.338119 0.426262</code></pre>
+</div>
+</div>
+</section>
+<section id="リスト-6-1-8" class="level3">
+<h3 class="anchored" data-anchor-id="リスト-6-1-8">リスト 6-1-(8)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># Python</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># R</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="cn">NULL</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>ロジスティック回帰モデルのパラメータ最適化</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># Python</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="kw">def</span> fit_logistic(w_init, x, t):</span>
+<span id="cb39-3"><a href="#cb39-3"></a>    res <span class="op">=</span> minimize(  <span class="co"># (A)</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a>        cee_logistic, w_init, args<span class="op">=</span>(x, t),</span>
+<span id="cb39-5"><a href="#cb39-5"></a>        jac<span class="op">=</span>dcee_logistic, method<span class="op">=</span><span class="st">"CG"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6"></a>    )</span>
+<span id="cb39-7"><a href="#cb39-7"></a>    <span class="cf">return</span> res.x</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># R</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>fit_logistic <span class="ot">&lt;-</span> <span class="cf">function</span>(w_init) {</span>
+<span id="cb40-3"><a href="#cb40-3"></a>  res <span class="ot">&lt;-</span> <span class="fu">optim</span>(w_init,</span>
+<span id="cb40-4"><a href="#cb40-4"></a>               <span class="at">fn =</span> <span class="cf">function</span>(w) {</span>
+<span id="cb40-5"><a href="#cb40-5"></a>                 y <span class="ot">&lt;-</span> <span class="fu">logistic</span>(X, w)</span>
+<span id="cb40-6"><a href="#cb40-6"></a>                 cee <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb40-7"><a href="#cb40-7"></a>                 <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(y)) {</span>
+<span id="cb40-8"><a href="#cb40-8"></a>                   cee <span class="ot">&lt;-</span> cee <span class="sc">-</span> (t[n] <span class="sc">*</span> <span class="fu">log</span>(y[n]) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> t[n]) <span class="sc">*</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> y[n]))</span>
+<span id="cb40-9"><a href="#cb40-9"></a>                 }</span>
+<span id="cb40-10"><a href="#cb40-10"></a>                 cee <span class="ot">&lt;-</span> cee <span class="sc">/</span> N</span>
+<span id="cb40-11"><a href="#cb40-11"></a>                 <span class="fu">return</span>(cee)</span>
+<span id="cb40-12"><a href="#cb40-12"></a>               },</span>
+<span id="cb40-13"><a href="#cb40-13"></a>               <span class="at">method =</span> <span class="st">'CG'</span>)</span>
+<span id="cb40-14"><a href="#cb40-14"></a>  <span class="fu">return</span>(res<span class="sc">$</span>par)</span>
+<span id="cb40-15"><a href="#cb40-15"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>メイン ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a><span class="co"># Python</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>w_init <span class="op">=</span> np.array([<span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>])  <span class="co"># wの初期値</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>w <span class="op">=</span> fit_logistic(w_init, X, T)  <span class="co"># wを計算</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a>cee <span class="op">=</span> cee_logistic(w, X, T)     <span class="co"># CEEを計算</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># R</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>w_init <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb42-3"><a href="#cb42-3"></a>w <span class="ot">&lt;-</span> <span class="fu">fit_logistic</span>(w_init)</span>
+<span id="cb42-4"><a href="#cb42-4"></a>cee <span class="ot">&lt;-</span> <span class="fu">cee_logistic</span>(w_init, X, t)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>グラフ描画 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># Python</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb43-3"><a href="#cb43-3"></a>boundary <span class="op">=</span> show_logistic(w)</span>
+<span id="cb43-4"><a href="#cb43-4"></a>show_data1d(X, T)</span>
+<span id="cb43-5"><a href="#cb43-5"></a>plt.grid()</span>
+<span id="cb43-6"><a href="#cb43-6"></a>plt.show()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="co"># R</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>boundary <span class="ot">&lt;-</span> <span class="fu">show_logistic</span>(w)</span>
+<span id="cb44-3"><a href="#cb44-3"></a>boundary<span class="sc">$</span>p <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">geom_point</span>(<span class="at">data    =</span> <span class="fu">tibble</span>(<span class="at">x =</span> X, <span class="at">t =</span> t),</span>
+<span id="cb44-5"><a href="#cb44-5"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> t,</span>
+<span id="cb44-6"><a href="#cb44-6"></a>                           <span class="at">color =</span> <span class="fu">as.factor</span>(t))) <span class="sc">+</span></span>
+<span id="cb44-7"><a href="#cb44-7"></a>  <span class="fu">xlim</span>(X_min, X_max) <span class="sc">+</span></span>
+<span id="cb44-8"><a href="#cb44-8"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="fu">abs</span>(X_max <span class="sc">-</span> X_min) <span class="sc">/</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb44-9"><a href="#cb44-9"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'質量xg'</span>, <span class="at">y =</span> <span class="st">'ラベルt'</span>) <span class="sc">+</span></span>
+<span id="cb44-10"><a href="#cb44-10"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb44-11"><a href="#cb44-11"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb44-12"><a href="#cb44-12"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="chapter6_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>結果表示 ———</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a><span class="co"># Python</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a><span class="bu">print</span>(<span class="ss">f"w0 = </span><span class="sc">{</span>w[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">, w1 = </span><span class="sc">{</span>w[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb45-3"><a href="#cb45-3"></a><span class="bu">print</span>(<span class="ss">f"CEE = </span><span class="sc">{</span>cee<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb45-4"><a href="#cb45-4"></a><span class="bu">print</span>(<span class="ss">f"Boundary = </span><span class="sc">{</span>boundary<span class="sc">:.2f}</span><span class="ss"> g"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># R</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="fu">cat</span>(<span class="st">'w0 ='</span>, w[<span class="dv">1</span>] <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>), <span class="st">'w1 ='</span>, w[<span class="dv">2</span>] <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb46-3"><a href="#cb46-3"></a><span class="fu">cat</span>(<span class="st">'CEE ='</span>, cee <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="fu">cat</span>(<span class="st">'Boundary ='</span>, boundary<span class="sc">$</span>boundry <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>), <span class="st">'g'</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>w0 = 4.48 w1 = -5.33</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CEE = 0.53</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Boundary = 1.2 g</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+まだ
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
