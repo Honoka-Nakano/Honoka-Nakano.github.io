@@ -1,0 +1,9 @@
+---
+title: "NNW, DLの応用(手書き数字の認識)"
+toc: true
+toc-title: '目次'
+toc-depth: 4
+toc-location: right
+number-sections: false
+lang: ja
+---

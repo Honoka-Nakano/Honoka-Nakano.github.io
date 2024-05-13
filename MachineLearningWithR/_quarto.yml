@@ -19,6 +19,8 @@ book:
         - chapter5.qmd
         - chapter6.qmd
         - chapter7.qmd
+        - chapter8.qmd
+        - chapter9.qmd
   page-footer:
     center: 'Copyright 2024, Keisuke Nakano'
 
