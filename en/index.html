@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="w-full h-[100svh]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/./src/output.css">
+    <link href="https://use.fontawesome.com/releases/v6.5.1/css/all.css" rel="stylesheet">
+    <title>Nakano Keisuke</title>
+    <style>
+        #nav.active {
+            transform: translateY(0);
+        }
+        #nav ul li a::after {
+            transition: all .3s;
+            transform: scale(0, 1);
+            transform-origin: center top;
+        }
+        #nav ul li#current a::after,
+        #nav ul li a:hover::after {
+            transform: scale(1, 1)
+        }
+        #ham.active span:nth-of-type(1) {
+            top: 14px;
+            left: 18px;
+            transform: translateY(6px) rotate(-45deg);
+            width: 30%;
+        }
+        #ham.active span:nth-of-type(2) {
+            opacity: 0;
+        }
+        #ham.active span:nth-of-type(3) {
+            top: 26px;
+            left: 18px;
+            transform: translateY(-6px) rotate(45deg);
+            width: 30%;
+        }
+        #ham.active span:nth-of-type(3)::after {
+            content: 'Close';
+            transform: translateY(0) rotate(-45deg);
+            top: 5px;
+            left: 4px;
+        }
+    </style>
+</head>
+<body class="w-full h-full">
+    <header class="fixed w-full h-[70px] lg:h-[100px] border-b-2">
+        <div class="flex justify-between w-full h-full mx-auto lg:w-4/5">
+            <a href="" class="h-full">
+                <div class="flex items-center justify-center h-full p-2 space-x-2">
+                    <img src="/./src/img/logo.png" alt="Logo Image" class="h-full rounded-xl">
+                    <h1 class="font-bold text-3xl lg:text-5xl">Honoka Nakano</h1>
+                </div>
+            </a>
+            <div class="h-fit w-fit my-auto mr-2 md:mr-0">
+                <nav class="absolute right-0 left-0 top-0 w-full h-[100svh] translate-y-[100%] text-center bg-slate-300
+                    md:fixed md:right-44 md:left-auto md:top-auto md:w-fit md:h-fit md:translate-y-0
+                    lg:mr-28"
+                    style="transition: ease .4s;" id="nav">
+                    <ul class="absolute top-1/2 left-1/2 p-0 space-y-4
+                        md:flex md:w-fit md:justify-between md:items-center md:space-y-0 md:space-x-4 md:bg-white
+                        lg:space-x-5"
+                        style="transform: translate(-50%, -50%);">
+                        <li>
+                            <a href="/./en/index.html" class="text-2xl md:relative md:text-[#0481A2] md:after:contents-['']
+                                md:after:absolute md:after:bottom-0 md:after:left-[10%] md:after:w-4/5 md:after:h-[2px] md:after:bg-[#0481A2]">
+                                Home <span class="md:hidden">&rarr;</span>
+                            </a></li>
+                        <li>
+                            <a href="/./en/About/index.html" class="text-2xl md:relative md:hover:text-[#0481A2] md:after:contents-['']
+                                md:after:absolute md:after:bottom-0 md:after:left-[10%] md:after:w-4/5 md:after:h-[2px] md:after:bg-[#0481A2]">
+                                About <span class="md:hidden">&rarr;</span>
+                            </a></li>
+                        <li>
+                            <a href="/./en/Contents/index.html" class="text-2xl md:relative md:hover:text-[#0481A2] md:after:contents-['']
+                                md:after:absolute md:after:bottom-0 md:after:left-[10%] md:after:w-4/5 md:after:h-[2px] md:after:bg-[#0481A2]">
+                                Contents <span class="md:hidden">&rarr;</span>
+                            </a></li>
+                        <li class="w-16 mx-auto"><a href="/./index.html" class="md:hover:text-[#0481A2]">日本語</a></li>
+                    </ul>
+                </nav>
+                <div class="relative bg-black cursor-pointer w-[50px] h-[50px] rounded-md md:hidden"
+                    id="ham">
+                    <span class="inline-block absolute left-[14px] h-[2px] rounded-md bg-white w-[45%] top-[13px]"
+                        style="transition: all .4s;"></span>
+                    <span class="inline-block absolute left-[14px] h-[2px] rounded-md bg-white w-[45%] top-[19px]"
+                        style="transition: all .4s"></span>
+                    <span class="inline-block absolute left-[14px] h-[2px] rounded-md bg-white w-[45%] top-[25px]
+                        after:content-['Menu'] after:absolute after:top-[5px] after:left-[-2px] after:text-white after:text-[0.6rem] after:uppercase"
+                        style="transition: all .4s"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="h-full">
+        <div class="h-fit w-fit m-auto pt-[300px]">
+            <h1 class="text-2xl font-bold">Here is a Homepage.</h1>
+            <p>Under Development.</p>
+            <ul class="space-y-2 p-4">
+                <li><a href="/./">Home &rarr;</a></li>
+                <li><a href="/./About/">About &rarr;</a></li>
+                <li><a href="/./Contents/">Contents &rarr;</a></li>
+            </ul>
+        </div>
+    </main>
+    <footer></footer>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
+    <script>
+        const ham = $("#ham");
+        const nav = $("#nav");
+        ham.on('click', function() {
+            ham.toggleClass('active');
+            nav.toggleClass('active');
+        });
+    </script>
+</body>
+</html>
