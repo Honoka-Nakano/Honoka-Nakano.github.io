@@ -4,9 +4,10 @@ module.exports = {
     "./index.html",
     "./About/index.html",
     "./Contents/index.html",
-    "./jp/index.html",
-    "./jp/About/index.html",
-    "./jp/Contents/index.html"
+    "./en/index.html",
+    "./en/About/index.html",
+    "./en/Contents/index.html",
+    "./404/index.html"
   ],
   theme: {
     extend: {},
