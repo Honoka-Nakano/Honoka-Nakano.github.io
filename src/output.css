@@ -632,6 +632,10 @@ video {
   margin-right: 0.5rem;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -652,8 +656,8 @@ video {
   height: 2px;
 }
 
-.h-\[35px\] {
-  height: 35px;
+.h-\[300px\] {
+  height: 300px;
 }
 
 .h-\[50px\] {
@@ -671,6 +675,10 @@ video {
 
 .h-full {
   height: 100%;
+}
+
+.w-11\/12 {
+  width: 91.666667%;
 }
 
 .w-16 {
@@ -786,6 +794,10 @@ video {
   padding-top: 300px;
 }
 
+.pt-8 {
+  padding-top: 2rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -800,14 +812,19 @@ video {
   line-height: 2.25rem;
 }
 
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
 
-.text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {
@@ -817,6 +834,16 @@ video {
 .text-\[\#0481A2\] {
   --tw-text-opacity: 1;
   color: rgb(4 129 162 / var(--tw-text-opacity));
+}
+
+.text-sky-500 {
+  --tw-text-opacity: 1;
+  color: rgb(14 165 233 / var(--tw-text-opacity));
+}
+
+.text-sky-600 {
+  --tw-text-opacity: 1;
+  color: rgb(2 132 199 / var(--tw-text-opacity));
 }
 
 .transition {
@@ -866,6 +893,11 @@ video {
 .hover\:text-\[\#0481A2\]:hover {
   --tw-text-opacity: 1;
   color: rgb(4 129 162 / var(--tw-text-opacity));
+}
+
+.hover\:text-sky-800:hover {
+  --tw-text-opacity: 1;
+  color: rgb(7 89 133 / var(--tw-text-opacity));
 }
 
 @media (min-width: 768px) {
@@ -920,6 +952,10 @@ video {
     align-items: center;
   }
 
+  .md\:justify-center {
+    justify-content: center;
+  }
+
   .md\:justify-between {
     justify-content: space-between;
   }
@@ -939,6 +975,16 @@ video {
   .md\:bg-white {
     --tw-bg-opacity: 1;
     background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .md\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   .md\:after\:absolute::after {
@@ -982,6 +1028,14 @@ video {
     height: 100px;
   }
 
+  .lg\:h-\[90px\] {
+    height: 90px;
+  }
+
+  .lg\:h-\[85px\] {
+    height: 85px;
+  }
+
   .lg\:w-4\/5 {
     width: 80%;
   }
@@ -990,6 +1044,11 @@ video {
     --tw-space-x-reverse: 0;
     margin-right: calc(1.25rem * var(--tw-space-x-reverse));
     margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  .lg\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 
   .lg\:text-5xl {
