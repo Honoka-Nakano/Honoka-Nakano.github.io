@@ -4,84 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/./src/output.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link href="https://use.fontawesome.com/releases/v6.5.1/css/all.css" rel="stylesheet">
     <title>Nakano Keisuke</title>
     <style>
-        #slider {
-            width: 94%;
-            margin: 0 auto;
+        #scrolldown {
+            position:absolute;
+            bottom: 1%;
+            right: 50%;
+            animation: arrowmove 1s ease-in-out infinite;
         }
-        #slider img {
-            width: 60vw;
-            height: auto;
+        @keyframes arrowmove {
+            0% {bottom: 1%;}
+            50% {bottom: 3%;}
+            100% {bottom: 1%;}
         }
-        #slider .slick-slide {
-            transform: scale(0.8);
-            transition: all .5s;
-            opacity: 0.5;
-        }
-        #slider .slick-slide.slick-center {
-            transform: scale(1);
-            opacity: 1;
-        }
-        .slick-prev,
-        .slick-next {
+        #scrolldown span {
             position: absolute;
-            top: 42%;
-            cursor: pointer;
-            outline: none;
-            border-top: 2px solid #666;
-            border-right: 2px solid #666;
-            height: 15px;
-            width: 15px;
+            left: -20px;
+            bottom: 210px;
+            color: #000;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            -ms-writing-mode: tb-rl;
+            -webkit-writing-mode: vertical-rl;
+            writing-mode: vertical-rl;
         }
-        .slick-prev {
-            left: -1.5%;
-            transform: rotate(-135deg);
+        #scrolldown:before {
+            content: '';
+            position: absolute;
+            bottom: 200px;
+            right: -6px;
+            width: 1px;
+            height: 20px;
+            background: #000;
+            transform: skewX(-31deg);
         }
-        .slick-next {
-            right: -1.5%;
-            transform: rotate(45deg);
+        #scrolldown:after {
+            content: '';
+            position: absolute;
+            bottom: 200px;
+            right: 0;
+            width: 1px;
+            height: 50px;
+            background: #000;
         }
-        .slick-dots {
-            text-align: center;
-            margin: 20px 0 0 0;
+        #nav.active {
+            transform: translateY(0);
         }
-        .slick-dots li {
-            display: inline-block;
-            margin: 0 5px;
+        #nav ul li a::after {
+            transition: all .3s;
+            transform: scale(0, 1);
+            transform-origin: center top;
         }
-        .slick-dots button {
-            color: transparent;
-            outline: none;
-            width: 8px;
-            height: 8px;
-            display: block;
-            border-radius: 50%;
-            background: #ccc
+        #nav ul li#current a::after,
+        #nav ul li a:hover::after {
+            transform: scale(1, 1)
         }
-        .slick-dots .slick-active button {
-            background: #333;
+        #ham.active span:nth-of-type(1) {
+            top: 14px;
+            left: 18px;
+            transform: translateY(6px) rotate(-45deg);
+            width: 30%;
+        }
+        #ham.active span:nth-of-type(2) {
+            opacity: 0;
+        }
+        #ham.active span:nth-of-type(3) {
+            top: 26px;
+            left: 18px;
+            transform: translateY(-6px) rotate(45deg);
+            width: 30%;
+        }
+        #ham.active span:nth-of-type(3)::after {
+            content: 'Close';
+            transform: translateY(0) rotate(-45deg);
+            top: 5px;
+            left: 4px;
         }
     </style>
 </head>
 <body class="w-full h-full">
-    <header class="fixed w-full h-[70px] lg:h-[70px] border-b-2 bg-white">
-        <div class="flex justify-between w-full px-2 h-full mx-auto md:w-4/5 lg:w-3/5">
-            <a href="/./index.html" class="h-full z-20">
+    <header class="fixed w-full h-[70px] border-b-2 bg-white lg:h-[70px]">
+        <div class="flex justify-between w-full px-2 h-full mx-auto md:w-11/12">
+            <a href="#Top" class="h-full z-20">
                 <div class="flex items-center justify-center h-full p-2 space-x-2">
                     <img src="/./src/img/logo.png" alt="Logo Image" class="h-full rounded-xl">
                     <h1 class="font-bold text-3xl lg:text-4xl">Keisuke Nakano</h1>
                 </div>
             </a>
-            <div class="flex items-center text-sky-700">
-                <a href="/./ja/">日本語 &RightArrow;</a>
+            <div class="h-fit w-fit my-auto mr-2 md:mr-0">
+                <!-- <a href="/./ja/">日本語 &RightArrow;</a> -->
+                <div class="h-fit w-fit my-auto mr-2 md:mr-0">
+                    <nav class="absolute right-0 left-0 top-0 w-full h-[100svh] translate-y-[100%] text-center bg-slate-300
+                        md:fixed md:right-44 md:left-auto md:top-auto md:w-fit md:h-fit md:translate-y-0
+                        lg:mr-28 z-15"
+                        style="transition: ease .4s;" id="nav">
+                        <ul class="absolute top-1/2 left-1/2 p-0 space-y-4
+                            md:flex md:w-fit md:justify-between md:items-center md:space-y-0 md:space-x-4 md:bg-white
+                            lg:space-x-5"
+                            style="transform: translate(-50%, -50%);">
+                            <li>
+                                <a href="#Profile" class="text-2xl md:text-xl md:relative hover:text-[#0481A2] md:after:contents-['']
+                                    md:after:absolute md:after:bottom-0 md:after:left-[10%] md:after:w-4/5 md:after:h-[2px] md:after:bg-[#0481A2]">
+                                    Profile <span class="md:hidden">&rarr;</span>
+                                </a></li>
+                            <li>
+                                <a href="#About" class="text-2xl md:text-xl md:relative hover:text-[#0481A2] md:after:contents-['']
+                                md:after:absolute md:after:bottom-0 md:after:left-[10%] md:after:w-4/5 md:after:h-[2px] md:after:bg-[#0481A2]">
+                                    About <span class="md:hidden">&rarr;</span>
+                                </a></li>
+                            <li>
+                                <a href="#Contents" class="text-2xl md:text-xl md:relative hover:text-[#0481A2] md:contents-['']
+                                md:after:absolute md:after:bottom-0 md:after:left-[10%] md:after:w-4/5 md:after:h-[2px] md:after:bg-[#0481A2]">
+                                    Contents <span class="md:hidden">&rarr;</span>
+                                </a></li>
+                            <li class="w-16 mx-auto"><a href="/./ja/index.html" class="hover:text-[#0481A2]">日本語</a></li>
+                        </ul>
+                    </nav>
+                    <div class="relative cursor-pointer w-[50px] h-[50px] rounded-md md:hidden z-20"
+                        id="ham">
+                        <span class="inline-block absolute left-[14px] h-[2px] rounded-md bg-black w-[45%] top-[13px]"
+                            style="transition: all .4s;"></span>
+                        <span class="inline-block absolute left-[14px] h-[2px] rounded-md bg-black w-[45%] top-[19px]"
+                            style="transition: all .4s"></span>
+                        <span class="inline-block absolute left-[14px] h-[2px] rounded-md bg-black w-[45%] top-[25px]
+                            after:content-['Menu'] after:absolute after:top-[5px] after:left-[-2px] after:text-black after:text-[0.6rem] after:uppercase"
+                            style="transition: all .4s"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
-    <main class="h-fit w-11/12 md:w-1/2 mx-auto z-0 space-y-16 mb-6">
-        <div class="pt-[100px] space-y-6">
-            <div class="w-fit mx-auto font-bold text-2xl">Profile</div>
+    <main class="h-fit w-full mx-auto z-0 space-y-16 mb-6 md:w-full" id="Top">
+        <div class="h-[100svh] flex items-center border-b-2">
+            <p class="text-4xl font-bold text-center mx-auto md:text-5xl lg:text-6xl">Welcome to my personal website!</p>
+            <div class="z-[-999]" id="scrolldown"><span class="z-[-999]">Scroll</span></div>
+        </div>
+        <div class="pt-[100px] space-y-6 w-11/12 mx-auto md:w-3/4 lg:w-1/2" id="Profile">
+            <div class="w-fit mx-auto font-bold text-2xl md:text-4xl">Profile</div>
             <div class="space-y-4">
                 <img src="/src/img/icon.png" alt="Icon" class="w-[100px] h-[100px] mx-auto">
                 <p class="font-bold text-center text-xl">Keisuke Nakano</p>
@@ -89,26 +149,101 @@
             <div class="text-lg text-center mt-4">
                 <p>
                     Hi there, I&apos;m a student of Kochi University of Technology.
-                    I&apos;m majoring in economics & statistics and I belong to
-                    <a href="https://Yanai-Lab.github.io/" target="_blank" class="underline text-sky-700">
-                        the Laboratory for Quantitive Politival Economy
-                    </a>.
+                    I&apos;m majoring in economics & statistics and I belong to the Laboratory for Quantitive Politival Economy.
                 </p>
                 <p>
                     I&apos;m currently learning web development with React(Next.js) & Django!
                 </p>
             </div>
         </div>
-        <div>
-            <div class="space-y-6">
-                <div class="w-fit mx-auto font-bold text-2xl">Contents</div>
-                <div>
-                    <ul class="mx-auto" id="slider">
-                        <li><a href="https://Honoka-Nakano.github.io/MLwR/"><img src="/./src/img/contents/MLwR.png" alt=""></a></li>
-                        <li><a href="https://qiita.com/Honoka-Nakano/"><img src="/./src/img/contents/qiita.png" alt=""></a></li>
-                        <li><a href="https://Yanai-Lab.github.io/"><img src="/./src/img/contents/yanailab.png" alt=""></a></li>
-                    </ul>
+        <div class="space-y-6" id="About">
+            <div class="w-fit mx-auto font-bold text-2xl md:text-4xl">About</div>
+            <div class="w-11/12 mx-auto space-y-8
+                    md:grid md:grid-rows-2 md:gap-4 md:grid-flow-col md:space-y-0
+                    lg:grid-cols-4 lg:grid-rows-1 lg:gap-0 lg:grid-flow-row">
+                <div class="w-full h-fit p-2 space-y-6 md:w-2/3 md:mx-auto lg:w-full">
+                    <p class="font-bold text-xl text-center">Favorite Tech & Skills</p>
+                    <div class="w-fit mx-auto space-x-1">
+                        <i class="fa-brands fa-html5 fa-2xl"></i>
+                        <i class="fa-brands fa-css3-alt fa-2xl"></i>
+                        <i class="fa-brands fa-js fa-2xl"></i>
+                        <i class="fa-brands fa-react fa-2xl"></i>
+                        <i class="fa-solid fa-terminal fa-2xl"></i>
+                    </div>
+                    <div class="w-fit mx-auto space-x-1">
+                        <i class="fa-brands fa-python fa-2xl"></i>
+                        <i class="fa-brands fa-r-project fa-2xl"></i>
+                        <i class="fa-brands fa-git-alt fa-2xl"></i>
+                        <i class="fa-brands fa-apple fa-2xl"></i>
+                    </div>
                 </div>
+                <div class="w-full h-fit p-2 space-y-6 md:w-2/3 md:mx-auto lg:w-full">
+                    <p class="p-2 font-bold text-xl text-center">Tech I wanna learn</p>
+                    <div class="w-fit mx-auto space-x-1">
+                        <i class="fa-brands fa-golang fa-2xl"></i>
+                        <i class="fa-brands fa-java fa-2xl"></i>
+                        <i class="fa-brands fa-rust fa-2xl"></i>
+                        <i class="fa-brands fa-swift fa-2xl"></i>
+                    </div>
+                </div>
+                <div class="w-full h-fit p-2 space-y-6 md:w-2/3 md:mx-auto lg:w-full">
+                    <p class="p-2 font-bold text-xl text-center">Hobby</p>
+                    <div class="w-fit mx-auto space-x-1">
+                        <i class="fa-solid fa-camera fa-2xl"></i>
+                        <i class="fa-solid fa-code fa-2xl"></i>
+                    </div>
+                </div>
+                <div class="w-full h-fit p-2 space-y-6 md:w-2/3 md:mx-auto lg:w-full">
+                    <p class="p-2 font-bold text-xl text-center">Something</p>
+                    <div class="w-fit mx-auto">
+                        <p>something</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space-y-6" id="Contents">
+            <div class="w-fit mx-auto font-bold text-2xl md:text-4xl">Contents</div>
+            <div>
+                <ul class="w-11/12 mx-auto space-y-4 lg:flex lg:space-y-0 lg:space-x-4">
+                    <li class="md:w-2/3 md:mx-auto lg:w-1/3">
+                        <a href="https://Honoka-Nakano.github.io/MLwR/" target="_blank">
+                            <div class="border-2 rounded-md lg:h-fit">
+                                <img src="/./src/img/contents/MLwR.png" alt="" class="border">
+                                <div class="p-1">
+                                    <p class="font-bold">Rで機械学習<span class="text-red-500 font-normal">（作成中）</span></p>
+                                    <p class="text-sm">機械学習をRで学べる環境を整えるため、とある教材のPythonコードを全てRコードに書き直しています。</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="md:w-2/3 md:mx-auto lg:w-1/3">
+                        <a href="https://qiita.com/Honoka-Nakano/" target="_blank">
+                            <div class="border-2 rounded-md lg:h-fit">
+                                <img src="/./src/img/contents/qiita.png" alt="" class="border">
+                                <div class="p-1">
+                                    <p class="font-bold">Qiita記事</p>
+                                    <p class="text-sm">
+                                        投稿しているQiitaの記事です。主に大学で学んだ統計学の知識を発信しています。
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="md:w-2/3 md:mx-auto lg:w-1/3">
+                        <a href="https://Yanai-Lab.github.io/" target="_blank">
+                            <div class="border-2 rounded-md lg:h-fit">
+                                <img src="/./src/img/contents/yanailab.png" alt="" class="border">
+                                <div class="p-1">
+                                    <p class="font-bold">計量政治経済研究室HP</p>
+                                    <p class="text-sm">
+                                        所属している研究室のホームページ（非公式）です。作成・運営を担当しています。
+                                        同期のみんなでRのパッケージである{cmdstanr}のサポートページを作成中です。
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </main>
@@ -129,23 +264,21 @@
     <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        crossorigin="anonymous">
+    </script>
     <script>
-        $(document).ready(function() {
-            $('#slider').slick({
-                autoplay: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                prevArrow: '<div class="slick-prev"></div>',
-                nextArrow: '<div class="slick-next"></div>',
-                centerMode: true,
-                variableWidth: true,
-                dots: true,
-            });
+        const ham = $("#ham");
+        const nav = $("#nav");
+        ham.on('click', function() {
+            ham.toggleClass('active');
+            nav.toggleClass('active');
+        });
+
+        $('a[href*="#"]').click(function() {
+            var elmHash = $(this).attr('href');
+            var pos = $(elmHash).offset().top-70;
+            $('body, html').animate({ scrollTop: pos }, 500);
+            return false;
         });
     </script>
 </body>
