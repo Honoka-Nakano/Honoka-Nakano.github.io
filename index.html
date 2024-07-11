@@ -4,108 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/./src/output.css">
-    <link href="https://use.fontawesome.com/releases/v6.5.1/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <title>Nakano Keisuke</title>
     <style>
-        #nav.active {
-            transform: translateY(0);
+        #slider {
+            width: 94%;
+            margin: 0 auto;
         }
-        #nav ul li a::after {
-            transition: all .3s;
-            transform: scale(0, 1);
-            transform-origin: center top;
+        #slider img {
+            width: 60vw;
+            height: auto;
         }
-        #nav ul li#current a::after,
-        #nav ul li a:hover::after {
-            transform: scale(1, 1)
+        #slider .slick-slide {
+            transform: scale(0.8);
+            transition: all .5s;
+            opacity: 0.5;
         }
-        #ham.active span:nth-of-type(1) {
-            top: 14px;
-            left: 18px;
-            transform: translateY(6px) rotate(-45deg);
-            width: 30%;
+        #slider .slick-slide.slick-center {
+            transform: scale(1);
+            opacity: 1;
         }
-        #ham.active span:nth-of-type(2) {
-            opacity: 0;
+        .slick-prev,
+        .slick-next {
+            position: absolute;
+            top: 42%;
+            cursor: pointer;
+            outline: none;
+            border-top: 2px solid #666;
+            border-right: 2px solid #666;
+            height: 15px;
+            width: 15px;
         }
-        #ham.active span:nth-of-type(3) {
-            top: 26px;
-            left: 18px;
-            transform: translateY(-6px) rotate(45deg);
-            width: 30%;
+        .slick-prev {
+            left: -1.5%;
+            transform: rotate(-135deg);
         }
-        #ham.active span:nth-of-type(3)::after {
-            content: 'Close';
-            transform: translateY(0) rotate(-45deg);
-            top: 5px;
-            left: 4px;
+        .slick-next {
+            right: -1.5%;
+            transform: rotate(45deg);
+        }
+        .slick-dots {
+            text-align: center;
+            margin: 20px 0 0 0;
+        }
+        .slick-dots li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .slick-dots button {
+            color: transparent;
+            outline: none;
+            width: 8px;
+            height: 8px;
+            display: block;
+            border-radius: 50%;
+            background: #ccc
+        }
+        .slick-dots .slick-active button {
+            background: #333;
         }
     </style>
 </head>
 <body class="w-full h-full">
-    <header class="fixed w-full h-[70px] lg:h-[85px] border-b-2">
-        <div class="flex justify-between w-full h-full mx-auto lg:w-4/5">
+    <header class="fixed w-full h-[70px] lg:h-[70px] border-b-2 bg-white">
+        <div class="flex justify-between w-full px-2 h-full mx-auto md:w-4/5 lg:w-3/5">
             <a href="/./index.html" class="h-full z-20">
                 <div class="flex items-center justify-center h-full p-2 space-x-2">
                     <img src="/./src/img/logo.png" alt="Logo Image" class="h-full rounded-xl">
                     <h1 class="font-bold text-3xl lg:text-4xl">Keisuke Nakano</h1>
                 </div>
             </a>
-            <div class="h-fit w-fit my-auto mr-2 md:mr-0">
-                <nav class="absolute right-0 left-0 top-0 w-full h-[100svh] translate-y-[100%] text-center bg-slate-300
-                    md:fixed md:right-44 md:left-auto md:top-auto md:w-fit md:h-fit md:translate-y-0
-                    lg:mr-28 z-10"
-                    style="transition: ease .4s;" id="nav">
-                    <ul class="absolute top-1/2 left-1/2 p-0 space-y-4
-                        md:flex md:w-fit md:justify-between md:items-center md:space-y-0 md:space-x-4 md:bg-white
-                        lg:space-x-5"
-                        style="transform: translate(-50%, -50%);">
-                        <li>
-                            <a href="/./index.html" class="text-2xl md:relative text-[#0481A2] md:after:contents-['']
-                                md:after:absolute md:after:bottom-0 md:after:left-[10%] md:after:w-4/5 md:after:h-[2px] md:after:bg-[#0481A2]">
-                                Home <span class="md:hidden">&rarr;</span>
-                            </a></li>
-                        <li>
-                            <a href="/./About/index.html" class="text-2xl md:relative hover:text-[#0481A2] md:after:contents-['']
-                            md:after:absolute md:after:bottom-0 md:after:left-[10%] md:after:w-4/5 md:after:h-[2px] md:after:bg-[#0481A2]">
-                                About <span class="md:hidden">&rarr;</span>
-                            </a></li>
-                        <li>
-                            <a href="/./Contents/index.html" class="text-2xl md:relative hover:text-[#0481A2] md:contents-['']
-                            md:after:absolute md:after:bottom-0 md:after:left-[10%] md:after:w-4/5 md:after:h-[2px] md:after:bg-[#0481A2]">
-                                Contents <span class="md:hidden">&rarr;</span>
-                            </a></li>
-                        <li class="w-16 mx-auto"><a href="/./en/index.html" class="hover:text-[#0481A2]">English</a></li>
-                    </ul>
-                </nav>
-                <div class="relative bg-black cursor-pointer w-[50px] h-[50px] rounded-md md:hidden z-20"
-                    id="ham">
-                    <span class="inline-block absolute left-[14px] h-[2px] rounded-md bg-white w-[45%] top-[13px]"
-                        style="transition: all .4s;"></span>
-                    <span class="inline-block absolute left-[14px] h-[2px] rounded-md bg-white w-[45%] top-[19px]"
-                        style="transition: all .4s"></span>
-                    <span class="inline-block absolute left-[14px] h-[2px] rounded-md bg-white w-[45%] top-[25px]
-                        after:content-['Menu'] after:absolute after:top-[5px] after:left-[-2px] after:text-white after:text-[0.6rem] after:uppercase"
-                        style="transition: all .4s"></span>
-                </div>
+            <div class="flex items-center text-sky-700">
+                <a href="/./ja/">日本語 &RightArrow;</a>
             </div>
         </div>
     </header>
-    <main class="h-[100svh] w-full z-0">
-        <div class="pt-[300px]">
-            <div class="text-center w-full">
-                <h1 class="font-bold text-2xl md:text-4xl">私のウェブサイトへようこそ！</h1>
-                <p>下記のリンクから詳細を確認してください！</p>
+    <main class="h-fit w-11/12 md:w-1/2 mx-auto z-0 space-y-16 mb-6">
+        <div class="pt-[100px] space-y-6">
+            <div class="w-fit mx-auto font-bold text-2xl">Profile</div>
+            <div class="space-y-4">
+                <img src="/src/img/icon.png" alt="Icon" class="w-[100px] h-[100px] mx-auto">
+                <p class="font-bold text-center text-xl">Keisuke Nakano</p>
+            </div>
+            <div class="text-lg text-center mt-4">
+                <p>
+                    Hi there, I&apos;m a student of Kochi University of Technology.
+                    I&apos;m majoring in economics & statistics and I belong to
+                    <a href="https://Yanai-Lab.github.io/" target="_blank" class="underline text-sky-700">
+                        the Laboratory for Quantitive Politival Economy
+                    </a>.
+                </p>
+                <p>
+                    I&apos;m currently learning web development with React(Next.js) & Django!
+                </p>
             </div>
         </div>
-        <div class="text-center text-xl md:text-2xl pt-8 h-1/2">
-            <ul class="md:flex md:justify-center md:space-x-4">
-                <li><a href="/./About/" class="text-sky-600 hover:text-sky-800">About &rarr;</a></li>
-                <li><a href="/./Contents/" class="text-sky-600 hover:text-sky-800">Contents &rarr;</a></li>
-            </ul>
+        <div>
+            <div class="space-y-6">
+                <div class="w-fit mx-auto font-bold text-2xl">Contents</div>
+                <div>
+                    <ul class="mx-auto" id="slider">
+                        <li><a href="https://Honoka-Nakano.github.io/MLwR/"><img src="/./src/img/contents/MLwR.png" alt=""></a></li>
+                        <li><a href="https://qiita.com/Honoka-Nakano/"><img src="/./src/img/contents/qiita.png" alt=""></a></li>
+                        <li><a href="https://Yanai-Lab.github.io/"><img src="/./src/img/contents/yanailab.png" alt=""></a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </main>
-    <footer class="absolute bottom-0 w-full h-[50px] border-t-2">
+    <footer class="bottom-0 w-full h-[50px] border-t-2">
         <div class="h-full flex justify-center space-x-6 p-2">
             <div class="h-full w-fit">
                 <p class="my-auto text-lg">n.honoka081921@gmail.com</p>
@@ -122,14 +129,23 @@
     <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous">
-    </script>
+        crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script>
-        const ham = $("#ham");
-        const nav = $("#nav");
-        ham.on('click', function() {
-            ham.toggleClass('active');
-            nav.toggleClass('active');
+        $(document).ready(function() {
+            $('#slider').slick({
+                autoplay: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                prevArrow: '<div class="slick-prev"></div>',
+                nextArrow: '<div class="slick-next"></div>',
+                centerMode: true,
+                variableWidth: true,
+                dots: true,
+            });
         });
     </script>
 </body>
