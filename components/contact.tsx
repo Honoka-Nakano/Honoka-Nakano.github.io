@@ -59,6 +59,7 @@ const ContactForm = () => {
       router.refresh();
     } catch (error) {
       toast.error("送信に失敗しました");
+      console.log(error);
     } finally {
       setIsLoading(false);
     };
