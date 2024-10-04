@@ -1,7 +1,5 @@
 "use server";
 
-import { headers } from "next/headers";
-
 interface SubmitFormType {
   name: string,
   email: string,
