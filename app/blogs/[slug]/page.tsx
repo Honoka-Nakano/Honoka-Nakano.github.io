@@ -10,6 +10,17 @@ interface Params {
   };
 }
 
+export async function generateStaticParams() {
+  const blogDir = path.join("blogs");
+  const directories = fs.readdirSync(blogDir);
+
+  const paths = directories.map((slug) => ({
+    slug,
+  }));
+
+  return paths;
+}
+
 export default async function BlogPost({ params }: Params) {
   const { slug } = params;
 
