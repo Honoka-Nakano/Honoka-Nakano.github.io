@@ -17,7 +17,7 @@ const Footer = () => {
           <li>
             <Link href="https://x.com/hono_n819/" target="_blank">
               <Image
-                src="/X/X_white.png"
+                src={`${BASE_PATH}/X/X_white.png`}
                 alt="X logo"
                 width={30}
                 height={30}
@@ -27,7 +27,7 @@ const Footer = () => {
           <li>
             <Link href="https://github.com/Honoka-Nakano/" target="_blank">
               <Image
-                src="/github/github.png"
+                src={`${BASE_PATH}/github/github.png`}
                 alt="Github logo"
                 width={30}
                 height={30}
@@ -37,7 +37,7 @@ const Footer = () => {
           <li>
             <Link href="https://qiita.com/Honoka-Nakano/" target="_blank">
               <Image
-                src="/qiita/qiita.png"
+                src={`${BASE_PATH}/qiita/qiita.png`}
                 alt="Qiita logo"
                 width={30}
                 height={30}
@@ -47,7 +47,7 @@ const Footer = () => {
           <li>
             <Link href="https://zenn.dev/honokanakano" target="_blank">
               <Image
-                src="/zenn/zenn.svg"
+                src={`${BASE_PATH}/zenn/zenn.png`}
                 alt="Zenn logo"
                 width={30}
                 height={30}
