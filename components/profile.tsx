@@ -9,7 +9,7 @@ const Profile = () => {
       </div>
       <div className="w-fit mx-auto space-y-4">
         <Image
-          src="/profile/icon.png"
+          src={`${BASE_PATH}/profile/icon.png`}
           alt="My icon"
           width={100}
           height={100}
@@ -23,7 +23,7 @@ const Profile = () => {
         <div className="flex space-x-2">
           <div className="w-fit">
             <Image
-              src="/profile/student.png"
+              src={`${BASE_PATH}/profile/student.png`}
               alt="student"
               width={80}
               height={80}
@@ -38,7 +38,7 @@ const Profile = () => {
         <div className="flex space-x-2">
           <div className="w-fit">
             <Image
-              src="/profile/economics.png"
+              src={`${BASE_PATH}/profile/economics.png`}
               alt="economics"
               width={80}
               height={80}
@@ -53,7 +53,7 @@ const Profile = () => {
         <div className="flex space-x-2">
           <div className="w-fit">
             <Image
-              src="/profile/laboratory.png"
+              src={`${BASE_PATH}/profile/laboratory.png`}
               alt="laboratory"
               width={80}
               height={80}
@@ -68,7 +68,7 @@ const Profile = () => {
         <div className="flex space-x-2">
           <div className="w-fit">
             <Image
-              src="/profile/web.png"
+              src={`${BASE_PATH}/profile/web.png`}
               alt="web"
               width={80}
               height={80}
