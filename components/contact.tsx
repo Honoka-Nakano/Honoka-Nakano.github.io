@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2 } from "lucide-react";
-import { submitForm } from "@/actions/form";
 import toast from "react-hot-toast";
 
 const schema = z.object({
@@ -42,14 +41,29 @@ const ContactForm = () => {
 
   const onSubmit: SubmitHandler<InputType> = async (data) => {
     setIsLoading(true);
+
+    const API_GATEWAY_URL = process.env.NEXT_PUBLIC_API_GATEWAY_URL;
+    if (!API_GATEWAY_URL) {
+      console.error("API URL not found");
+      return;
+    }
+
     try {
-      const res = await submitForm({
-        name: data.name,
-        email: data.email,
-        message: data.message,
+      const res = await fetch(
+        API_GATEWAY_URL,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            message: data.message,
+          }),
       });
 
-      if (!res.success) {
+      if (!res.ok) {
         toast.error("送信に失敗しました");
         return;
       }
@@ -59,7 +73,7 @@ const ContactForm = () => {
       router.refresh();
     } catch (error) {
       toast.error("送信に失敗しました");
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     };
