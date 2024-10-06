@@ -18,14 +18,15 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="h-[70px] py-2 px-4">
+    <header className="container h-[70px] py-2 px-4 mx-auto md:mx-auto">
       <div className="flex justify-between h-full">
         <div className="flex items-center font-bold text-4xl">
           <Link href="/">
             Hono
           </Link>
         </div>
-        <div className="flex items-center">
+        {/* Mobile */}
+        <div className="flex items-center md:hidden">
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Menu size={38} />
@@ -61,6 +62,35 @@ const Header = () => {
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div>
+        {/* Tablet, PC */}
+        <div className="hidden md:block">
+          <ul className="h-full flex items-center space-x-6 text-lg">
+            <li>
+              <Link href="/profile" className="flex space-x-1 hover:text-sky-700">
+                <User className="h-full " />
+                <span>Profile</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/blogs" className="flex space-x-1 hover:text-sky-700">
+                <NotebookPen className="h-full" />
+                <span>Blogs</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/dev" className="flex space-x-1 hover:text-sky-700">
+                <Code className="h-full" />
+                <span>What I developed</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="flex space-x-1 hover:text-sky-700">
+                <Mail className="h-full" />
+                <span>Contact</span>
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </header>

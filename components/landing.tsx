@@ -5,10 +5,10 @@ const Landing = () => {
     <div>
       <section className="bg-gradient-to-br from-blue-500 to-purple-600 text-white py-12">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl font-bold mb-4">
+          <h1 className="text-3xl font-bold mb-4 md:text-5xl">
             Welcome to My Portfolio
           </h1>
-          <p className="text-xl mb-8">
+          <p className="text-xl mb-8 md:text-2xl">
             I&apos;m a passionate developer creating amazing web experiences.
           </p>
           <Link href="/dev" className="bg-white text-blue-600 px-6 py-3

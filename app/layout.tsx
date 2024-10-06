@@ -34,7 +34,7 @@ export default function RootLayout({
       >
         <EyeCatch />
         <Header />
-        <main className="flex-1">
+        <main className="mb-8">
           {children}
         </main>
         <Footer />

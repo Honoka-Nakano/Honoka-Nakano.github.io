@@ -4,84 +4,91 @@ import Link from "next/link";
 const Profile = () => {
   return (
     <div>
-      <div className="w-fit mx-auto mt-12 mb-6 font-bold text-2xl">
+      <div className="w-fit mx-auto mt-12 mb-6 font-bold text-2xl md:text-3xl">
         Profile
       </div>
-      <div className="w-fit mx-auto space-y-4">
-        <Image
-          src={`/profile/icon.png`}
-          alt="My icon"
-          width={100}
-          height={100}
-          className="mx-auto"
-        />
-        <div className="font-bold text-lg">
-          Hono (Keisuke Nakano)
+      <div className="container mx-auto md:flex md:my-10">
+        <div className="w-fit mx-auto space-y-4 md:w-[30%] md:my-auto">
+          <Image
+            src={`/profile/icon.png`}
+            alt="My icon"
+            width={100}
+            height={100}
+            className="mx-auto"
+          />
+          <div className="flex font-bold text-lg space-x-1 md:block md:text-center md:text-xl md:space-x-0 md:space-y-1">
+            <p>
+              Hono
+            </p>
+            <p>
+              (Keisuke Nakano)
+            </p>
+          </div>
+        </div>
+        <div className="w-5/6 mx-auto my-10 space-y-6 md:w-[70%] md:my-0 md:text-lg">
+          <div className="flex space-x-2">
+            <div className="w-fit">
+              <Image
+                src={`/profile/student.png`}
+                alt="student"
+                width={80}
+                height={80}
+              />
+            </div>
+            <div className="flex items-center flex-1">
+              <p>
+                Hi there, I&apos;m a student of Kochi University of Technology.
+              </p>
+            </div>
+          </div>
+          <div className="flex space-x-2">
+            <div className="w-fit">
+              <Image
+                src={`/profile/economics.png`}
+                alt="economics"
+                width={80}
+                height={80}
+              />
+            </div>
+            <div className="flex items-center flex-1">
+              <p>
+                I&apos;m majoring in economics & statistics.
+              </p>
+            </div>
+          </div>
+          <div className="flex space-x-2">
+            <div className="w-fit">
+              <Image
+                src={`/profile/laboratory.png`}
+                alt="laboratory"
+                width={80}
+                height={80}
+              />
+            </div>
+            <div className="flex items-center flex-1">
+              <p>
+                And I belong to the Laboratory for Quantitive Political Economy.
+              </p>
+            </div>
+          </div>
+          <div className="flex space-x-2">
+            <div className="w-fit">
+              <Image
+                src={`/profile/web.png`}
+                alt="web"
+                width={80}
+                height={80}
+              />
+            </div>
+            <div className="flex items-center flex-1">
+              <p>
+                I&apos;m currently learning web development with AWS, React(Next.js) & Flask!
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="w-5/6 mx-auto my-10 space-y-6">
-        <div className="flex space-x-2">
-          <div className="w-fit">
-            <Image
-              src={`/profile/student.png`}
-              alt="student"
-              width={80}
-              height={80}
-            />
-          </div>
-          <div className="flex items-center flex-1">
-            <p>
-              Hi there, I&apos;m a student of Kochi University of Technology.
-            </p>
-          </div>
-        </div>
-        <div className="flex space-x-2">
-          <div className="w-fit">
-            <Image
-              src={`/profile/economics.png`}
-              alt="economics"
-              width={80}
-              height={80}
-            />
-          </div>
-          <div className="flex items-center flex-1">
-            <p>
-              I&apos;m majoring in economics & statistics.
-            </p>
-          </div>
-        </div>
-        <div className="flex space-x-2">
-          <div className="w-fit">
-            <Image
-              src={`/profile/laboratory.png`}
-              alt="laboratory"
-              width={80}
-              height={80}
-            />
-          </div>
-          <div className="flex items-center flex-1">
-            <p>
-              And I belong to the Laboratory for Quantitive Political Economy.
-            </p>
-          </div>
-        </div>
-        <div className="flex space-x-2">
-          <div className="w-fit">
-            <Image
-              src={`/profile/web.png`}
-              alt="web"
-              width={80}
-              height={80}
-            />
-          </div>
-          <div className="flex items-center flex-1">
-            <p>
-              I&apos;m currently learning web development with AWS, React(Next.js) & Flask!
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="text-sm text-slate-500">
+      <div className="text-sm text-slate-500 md:text-base">
         <div className="flex space-x-2">
           <p className="w-full text-right">
             Icon:
