@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import EyeCatch from "@/components/eyecatch";
+import ToastProvider from "@/components/providers/ToastProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,6 +35,7 @@ export default function RootLayout({
       >
         <EyeCatch />
         <Header />
+        <ToastProvider />
         <main className="mb-8">
           {children}
         </main>
