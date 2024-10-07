@@ -42,9 +42,7 @@ const ContactForm = () => {
   const onSubmit: SubmitHandler<InputType> = async (data) => {
     setIsLoading(true);
 
-    const API_GATEWAY_URL = "https://wlq33js9vj.execute-api.ap-southeast-2.amazonaws.com";
-    // process.env.NEXT_PUBLIC_API_GATEWAY_URL;
-    console.log(API_GATEWAY_URL);
+    const API_GATEWAY_URL = process.env.NEXT_PUBLIC_API_GATEWAY_URL;
     if (!API_GATEWAY_URL) {
       console.error("API URL not found");
       return;
