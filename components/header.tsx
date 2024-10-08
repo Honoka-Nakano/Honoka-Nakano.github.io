@@ -31,32 +31,32 @@ const Header = () => {
             <DropdownMenuTrigger>
               <Menu size={38} />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-              <DropdownMenuLabel>Menu</DropdownMenuLabel>
+            <DropdownMenuContent className="w-60 font-bold">
+              <DropdownMenuLabel className="text-lg">Menu</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <Link href="/profile">
                   <DropdownMenuItem>
                     <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
+                    <span className="text-lg">Profile</span>
                   </DropdownMenuItem>
                 </Link>
                 <Link href="/blogs">
                   <DropdownMenuItem>
                     <NotebookPen className="mr-2 h-4 w-4" />
-                    <span>Blogs</span>
+                    <span className="text-lg">Blogs</span>
                   </DropdownMenuItem>
                 </Link>
                 <Link href="/dev">
                   <DropdownMenuItem>
                     <Code className="mr-2 h-4 w-4" />
-                    <span>What I developed</span>
+                    <span className="text-lg">What I developed</span>
                   </DropdownMenuItem>
                 </Link>
                 <Link href="/contact">
                   <DropdownMenuItem>
                     <Mail className="mr-2 h-4 w-4" />
-                    <span>Contact</span>
+                    <span className="text-lg">Contact</span>
                   </DropdownMenuItem>
                 </Link>
               </DropdownMenuGroup>
